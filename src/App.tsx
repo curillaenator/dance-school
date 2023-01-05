@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import Button from '@mui/material/Button';
-import primary from '@mui/material/colors/lime';
+// import Button from '@mui/material/Button';
+// import primary from '@mui/material/colors/lime';
+import primary from '@mui/material/colors/yellow';
 // import secondary from '@mui/material/colors/grey';
 
 import { Header } from '@src/components/header';
@@ -10,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: primary,
     // secondary: secondary,
   },
