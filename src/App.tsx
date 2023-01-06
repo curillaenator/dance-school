@@ -1,25 +1,14 @@
 import React, { FC } from 'react';
-// import Button from '@mui/material/Button';
-// import primary from '@mui/material/colors/lime';
-import primary from '@mui/material/colors/yellow';
-// import secondary from '@mui/material/colors/grey';
 
 import { Header } from '@src/components/header';
 import { Main } from './components/main';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: primary,
-    // secondary: secondary,
-  },
-});
+import { ThemeProvider } from '@mui/material/styles';
+import { themeDark } from '@src/theme';
 
 export const App: FC = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeDark}>
       <Header />
       <Main />
     </ThemeProvider>
