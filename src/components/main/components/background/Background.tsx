@@ -27,8 +27,8 @@ export const Background: FC = () => {
       modules={[Autoplay, EffectFade]}
       effect={'fade'}
     >
-      {photos.map((photo) => (
-        <SwiperSlide>
+      {photos.map((photo, i) => (
+        <SwiperSlide key={`photo${i}`}>
           <ImageStyled src={photo} />
         </SwiperSlide>
       ))}
