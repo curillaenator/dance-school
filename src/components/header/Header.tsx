@@ -12,7 +12,10 @@ import { usePopover } from './hooks/usePopover';
 
 import logo from '@src/assets/logo.png';
 
-export const Header: FC = () => {
+import { HeaderProps } from './interfaces';
+
+export const Header: FC<HeaderProps> = (props) => {
+  const { isMobile } = props;
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
 
   return (
@@ -31,19 +34,21 @@ export const Header: FC = () => {
         >
           <LogoStyled src={logo} />
 
-          <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
-            <Button sx={{ width: 120 }}>О НАС</Button>
+          {!isMobile && (
+            <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
+              <Button sx={{ width: 120 }}>О НАС</Button>
 
-            <Button sx={{ width: 120 }}>ЦЕНЫ</Button>
+              <Button sx={{ width: 120 }}>ЦЕНЫ</Button>
 
-            <Button sx={{ width: 120 }}>ТРЕНЕРЫ</Button>
+              <Button sx={{ width: 120 }}>ТРЕНЕРЫ</Button>
 
-            <Button sx={{ width: 120 }}>НОВОСТИ</Button>
+              <Button sx={{ width: 120 }}>НОВОСТИ</Button>
 
-            <Button sx={{ width: 120 }}>КОНТАКТЫ</Button>
-          </ButtonGroup>
+              <Button sx={{ width: 120 }}>КОНТАКТЫ</Button>
+            </ButtonGroup>
+          )}
 
-          <Button
+          {/* <Button
             size="large"
             aria-label="menu"
             onClick={handleClick}
@@ -56,7 +61,7 @@ export const Header: FC = () => {
             }}
           >
             <MenuIcon color="inherit" />
-          </Button>
+          </Button> */}
         </Box>
 
         <Menu
