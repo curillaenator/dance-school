@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { AppBarStyled, ButtonStyled, LogoStyled, IconButtonStyled, MenuItemStyled } from './styled';
+import { AppBarStyled, LogoStyled, MenuItemStyled } from './styled';
 
 import { usePopover } from './hooks/usePopover';
 
@@ -27,17 +29,34 @@ export const Header: FC = () => {
             minHeight: 120,
           }}
         >
-          <ButtonStyled>О НАС</ButtonStyled>
-          <ButtonStyled>ЦЕНЫ</ButtonStyled>
-
           <LogoStyled src={logo} />
 
-          <ButtonStyled>НОВОСТИ</ButtonStyled>
-          <ButtonStyled>КОНТАКТЫ</ButtonStyled>
+          <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
+            <Button sx={{ width: 120 }}>О НАС</Button>
 
-          <IconButtonStyled size="large" aria-label="menu" onClick={handleClick}>
+            <Button sx={{ width: 120 }}>ЦЕНЫ</Button>
+
+            <Button sx={{ width: 120 }}>ТРЕНЕРЫ</Button>
+
+            <Button sx={{ width: 120 }}>НОВОСТИ</Button>
+
+            <Button sx={{ width: 120 }}>КОНТАКТЫ</Button>
+          </ButtonGroup>
+
+          <Button
+            size="large"
+            aria-label="menu"
+            onClick={handleClick}
+            sx={{
+              minHeight: 56,
+              position: 'absolute',
+              top: '50%',
+              right: 0,
+              transform: 'translate(0,-50%)',
+            }}
+          >
             <MenuIcon color="inherit" />
-          </IconButtonStyled>
+          </Button>
         </Box>
 
         <Menu
@@ -49,8 +68,9 @@ export const Header: FC = () => {
             vertical: 'bottom',
             horizontal: 'right',
           }}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
+          transformOrigin={{
+            vertical: -8,
+            horizontal: 'right',
           }}
         >
           <MenuItemStyled onClick={handleClose}>Войти</MenuItemStyled>

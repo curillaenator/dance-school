@@ -17,7 +17,12 @@ export const Application: FC<ApplicationProps> = (props) => {
   const { name, tel, errors, handleName, handleTel, submit, cancel } = useApplication(props);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box
+      sx={{
+        width: '100%',
+        padding: 2,
+      }}
+    >
       <Typography variant="h5" align="left" sx={{ color: 'white' }} fontWeight={500} mb={4}>
         {labels.title}
       </Typography>
@@ -48,12 +53,12 @@ export const Application: FC<ApplicationProps> = (props) => {
         />
       </FormControl>
 
-      <ButtonGroup sx={{ marginBottom: 2 }} fullWidth>
-        <Button variant="contained" fullWidth onClick={submit}>
+      <ButtonGroup sx={{ marginBottom: 2, height: '56px' }} fullWidth>
+        <Button variant="contained" onClick={submit}>
           Отправить
         </Button>
 
-        <Button variant="outlined" fullWidth onClick={cancel}>
+        <Button variant="outlined" onClick={cancel}>
           Отмена
         </Button>
       </ButtonGroup>

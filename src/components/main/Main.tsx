@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import Dialog from '@mui/material/Dialog';
 
 import { Background, Application } from './components';
 
@@ -26,6 +25,17 @@ export const Main: FC = () => {
       }}
     >
       <Background />
+
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(to bottom, #171717 0%, transparent 30%, transparent 100%)',
+        }}
+      />
 
       <Box
         sx={{
@@ -68,6 +78,7 @@ export const Main: FC = () => {
             color: 'white',
             zIndex: 0,
             padding: '32px',
+            maxWidth: '70vw',
           }}
         >
           {ct.subtitle}
@@ -79,6 +90,7 @@ export const Main: FC = () => {
           onClick={handleOpen}
           sx={{
             height: 64,
+            padding: '0 64px',
             // borderRadius: '32px',
           }}
         >
@@ -86,32 +98,9 @@ export const Main: FC = () => {
         </Button>
       </Box>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-      >
-        <Fade in={open}>
-          <Box
-            sx={{
-              width: '400px',
-              maxWidth: '90vw',
-              position: 'absolute' as 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              // height: 300,
-              backgroundColor: '#171717',
-              borderRadius: '16px',
-              padding: '16px 16px',
-            }}
-          >
-            <Application handleClose={handleClose} />
-          </Box>
-        </Fade>
-      </Modal>
+      <Dialog onClose={handleClose} open={open}>
+        <Application handleClose={handleClose} />
+      </Dialog>
     </Box>
   );
 };
