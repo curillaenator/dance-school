@@ -91,7 +91,6 @@ export const Main: FC = () => {
           sx={{
             height: 64,
             padding: '0 64px',
-            // borderRadius: '32px',
           }}
         >
           Записаться

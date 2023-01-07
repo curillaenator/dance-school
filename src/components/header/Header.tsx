@@ -1,4 +1,6 @@
 import React, { FC, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { List, Logout } from '@mui/icons-material';
+import { List, Logout, Settings } from '@mui/icons-material';
 
 import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
@@ -25,6 +27,8 @@ import logo from '@src/assets/logo.png';
 export const Header: FC = () => {
   const { uid, signIn, isMobile, logOut } = useContext(Context);
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
+
+  const navigate = useNavigate();
 
   return (
     <AppBarStyled>
@@ -45,7 +49,7 @@ export const Header: FC = () => {
           {!isMobile && (
             <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
               {TOOLBAR_ITEMS.map((item) => (
-                <Button sx={{ width: 120 }} key={item.title}>
+                <Button sx={{ width: 120 }} key={item.title} onClick={() => navigate(item.to)}>
                   {item.title}
                 </Button>
               ))}
@@ -98,11 +102,29 @@ export const Header: FC = () => {
           }}
         >
           <MenuList sx={{ minWidth: 200 }}>
-            <MenuItem onClick={handleClose} sx={{ marginBottom: 1, height: 56 }}>
+            <MenuItem
+              onClick={() => {
+                navigate('/aboutus');
+                handleClose();
+              }}
+              sx={{ marginBottom: 1, height: 56 }}
+            >
               <ListItemIcon>
                 <List fontSize="medium" />
               </ListItemIcon>
               <ListItemText>Заявки</ListItemText>
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => {
+                handleClose();
+              }}
+              sx={{ marginBottom: 1, height: 56 }}
+            >
+              <ListItemIcon>
+                <Settings fontSize="medium" />
+              </ListItemIcon>
+              <ListItemText>Настройки</ListItemText>
             </MenuItem>
 
             <MenuItem

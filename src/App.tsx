@@ -1,16 +1,10 @@
 import React, { FC } from 'react';
-import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// import Drawer from '@mui/material/Drawer';
-// import Box from '@mui/material/Box';
-
-import { Header } from '@src/components/header';
+import { Layout } from '@src/layout/Layout';
 import { Main } from './components/main';
-// import { Aboutus } from './components/aboutus';
-
-import { ThemeProvider } from '@mui/material/styles';
-import { themeDark } from '@src/theme';
+import { Aboutus } from './components/aboutus';
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -18,12 +12,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Context } from '@src/context';
 import { useAuthControl } from '@src/hooks/useAuthControl';
 
-import { FB_CONFIG } from '@src/config';
+import { FB_APP } from '@src/config';
 
-const app = initializeApp(FB_CONFIG);
-getAnalytics(app);
-
-// const drawerBleeding = 56;
+getAnalytics(FB_APP);
 
 export const App: FC = () => {
   const theme = useTheme();
@@ -31,37 +22,16 @@ export const App: FC = () => {
 
   const authData = useAuthControl();
 
-  // const [open, setOpen] = useState<boolean>(true);
-  // const toggleDrawer = (newOpen: boolean) => () => {
-  //   setOpen(newOpen);
-  // };
-
   return (
     <Context.Provider value={{ ...authData, isMobile }}>
-      <ThemeProvider theme={themeDark}>
-        {/* {isMobile && (
-        <Drawer
-          anchor="left"
-          open={open}
-          onClose={toggleDrawer(false)}
-          ModalProps={{
-            keepMounted: true,
-          }}
-        >
-          <Box
-            sx={{
-              width: '320px',
-              height: '100%',
-              backgroundColor: 'white',
-            }}
-          />
-        </Drawer>
-      )} */}
-
-        <Header />
-        <Main />
-        {/* <Aboutus /> */}
-      </ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Main />} />
+            <Route path="aboutus" element={<Aboutus />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Context.Provider>
   );
 };

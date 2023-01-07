@@ -1,45 +1,12 @@
-// @use "./themes/utils/" as utils;
-// @use "./themes/maps/" as maps;
-// @import "~react-image-gallery/styles/scss/image-gallery.scss";
-
-// :root {
-//   @include utils.generate-varaibles($map: maps.$palette, $prefix: --palette);
-//   @include utils.generate-varaibles($map: maps.$themes, $prefix: --theme);
-//   @include utils.generate-varaibles($map: maps.$sizes, $prefix: --size);
-// }
-
 *,
 ::before,
 ::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  // font-family: 'Roboto', sans-serif;
 }
 
 html {
   background-color: #171717;
-}
-
-button {
-  outline: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-input,
-textarea {
-  outline: none;
-  border: none;
-  font-family: 'Roboto', sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Roboto Condensed', sans-serif;
 }

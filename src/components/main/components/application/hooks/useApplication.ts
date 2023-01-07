@@ -1,7 +1,10 @@
 import { useState, useCallback, ChangeEvent } from 'react';
-import { ApplicationProps } from '../interfaces';
+import { ref, set, push, child } from 'firebase/database';
+
+import { DB } from '@src/config';
 
 import { NUMS, MIN_NAME_LENGTH } from '../constants';
+import { ApplicationProps } from '../interfaces';
 
 const checkTel = (tel: string) => {
   return tel.split('').filter((n) => n !== ' ' && NUMS.includes(+n)).length === 11;
@@ -13,6 +16,7 @@ export const useApplication = (props: ApplicationProps) => {
   const [name, setName] = useState<string>('');
   const [tel, setTel] = useState<string>('');
   const [errors, setErrors] = useState({ name: false, tel: false });
+  const [step, setStep] = useState<'new' | 'loading' | 'success' | 'error'>('new');
 
   const submit = useCallback(() => {
     const isTelValid = checkTel(tel);
@@ -24,9 +28,26 @@ export const useApplication = (props: ApplicationProps) => {
       return;
     }
 
-    setName('');
-    setTel('');
-    handleClose();
+    setStep('loading');
+
+    const data = {
+      name,
+      tel,
+      created: String(+new Date()),
+    };
+
+    const newApplicationId = push(child(ref(DB), 'applications')).key;
+
+    set(ref(DB, `applications/${newApplicationId}`), data)
+      .then(() => {
+        setName('');
+        setTel('');
+        setStep('success');
+      })
+      .catch((err) => {
+        setStep('error');
+        console.log(err);
+      });
   }, [name, tel, handleClose]);
 
   const cancel = useCallback(() => {
@@ -61,9 +82,11 @@ export const useApplication = (props: ApplicationProps) => {
     name,
     tel,
     errors,
+    step,
     handleName,
     handleTel,
     submit,
     cancel,
+    handleClose,
   };
 };

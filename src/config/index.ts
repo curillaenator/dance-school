@@ -1,7 +1,10 @@
-export const FB_CONFIG = {
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
+
+const FB_CONFIG = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
-  // databaseURL: process.env.DATABASE_URL,
+  databaseURL: process.env.DATABASE_URL,
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
@@ -9,6 +12,5 @@ export const FB_CONFIG = {
   measurementId: process.env.MEASUREMENT_ID,
 };
 
-export const APP_CONFIG = {
-  admins: process.env.ADMINS,
-};
+export const FB_APP = initializeApp(FB_CONFIG);
+export const DB = getDatabase(FB_APP);
