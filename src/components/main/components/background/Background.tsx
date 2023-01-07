@@ -3,13 +3,14 @@ import { SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper';
 
 import { ImageStyled, SwiperStyled } from './styled';
-
-import { photos } from './constants';
+import { usePhotos } from './hooks/usePhotos';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
 export const Background: FC = () => {
+  const { photos } = usePhotos();
+
   return (
     <SwiperStyled
       autoplay={{
