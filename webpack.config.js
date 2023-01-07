@@ -63,4 +63,6 @@ module.exports = {
       },
     ],
   },
+
+  devtool: 'source-map', // turn off on final production
 };

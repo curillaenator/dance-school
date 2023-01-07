@@ -1,15 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper';
 
+import { Context } from '@src/context';
+
 import { ImageStyled, SwiperStyled } from './styled';
-import { usePhotos } from './hooks/usePhotos';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
 export const Background: FC = () => {
-  const { photos } = usePhotos();
+  const { mainSlider } = useContext(Context);
 
   return (
     <SwiperStyled
@@ -28,7 +29,7 @@ export const Background: FC = () => {
       modules={[Autoplay, EffectFade]}
       effect={'fade'}
     >
-      {photos.map((photo, i) => (
+      {mainSlider.map((photo, i) => (
         <SwiperSlide key={`photo${i}`}>
           <ImageStyled src={photo} />
         </SwiperSlide>

@@ -6,6 +6,7 @@ interface ContextType {
   isMobile: boolean;
   signIn: () => void;
   logOut: () => void;
+  mainSlider: string[];
 }
 
 export const Context = createContext<ContextType>({
@@ -13,4 +14,5 @@ export const Context = createContext<ContextType>({
   isMobile: false,
   signIn: () => {},
   logOut: () => {},
+  mainSlider: [],
 });

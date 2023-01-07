@@ -11,6 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Context } from '@src/context';
 import { useAuthControl } from '@src/hooks/useAuthControl';
+import { usePhotos } from '@src/hooks/usePhotos';
 
 import { FB_APP } from '@src/config';
 
@@ -21,9 +22,10 @@ export const App: FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const authData = useAuthControl();
+  const appPhotos = usePhotos();
 
   return (
-    <Context.Provider value={{ ...authData, isMobile }}>
+    <Context.Provider value={{ ...authData, ...appPhotos, isMobile }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
