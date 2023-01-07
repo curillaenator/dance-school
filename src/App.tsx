@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
-// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Drawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
+import React, { FC } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+
+// import Drawer from '@mui/material/Drawer';
+// import Box from '@mui/material/Box';
 
 import { Header } from '@src/components/header';
 import { Main } from './components/main';
-import { Aboutus } from './components/aboutus';
+// import { Aboutus } from './components/aboutus';
 
 import { ThemeProvider } from '@mui/material/styles';
 import { themeDark } from '@src/theme';
@@ -13,20 +15,31 @@ import { themeDark } from '@src/theme';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { Context } from '@src/context';
+import { useAuthControl } from '@src/hooks/useAuthControl';
+
+import { FB_CONFIG } from '@src/config';
+
+const app = initializeApp(FB_CONFIG);
+getAnalytics(app);
+
 // const drawerBleeding = 56;
 
 export const App: FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [open, setOpen] = useState<boolean>(true);
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
+  const authData = useAuthControl();
+
+  // const [open, setOpen] = useState<boolean>(true);
+  // const toggleDrawer = (newOpen: boolean) => () => {
+  //   setOpen(newOpen);
+  // };
 
   return (
-    <ThemeProvider theme={themeDark}>
-      {isMobile && (
+    <Context.Provider value={{ ...authData, isMobile }}>
+      <ThemeProvider theme={themeDark}>
+        {/* {isMobile && (
         <Drawer
           anchor="left"
           open={open}
@@ -43,11 +56,12 @@ export const App: FC = () => {
             }}
           />
         </Drawer>
-      )}
+      )} */}
 
-      <Header isMobile={isMobile} />
-      <Main />
-      {/* <Aboutus /> */}
-    </ThemeProvider>
+        <Header />
+        <Main />
+        {/* <Aboutus /> */}
+      </ThemeProvider>
+    </Context.Provider>
   );
 };

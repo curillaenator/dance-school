@@ -1,5 +1,4 @@
 import AppBar from '@mui/material/AppBar';
-import MenuItem from '@mui/material/MenuItem';
 
 import st from '@emotion/styled';
 import { styled } from '@mui/material/styles';
@@ -19,8 +18,4 @@ export const LogoStyled = st.img({
   height: 96,
   objectFit: 'cover',
   borderRadius: '50%',
-});
-
-export const MenuItemStyled = styled(MenuItem)({
-  minWidth: 200,
 });

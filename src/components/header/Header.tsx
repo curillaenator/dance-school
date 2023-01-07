@@ -1,21 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Avatar from '@mui/material/Avatar';
+
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+
 import Menu from '@mui/material/Menu';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 import MenuIcon from '@mui/icons-material/Menu';
+import { List, Logout } from '@mui/icons-material';
 
-import { AppBarStyled, LogoStyled, MenuItemStyled } from './styled';
-
+import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
 
+import { TOOLBAR_ITEMS } from './constants';
+import { AppBarStyled, LogoStyled } from './styled';
 import logo from '@src/assets/logo.png';
 
-import { HeaderProps } from './interfaces';
-
-export const Header: FC<HeaderProps> = (props) => {
-  const { isMobile } = props;
+export const Header: FC = () => {
+  const { uid, signIn, isMobile, logOut } = useContext(Context);
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
 
   return (
@@ -36,32 +44,43 @@ export const Header: FC<HeaderProps> = (props) => {
 
           {!isMobile && (
             <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
-              <Button sx={{ width: 120 }}>О НАС</Button>
-
-              <Button sx={{ width: 120 }}>ЦЕНЫ</Button>
-
-              <Button sx={{ width: 120 }}>ТРЕНЕРЫ</Button>
-
-              <Button sx={{ width: 120 }}>НОВОСТИ</Button>
-
-              <Button sx={{ width: 120 }}>КОНТАКТЫ</Button>
+              {TOOLBAR_ITEMS.map((item) => (
+                <Button sx={{ width: 120 }} key={item.title}>
+                  {item.title}
+                </Button>
+              ))}
             </ButtonGroup>
           )}
 
-          {/* <Button
-            size="large"
-            aria-label="menu"
-            onClick={handleClick}
-            sx={{
-              minHeight: 56,
-              position: 'absolute',
-              top: '50%',
-              right: 0,
-              transform: 'translate(0,-50%)',
-            }}
-          >
-            <MenuIcon color="inherit" />
-          </Button> */}
+          {!uid && (
+            <Button
+              size="large"
+              onClick={signIn}
+              sx={{
+                minHeight: 56,
+                position: 'absolute',
+                top: '50%',
+                right: 0,
+                transform: 'translate(0,-50%)',
+              }}
+            >
+              <MenuIcon color="inherit" />
+            </Button>
+          )}
+
+          {uid?.isAdmin && (
+            <Button
+              onClick={handleClick}
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                right: 0,
+                transform: 'translate(0,-50%)',
+              }}
+            >
+              <Avatar src={uid.photoURL || undefined} sx={{ width: 56, height: 56 }} />
+            </Button>
+          )}
         </Box>
 
         <Menu
@@ -78,7 +97,27 @@ export const Header: FC<HeaderProps> = (props) => {
             horizontal: 'right',
           }}
         >
-          <MenuItemStyled onClick={handleClose}>Войти</MenuItemStyled>
+          <MenuList sx={{ minWidth: 200 }}>
+            <MenuItem onClick={handleClose} sx={{ marginBottom: 1, height: 56 }}>
+              <ListItemIcon>
+                <List fontSize="medium" />
+              </ListItemIcon>
+              <ListItemText>Заявки</ListItemText>
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => {
+                logOut();
+                handleClose();
+              }}
+              sx={{ height: 56 }}
+            >
+              <ListItemIcon>
+                <Logout fontSize="medium" />
+              </ListItemIcon>
+              <ListItemText>Выйти</ListItemText>
+            </MenuItem>
+          </MenuList>
         </Menu>
       </Toolbar>
     </AppBarStyled>
