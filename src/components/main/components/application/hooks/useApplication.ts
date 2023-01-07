@@ -4,6 +4,7 @@ import { ref, set, push, child } from 'firebase/database';
 import { DB } from '@src/config';
 
 import { NUMS, MIN_NAME_LENGTH } from '../constants';
+import { ApplicationType } from '@src/types';
 import { ApplicationProps } from '../interfaces';
 
 const checkTel = (tel: string) => {
@@ -15,8 +16,17 @@ export const useApplication = (props: ApplicationProps) => {
 
   const [name, setName] = useState<string>('');
   const [tel, setTel] = useState<string>('');
-  const [errors, setErrors] = useState({ name: false, tel: false });
+  const [comment, setComment] = useState<string>('');
+
+  const [errors, setErrors] = useState({ name: false, tel: false, comment: false });
+
   const [step, setStep] = useState<'new' | 'loading' | 'success' | 'error'>('new');
+
+  const clear = useCallback(() => {
+    setName('');
+    setTel('');
+    setComment('');
+  }, []);
 
   const submit = useCallback(() => {
     const isTelValid = checkTel(tel);
@@ -30,29 +40,30 @@ export const useApplication = (props: ApplicationProps) => {
 
     setStep('loading');
 
-    const data = {
+    const newApplicationId = push(child(ref(DB), 'applications')).key as string;
+
+    const data: ApplicationType = {
+      id: newApplicationId,
       name,
       tel,
+      comment,
       created: String(+new Date()),
+      called: false,
+      completed: false,
     };
-
-    const newApplicationId = push(child(ref(DB), 'applications')).key;
 
     set(ref(DB, `applications/${newApplicationId}`), data)
       .then(() => {
-        setName('');
-        setTel('');
+        clear();
         setStep('success');
       })
       .catch((err) => {
         setStep('error');
-        console.log(err);
       });
-  }, [name, tel, handleClose]);
+  }, [name, tel, comment, handleClose]);
 
   const cancel = useCallback(() => {
-    setName('');
-    setTel('');
+    clear();
     handleClose();
   }, [handleClose]);
 
@@ -78,13 +89,19 @@ export const useApplication = (props: ApplicationProps) => {
     [errors.tel],
   );
 
+  const handleComment = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  }, []);
+
   return {
     name,
     tel,
+    comment,
     errors,
     step,
     handleName,
     handleTel,
+    handleComment,
     submit,
     cancel,
     handleClose,

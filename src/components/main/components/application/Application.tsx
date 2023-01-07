@@ -17,7 +17,8 @@ import { labels } from './constants';
 import { ApplicationProps } from './interfaces';
 
 export const Application: FC<ApplicationProps> = (props) => {
-  const { name, tel, errors, step, handleName, handleTel, submit, cancel, handleClose } = useApplication(props);
+  const { name, tel, comment, errors, step, handleName, handleTel, handleComment, submit, cancel, handleClose } =
+    useApplication(props);
 
   return (
     <Box
@@ -63,7 +64,7 @@ export const Application: FC<ApplicationProps> = (props) => {
             {labels.title}
           </Typography>
 
-          <FormControl variant="outlined" fullWidth required>
+          <FormControl variant="outlined" fullWidth>
             <TextField
               id="applicant-name"
               label={errors.name ? labels.nameError : labels.name}
@@ -73,19 +74,33 @@ export const Application: FC<ApplicationProps> = (props) => {
               onChange={handleName}
               autoComplete="off"
               error={errors.name}
+              required
             />
 
             <TextField
               id="telephone"
               label={errors.tel ? labels.telError : labels.tel}
-              sx={{ marginBottom: 4 }}
+              sx={{ marginBottom: 2 }}
               value={tel}
               onChange={handleTel}
               autoComplete="off"
               error={errors.tel}
+              required
               InputProps={{
                 inputComponent: MaskedTelephone as any,
               }}
+            />
+
+            <TextField
+              id="comment"
+              label={labels.comment}
+              sx={{ marginBottom: 4 }}
+              value={comment}
+              autoComplete="off"
+              onChange={handleComment}
+              multiline
+              minRows={2}
+              maxRows={4}
             />
           </FormControl>
 

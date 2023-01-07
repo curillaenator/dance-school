@@ -10,7 +10,6 @@ const ADMINS: Record<string, string> = {
 
 export const useAuthControl = () => {
   const [uid, setUid] = useState<UserType | null>(null);
-
   const auth = getAuth();
 
   const signIn = useCallback(() => {

@@ -104,7 +104,7 @@ export const Header: FC = () => {
           <MenuList sx={{ minWidth: 200 }}>
             <MenuItem
               onClick={() => {
-                navigate('/aboutus');
+                navigate('/applications');
                 handleClose();
               }}
               sx={{ marginBottom: 1, height: 56 }}

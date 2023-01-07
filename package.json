@@ -11,17 +11,6 @@
   },
   "author": "https://github.com/curillaenator",
   "license": "ISC",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.(js|jsx|ts|tsx)": [
-      "npm run lint:write",
-      "git add"
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
