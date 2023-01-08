@@ -21,7 +21,7 @@ import { SingleApplication } from './SingleApplication';
 
 import { useTableData } from './hooks/useTableData';
 import { Context } from '@src/context';
-import { getDate } from './helpers';
+import { getDate, processLongName } from './helpers';
 
 export const Applications: FC = () => {
   const { isMobile } = useContext(Context);
@@ -68,7 +68,7 @@ export const Applications: FC = () => {
               <TableRow key={application.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   {!isMobile ? (
-                    application.name
+                    processLongName(application.name)
                   ) : (
                     <Button
                       onClick={() => selectApplication(application.id)}
@@ -81,7 +81,7 @@ export const Applications: FC = () => {
                         textAlign: 'left',
                       }}
                     >
-                      {application.name}
+                      {processLongName(application.name)}
                     </Button>
                   )}
                 </TableCell>

@@ -1,17 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import Dialog from '@mui/material/Dialog';
 
 import { Background, Application } from './components';
 
+import { Context } from '@src/context';
 import { useModalControl } from './hooks/useModalControl';
 
 import { ct } from './constants';
 
 export const Main: FC = () => {
+  const { isMobile } = useContext(Context);
   const { open, handleClose, handleOpen } = useModalControl();
 
   return (
@@ -59,7 +60,7 @@ export const Main: FC = () => {
         }}
       >
         <Typography
-          variant="h2"
+          variant={isMobile ? 'h3' : 'h2'}
           align="center"
           sx={{
             color: 'white',

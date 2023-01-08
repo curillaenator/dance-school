@@ -7,6 +7,8 @@ interface ContextType {
   signIn: () => void;
   logOut: () => void;
   mainSlider: string[];
+  openDrawer: () => void;
+  closeDrawer: () => void;
 }
 
 export const Context = createContext<ContextType>({
@@ -15,4 +17,6 @@ export const Context = createContext<ContextType>({
   signIn: () => {},
   logOut: () => {},
   mainSlider: [],
+  openDrawer: () => {},
+  closeDrawer: () => {},
 });

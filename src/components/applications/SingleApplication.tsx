@@ -52,13 +52,24 @@ export const SingleApplication: FC<SingleApplicationProps> = (props) => {
                 right: 0,
               }}
               color="primary"
-              size="medium"
+              size="large"
               onClick={handleClose}
             >
               <CloseIcon color="inherit" />
             </IconButton>
 
-            <Typography variant="h4" fontWeight={500} color="text.primary" mb={2}>
+            <Typography
+              variant="h5"
+              fontWeight={500}
+              color="text.primary"
+              mb={2}
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+              sx={{
+                maxWidth: 'calc(100% - 32px)',
+              }}
+            >
               {data.name}
             </Typography>
 
