@@ -32,7 +32,8 @@ export const App: FC = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Main />} />
             <Route path="aboutus" element={<Aboutus />} />
-            <Route path="applications" element={<Applications />} />
+            {authData.uid?.isAdmin && <Route path="applications" element={<Applications />} />}
+            <Route path="*" element={<Main />} />
           </Route>
         </Routes>
       </BrowserRouter>

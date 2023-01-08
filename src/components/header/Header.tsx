@@ -44,7 +44,7 @@ export const Header: FC = () => {
             minHeight: 120,
           }}
         >
-          <LogoStyled src={logo} />
+          {/* <LogoStyled src={logo} /> */}
 
           {!isMobile && (
             <ButtonGroup variant="text" sx={{ minHeight: 56 }}>

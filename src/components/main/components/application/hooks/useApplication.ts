@@ -73,7 +73,9 @@ export const useApplication = (props: ApplicationProps) => {
         setErrors((prev) => ({ ...prev, name: false }));
       }
 
-      setName(e.target.value);
+      if (e.target.value.length < 24) {
+        setName(e.target.value);
+      }
     },
     [errors.name],
   );

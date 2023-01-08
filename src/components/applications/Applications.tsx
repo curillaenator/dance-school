@@ -73,6 +73,13 @@ export const Applications: FC = () => {
                     <Button
                       onClick={() => selectApplication(application.id)}
                       color={application.called ? 'secondary' : 'primary'}
+                      fullWidth
+                      sx={{
+                        paddingLeft: 0,
+                        paddingRight: 0,
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                      }}
                     >
                       {application.name}
                     </Button>
