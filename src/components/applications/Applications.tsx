@@ -1,170 +1,142 @@
-import React, { FC, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import React, { FC, useContext } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
 import TablePagination from '@mui/material/TablePagination';
 import TableFooter from '@mui/material/TableFooter';
+import Paper from '@mui/material/Paper';
 
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import RemoveIcon from '@mui/icons-material/Delete';
 
-import { useData } from './hooks/useData';
+import { Heading } from './Heading';
+import { PaginationActions } from './PaginationActions';
+import { SingleApplication } from './SingleApplication';
 
-interface TablePaginationActionsProps {
-  count: number;
-  page: number;
-  rowsPerPage: number;
-  onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
-}
-
-function TablePaginationActions(props: TablePaginationActionsProps) {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="first page">
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-      </IconButton>
-
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-      </IconButton>
-
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </Box>
-  );
-}
+import { useTableData } from './hooks/useTableData';
+import { Context } from '@src/context';
+import { getDate } from './helpers';
 
 export const Applications: FC = () => {
-  const { applications, updateCalled, remove } = useData();
+  const { isMobile } = useContext(Context);
 
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const {
+    applications,
+    page,
+    rowsPerPage,
+    selected,
+    updateCalled,
+    remove,
+    handleChangePage,
+    handleChangeRowsPerPage,
+    selectApplication,
+  } = useTableData();
 
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const paginated =
-    rowsPerPage > 0 ? applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : applications;
+  const applicationsMaped = Object.values(applications).reverse();
+  const tableData =
+    rowsPerPage > 0 ? applicationsMaped.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : applicationsMaped;
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        padding: '120px 32px 32px',
-        minHeight: '100vh',
-        maxHeight: '100vh',
-      }}
-    >
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Имя</TableCell>
-            <TableCell>Телефон</TableCell>
-            {/* <TableCell align="right">Комментарий</TableCell> */}
-            <TableCell align="right">Связались</TableCell>
-            <TableCell align="right">Удалить</TableCell>
-          </TableRow>
-        </TableHead>
+    <>
+      <Box
+        sx={{
+          width: '100%',
+          height: 120,
+          backgroundColor: '#121212',
+          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
+        }}
+      />
+      <TableContainer
+        component={Paper}
+        sx={{
+          padding: '0 32px 32px',
+          minHeight: 'calc(100vh - 120px)',
+          maxHeight: 'calc(100vh - 120px)',
+        }}
+      >
+        <Table stickyHeader aria-label="simple table">
+          <Heading isMobile={isMobile} />
 
-        <TableBody>
-          {paginated.map((row) => (
-            <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {`${row.name}`}
-              </TableCell>
+          <TableBody>
+            {tableData.map((application) => (
+              <TableRow key={application.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {!isMobile ? (
+                    application.name
+                  ) : (
+                    <Button
+                      onClick={() => selectApplication(application.id)}
+                      color={application.called ? 'secondary' : 'primary'}
+                    >
+                      {application.name}
+                    </Button>
+                  )}
+                </TableCell>
 
-              <TableCell>{row.tel}</TableCell>
+                <TableCell>{getDate(application.created)}</TableCell>
 
-              {/* <TableCell align="right" style={{ width: '240px' }}>
-                {row.comment}
-              </TableCell> */}
+                {!isMobile && (
+                  <>
+                    <TableCell>{application.tel}</TableCell>
 
-              <TableCell align="right" style={{ width: '64px' }}>
-                <Checkbox checked={row.called} onChange={() => updateCalled(row)} />
-              </TableCell>
+                    <TableCell align="right" style={{ maxWidth: '360px' }}>
+                      {application.comment}
+                    </TableCell>
 
-              <TableCell align="right" style={{ width: '64px' }}>
-                {/* <Checkbox value={row.completed} /> */}
-                <IconButton onClick={() => remove(row)}>
-                  <RemoveIcon />
-                </IconButton>
-              </TableCell>
+                    <TableCell align="right" style={{ width: '64px' }}>
+                      <Checkbox checked={application.called} onChange={() => updateCalled(application)} />
+                    </TableCell>
+
+                    <TableCell align="right" style={{ width: '64px' }}>
+                      <IconButton onClick={() => remove(application.id)}>
+                        <RemoveIcon />
+                      </IconButton>
+                    </TableCell>
+                  </>
+                )}
+              </TableRow>
+            ))}
+          </TableBody>
+
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
+                colSpan={isMobile ? 2 : 6}
+                count={applicationsMaped.length}
+                rowsPerPage={rowsPerPage}
+                labelRowsPerPage={isMobile ? '' : 'Заявок на странице'}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    'aria-label': 'Заявок на странице',
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={PaginationActions}
+              />
             </TableRow>
-          ))}
-        </TableBody>
+          </TableFooter>
+        </Table>
+      </TableContainer>
 
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
-              colSpan={4}
-              count={applications.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'Заявок на странице',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+      {isMobile && (
+        <SingleApplication
+          selected={selected}
+          applications={applications}
+          handleClose={() => selectApplication(null)}
+          remove={remove}
+          updateCalled={updateCalled}
+        />
+      )}
+    </>
   );
 };
