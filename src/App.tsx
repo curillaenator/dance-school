@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Layout } from '@src/layout/Layout';
-import { DrawerContent } from './components/appdrawer';
+import { AppDrawer } from './components/appdrawer';
 import { Main } from './components/main';
 import { Aboutus } from './components/aboutus';
 import { Applications } from './components/applications';
@@ -43,7 +43,7 @@ export const App: FC = () => {
             </Route>
           </Routes>
 
-          {isMobile && <DrawerContent {...appDrawer} />}
+          {isMobile && <AppDrawer {...appDrawer} />}
         </ThemeProvider>
       </Context.Provider>
     </BrowserRouter>

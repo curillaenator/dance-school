@@ -1,1 +1,1 @@
-export { DrawerContent } from './DrawerContent';
+export { AppDrawer } from './AppDrawer';

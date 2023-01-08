@@ -34,7 +34,7 @@ export const Main: FC = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(to bottom, #171717 0%, transparent 30%, transparent 100%)',
+          background: 'linear-gradient(to bottom, #171717 0%, transparent 20%, transparent 80%, transparent 100%)',
         }}
       />
 
@@ -45,7 +45,7 @@ export const Main: FC = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(to bottom, transparent 0%, #171717 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, transparent 17%, #171717 100%)',
         }}
       />
 

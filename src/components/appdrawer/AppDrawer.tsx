@@ -1,14 +1,18 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import IconButton from '@mui/material/IconButton';
-import Swipe from '@mui/icons-material/Swipe';
 
 import { TOOLBAR_ITEMS } from '@src/shared/constants';
+import svg from '@src/assets/drawerDecor1.svg';
+
+const ImgStyled = styled.img({
+  height: '50%',
+});
 
 interface DrawerContentProps {
   drawer: boolean;
@@ -16,7 +20,7 @@ interface DrawerContentProps {
   closeDrawer: () => void;
 }
 
-export const DrawerContent: FC<DrawerContentProps> = (props) => {
+export const AppDrawer: FC<DrawerContentProps> = (props) => {
   const { drawer, openDrawer, closeDrawer } = props;
   const navigate = useNavigate();
 
@@ -41,10 +45,14 @@ export const DrawerContent: FC<DrawerContentProps> = (props) => {
     >
       <Box
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8vh',
           width: '70vw',
           height: '100%',
           backgroundColor: '#171717',
-          paddingTop: '120px',
+          paddingTop: '15vh',
           borderRight: '1px solid rgba(255,255,255, 0.3)',
         }}
         role="presentation"
@@ -56,6 +64,8 @@ export const DrawerContent: FC<DrawerContentProps> = (props) => {
             </Button>
           ))}
         </ButtonGroup>
+
+        <ImgStyled src={svg} />
       </Box>
     </SwipeableDrawer>
   );
