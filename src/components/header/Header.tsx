@@ -29,6 +29,8 @@ export const Header: FC = () => {
 
   const navigate = useNavigate();
 
+  const buttonSize = isMobile ? '40px' : '56px';
+
   return (
     <AppBarStyled>
       <Box
@@ -48,7 +50,7 @@ export const Header: FC = () => {
             onClick={openDrawer}
             color="primary"
             sx={{
-              // minHeight: 56,
+              paddingLeft: 0,
               position: 'absolute',
               top: '50%',
               left: '32px',
@@ -93,9 +95,17 @@ export const Header: FC = () => {
               top: '50%',
               right: '32px',
               transform: 'translate(0,-50%)',
+              padding: 0,
+              minWidth: buttonSize,
             }}
           >
-            <Avatar src={uid.photoURL || undefined} sx={{ width: 56, height: 56 }} />
+            <Avatar
+              src={uid.photoURL || undefined}
+              sx={{
+                width: buttonSize,
+                height: buttonSize,
+              }}
+            />
           </Button>
         )}
       </Box>
