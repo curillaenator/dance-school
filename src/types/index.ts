@@ -13,3 +13,21 @@ export interface ApplicationType {
   called: boolean;
   completed: boolean;
 }
+
+export interface CoachType {
+  id: string;
+  name: string;
+  description: string;
+  photoURL: string;
+}
+
+export type LandingSectionsType = 'main' | 'coaches';
+
+export type ToolbarItemType = {
+  title: string;
+  to: LandingSectionsType;
+}[];
+
+export interface LandingSectionCommonProps {
+  name: LandingSectionsType;
+}

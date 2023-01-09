@@ -1,5 +1,6 @@
-import React, { FC, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useContext, useCallback } from 'react';
+import { scroller } from 'react-scroll';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -15,7 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { List, Logout, Settings, SwipeRight } from '@mui/icons-material';
+import { List, ArrowBack, Logout, Settings, SwipeRight } from '@mui/icons-material';
 
 import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
@@ -28,8 +29,22 @@ export const Header: FC = () => {
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
 
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const isLanding = location.pathname === '/';
   const buttonSize = isMobile ? '40px' : '56px';
+
+  const handleScroll = useCallback((to: string) => {
+    scroller.scrollTo(to, {
+      duration: 200,
+      smooth: true,
+    });
+  }, []);
+
+  const handleActionButton = useCallback(() => {
+    if (isLanding) openDrawer();
+    if (!isLanding) navigate('/');
+  }, [isLanding, handleClose]);
 
   return (
     <AppBarStyled>
@@ -47,7 +62,7 @@ export const Header: FC = () => {
         {isMobile && (
           <IconButton
             size="large"
-            onClick={openDrawer}
+            onClick={handleActionButton}
             color="primary"
             sx={{
               paddingLeft: 0,
@@ -57,14 +72,14 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            <SwipeRight color="inherit" />
+            {isLanding ? <SwipeRight color="inherit" /> : <ArrowBack color="inherit" />}
           </IconButton>
         )}
 
         {!isMobile && (
-          <ButtonGroup variant="text" sx={{ minHeight: 56 }}>
+          <ButtonGroup variant="text">
             {TOOLBAR_ITEMS.map((item) => (
-              <Button sx={{ width: 120 }} key={item.title} onClick={() => navigate(item.to)}>
+              <Button key={item.title} sx={{ width: 120, minHeight: 56 }} onClick={() => handleScroll(item.to)}>
                 {item.title}
               </Button>
             ))}

@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
+
 import { Main } from '@src/components/main';
-import { Aboutus } from '@src/components/aboutus';
+import { Coaches } from '@src/components/coaches';
 
 export const Landing: FC = () => {
   return (
     <>
-      <Main />
-      <Aboutus />
+      <Main name="main" />
+      <Coaches name="coaches" />
     </>
   );
 };

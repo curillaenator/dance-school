@@ -1,1 +1,0 @@
-export { Aboutus } from './Aboutus';

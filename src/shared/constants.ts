@@ -1,6 +1,8 @@
-export const TOOLBAR_ITEMS = [
-  { title: 'ЗАПИСАТЬСЯ', to: '/' },
-  { title: 'O НАС', to: '/' },
-  { title: 'ЦЕНЫ', to: '/' },
-  { title: 'КОНТАКТЫ', to: '/' },
+import { ToolbarItemType } from '@src/types';
+
+export const TOOLBAR_ITEMS: ToolbarItemType = [
+  { title: 'ЗАПИСАТЬСЯ', to: 'main' },
+  { title: 'ТРЕНЕРЫ', to: 'coaches' },
+  // { title: 'ЦЕНЫ', to: 'aboutus' },
+  // { title: 'КОНТАКТЫ', to: 'aboutus' },
 ];

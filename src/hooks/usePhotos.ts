@@ -9,6 +9,10 @@ export const usePhotos = () => {
     listAll(ref(ST, 'mainSlider'))
       .then((res) => res.items.map((item) => getDownloadURL(item)))
       .then((promises) => Promise.all(promises).then((urls) => setMainSlider(urls)));
+
+    // listAll(ref(ST, 'coaches'))
+    //   .then((res) => res.items.map((item) => [item.fullPath, getDownloadURL(item)]))
+    //   .then((touples) => Promise.all(touples));
   }, []);
 
   return {

@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 import styled from '@emotion/styled';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -22,14 +22,17 @@ interface DrawerContentProps {
 
 export const AppDrawer: FC<DrawerContentProps> = (props) => {
   const { drawer, openDrawer, closeDrawer } = props;
-  const navigate = useNavigate();
 
-  const handleClick = useCallback(
+  const handleScroll = useCallback(
     (to: string) => {
       closeDrawer();
-      navigate(to);
+
+      scroller.scrollTo(to, {
+        duration: 200,
+        smooth: true,
+      });
     },
-    [navigate, closeDrawer],
+    [closeDrawer],
   );
 
   return (
@@ -59,7 +62,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
       >
         <ButtonGroup fullWidth orientation="vertical" size="large" variant="contained">
           {TOOLBAR_ITEMS.map((item) => (
-            <Button key={item.title} onClick={() => handleClick(item.to)}>
+            <Button key={item.title} onClick={() => handleScroll(item.to)}>
               {item.title}
             </Button>
           ))}
