@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { getAnalytics } from 'firebase/analytics';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 
 import { Layout } from '@src/layout/Layout';
 import { AppDrawer } from './components/appdrawer';
@@ -9,7 +9,6 @@ import { Main } from './components/main';
 import { Aboutus } from './components/aboutus';
 import { Applications } from './components/applications';
 
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Context } from '@src/context';
@@ -31,8 +30,6 @@ export const App: FC = () => {
   const appDrawer = useDrawer();
 
   // console.log('asd');
-
-  const ads = 'sfaf';
 
   return (
     <BrowserRouter>
