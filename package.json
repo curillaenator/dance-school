@@ -11,9 +11,6 @@
   },
   "author": "https://github.com/curillaenator",
   "license": "ISC",
-  "lint-staged": {
-    "src/**/*.(js|jsx|ts|tsx)": "eslint"
-  },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
