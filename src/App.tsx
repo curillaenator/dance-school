@@ -3,11 +3,12 @@ import { getAnalytics } from 'firebase/analytics';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 
-import { Layout } from '@src/layout/Layout';
+import { Layout } from '@src/layout';
+
+import { Landing } from '@src/pages/landing';
+import { Applications } from '@src/pages/applications';
+
 import { AppDrawer } from './components/appdrawer';
-import { Main } from './components/main';
-import { Aboutus } from './components/aboutus';
-import { Applications } from './components/applications';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -29,18 +30,17 @@ export const App: FC = () => {
   const appPhotos = usePhotos();
   const appDrawer = useDrawer();
 
-  // console.log('asd');
-
   return (
     <BrowserRouter>
       <Context.Provider value={{ ...authData, ...appPhotos, isMobile, ...appDrawer }}>
         <ThemeProvider theme={themeDark}>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Main />} />
-              <Route path="aboutus" element={<Aboutus />} />
+              <Route index element={<Landing />} />
+
               {authData.uid?.isAdmin && <Route path="applications" element={<Applications />} />}
-              <Route path="*" element={<Main />} />
+
+              <Route path="*" element={<Landing />} />
             </Route>
           </Routes>
 
