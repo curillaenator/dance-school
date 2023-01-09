@@ -30,9 +30,9 @@ export const App: FC = () => {
   const appPhotos = usePhotos();
   const appDrawer = useDrawer();
 
-  console.log('asd');
+  // console.log('asd');
 
-  const asd = '';
+  const asd = 'sfaf';
 
   return (
     <BrowserRouter>
