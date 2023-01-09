@@ -20,14 +20,15 @@ export const useTableData = () => {
     });
 
     return () => off(applicationsRef);
-  }, []);
+  }, [applicationsRef]);
 
-  // applications handlers
-
-  const updateCalled = useCallback((application: ApplicationType) => {
-    const { id, called } = application;
-    update(applicationsRef, { [`${id}/called`]: !called });
-  }, []);
+  const updateCalled = useCallback(
+    (application: ApplicationType) => {
+      const { id, called } = application;
+      update(applicationsRef, { [`${id}/called`]: !called });
+    },
+    [applicationsRef],
+  );
 
   const remove = useCallback(
     (id: string) => {
@@ -39,7 +40,7 @@ export const useTableData = () => {
         }
       }
     },
-    [selected],
+    [selected, applicationsRef],
   );
 
   const selectApplication = useCallback((id: string | null) => {

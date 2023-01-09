@@ -87,7 +87,8 @@ export const Application: FC<ApplicationProps> = (props) => {
               error={errors.tel}
               required
               InputProps={{
-                inputComponent: MaskedTelephone as any,
+                // @ts-expect-error description
+                inputComponent: MaskedTelephone,
               }}
             />
 

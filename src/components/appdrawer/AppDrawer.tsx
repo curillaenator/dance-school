@@ -29,7 +29,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
       closeDrawer();
       navigate(to);
     },
-    [navigate],
+    [navigate, closeDrawer],
   );
 
   return (

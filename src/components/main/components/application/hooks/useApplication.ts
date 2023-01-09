@@ -58,14 +58,15 @@ export const useApplication = (props: ApplicationProps) => {
         setStep('success');
       })
       .catch((err) => {
+        console.log(err);
         setStep('error');
       });
-  }, [name, tel, comment, handleClose]);
+  }, [name, tel, comment, clear]);
 
   const cancel = useCallback(() => {
     clear();
     handleClose();
-  }, [handleClose]);
+  }, [handleClose, clear]);
 
   const handleName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
