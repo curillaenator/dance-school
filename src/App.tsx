@@ -32,7 +32,7 @@ export const App: FC = () => {
 
   // console.log('asd');
 
-  const adfsdg = 'sfaf';
+  const adfs = 'sfaf';
 
   return (
     <BrowserRouter>
