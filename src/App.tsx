@@ -30,6 +30,10 @@ export const App: FC = () => {
   const appPhotos = usePhotos();
   const appDrawer = useDrawer();
 
+  console.log('asd');
+
+  const asd = '';
+
   return (
     <BrowserRouter>
       <Context.Provider value={{ ...authData, ...appPhotos, isMobile, ...appDrawer }}>
