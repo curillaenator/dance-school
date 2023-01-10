@@ -21,7 +21,7 @@ import { List, ArrowBack, Logout, Settings, SwipeRight } from '@mui/icons-materi
 import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
 
-import { TOOLBAR_ITEMS } from '@src/shared/constants';
+import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 import { AppBarStyled } from './styled';
 
 export const Header: FC = () => {
@@ -36,7 +36,7 @@ export const Header: FC = () => {
 
   const handleScroll = useCallback((to: string) => {
     scroller.scrollTo(to, {
-      duration: 200,
+      duration: SCROLL_SPEED,
       smooth: true,
     });
   }, []);

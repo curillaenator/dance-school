@@ -2,13 +2,13 @@ import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { Coach } from './Coach';
 
 import { Context } from '@src/context';
-
 import { useCoaches } from './hooks/useCoaches';
 
 import { LandingSectionCommonProps } from '@src/types';
@@ -24,7 +24,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
     <Element name={name}>
       <Box
         sx={{
-          padding: '120px 0',
+          paddingTop: '120px',
         }}
       >
         <Typography
@@ -55,10 +55,13 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           соревнования.
         </Typography>
 
+        {/* <Button onClick={addCoach}>sfsf</Button> */}
+
         <Box
           sx={{
             width: '100%',
           }}
+          paddingY={8}
           bgcolor={(theme) => theme.palette.primary.dark}
         >
           <Grid

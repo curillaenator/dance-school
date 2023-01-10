@@ -1,3 +1,18 @@
+// Landind and navigation
+
+export type LandingSectionsType = 'main' | 'coaches' | 'prices' | 'aboutus' | 'contacts';
+
+export type ToolbarItemType = {
+  title: string;
+  to: LandingSectionsType;
+}[];
+
+export interface LandingSectionCommonProps {
+  name: LandingSectionsType;
+}
+
+// Data
+
 export interface UserType {
   uid: string | null;
   photoURL: string | null;
@@ -21,13 +36,9 @@ export interface CoachType {
   photoURL: string;
 }
 
-export type LandingSectionsType = 'main' | 'coaches';
-
-export type ToolbarItemType = {
-  title: string;
-  to: LandingSectionsType;
-}[];
-
-export interface LandingSectionCommonProps {
-  name: LandingSectionsType;
+export interface PriceType {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
 }

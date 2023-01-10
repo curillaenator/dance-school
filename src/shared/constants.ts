@@ -3,6 +3,9 @@ import { ToolbarItemType } from '@src/types';
 export const TOOLBAR_ITEMS: ToolbarItemType = [
   { title: 'ЗАПИСАТЬСЯ', to: 'main' },
   { title: 'ТРЕНЕРЫ', to: 'coaches' },
-  // { title: 'ЦЕНЫ', to: 'aboutus' },
-  // { title: 'КОНТАКТЫ', to: 'aboutus' },
+  { title: 'О НАС', to: 'aboutus' },
+  { title: 'ЦЕНЫ', to: 'prices' },
+  { title: 'КОНТАКТЫ', to: 'contacts' },
 ];
+
+export const SCROLL_SPEED = 300;

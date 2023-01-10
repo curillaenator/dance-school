@@ -1,25 +1,22 @@
 import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Dialog from '@mui/material/Dialog';
-
-import { Background, Application } from './components';
+import { Background } from './components';
 
 import { Context } from '@src/context';
-import { useModalControl } from './hooks/useModalControl';
-
 import { ct } from './constants';
-
 import { LandingSectionCommonProps } from '@src/types';
 
-export const Main: FC<LandingSectionCommonProps> = (props) => {
-  const { name } = props;
+interface MainProps extends LandingSectionCommonProps {
+  handleOpen: () => void;
+}
+
+export const Main: FC<MainProps> = (props) => {
+  const { name, handleOpen } = props;
 
   const { isMobile } = useContext(Context);
-  const { open, handleClose, handleOpen } = useModalControl();
 
   return (
     <Element name={name}>
@@ -105,10 +102,6 @@ export const Main: FC<LandingSectionCommonProps> = (props) => {
             Записаться
           </Button>
         </Box>
-
-        <Dialog onClose={handleClose} open={open}>
-          <Application handleClose={handleClose} />
-        </Dialog>
       </Box>
     </Element>
   );

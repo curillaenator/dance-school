@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-import { TOOLBAR_ITEMS } from '@src/shared/constants';
+import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 import svg from '@src/assets/drawerDecor1.svg';
 
 const ImgStyled = styled.img({
@@ -28,7 +28,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
       closeDrawer();
 
       scroller.scrollTo(to, {
-        duration: 200,
+        duration: SCROLL_SPEED,
         smooth: true,
       });
     },
