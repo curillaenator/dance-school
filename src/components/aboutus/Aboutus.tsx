@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Element } from 'react-scroll';
+import YouTube from 'react-youtube';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -12,31 +14,79 @@ import { useModalControl } from '@src/hooks/useModalControl';
 import { useGallery } from './hooks/useGallery';
 
 import { srcset } from './helpers';
+import { GALLERY_ROW_HEIGHT } from './constants';
 
 import { LandingSectionCommonProps } from '@src/types';
 
-export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
-  const { name } = props;
+import styles from './styles.module.scss';
 
-  const { initialSlide, photos, gallery, handleInitialSlide } = useGallery();
+export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
+  const { name, maxWidth } = props;
+
+  const { isMobile, initialSlide, photos, gallery, handleInitialSlide } = useGallery();
   const { open, handleClose, handleOpen } = useModalControl();
 
   return (
     <Element name={name}>
-      <Box
-        sx={{
-          paddingY: 8,
-        }}
-      >
+      <Box paddingTop={16}>
+        <Typography
+          variant={isMobile ? 'h4' : 'h3'}
+          align="center"
+          color={(theme) => theme.palette.text.primary}
+          fontWeight={500}
+          paddingX={4}
+          marginX="auto"
+          mb={4}
+          sx={{
+            zIndex: 0,
+            maxWidth,
+          }}
+        >
+          Кто мы
+        </Typography>
+
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color={(theme) => theme.palette.text.secondary}
+          paddingX={4}
+          marginX="auto"
+          mb={4}
+          sx={{
+            zIndex: 0,
+            maxWidth,
+          }}
+        >
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error adipisci labore molestiae earum consequatur
+          autem ipsam, sed dolores dicta aut tempora impedit natus dolorum! Voluptatibus corporis nisi enim recusandae
+          possimus.
+        </Typography>
+
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color={(theme) => theme.palette.text.secondary}
+          paddingX={4}
+          marginX="auto"
+          mb={4}
+          sx={{
+            zIndex: 0,
+            maxWidth,
+          }}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat nesciunt consectetur fuga obcaecati quis
+          aspernatur hic minima earum.
+        </Typography>
+
         <ImageList
           sx={{
-            maxWidth: '1024px',
+            maxWidth,
             marginX: 'auto',
             paddingX: 0.5,
           }}
           variant="quilted"
           cols={4}
-          rowHeight={200}
+          rowHeight={GALLERY_ROW_HEIGHT}
         >
           {gallery.map((item, i) => (
             <ImageListItem
@@ -59,7 +109,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
               }}
             >
               <img
-                {...srcset(item.img, 200, item.rows, item.cols)}
+                {...srcset(item.img, GALLERY_ROW_HEIGHT, item.rows, item.cols)}
                 alt={item.title}
                 loading="lazy"
                 onClick={() => {
@@ -70,6 +120,18 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
             </ImageListItem>
           ))}
         </ImageList>
+
+        <Box width="100%" paddingTop={8}>
+          <Box
+            marginX="auto"
+            width="100%"
+            sx={{
+              maxWidth,
+            }}
+          >
+            <YouTube videoId="wKp-rKaMIVQ" className={styles.playerContainer} iframeClassName={styles.iframe} />
+          </Box>
+        </Box>
       </Box>
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth="lg">

@@ -14,7 +14,7 @@ interface MainProps extends LandingSectionCommonProps {
 }
 
 export const Main: FC<MainProps> = (props) => {
-  const { name, handleOpen } = props;
+  const { name, maxWidth, handleOpen } = props;
 
   const { isMobile } = useContext(Context);
 
@@ -83,7 +83,7 @@ export const Main: FC<MainProps> = (props) => {
               color: 'white',
               zIndex: 0,
               padding: '32px',
-              maxWidth: '1024px',
+              maxWidth,
               margin: '0 auto',
             }}
           >

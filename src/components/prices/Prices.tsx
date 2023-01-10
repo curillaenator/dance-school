@@ -19,7 +19,7 @@ interface PricesProps extends LandingSectionCommonProps {
 }
 
 export const Prices: FC<PricesProps> = (props) => {
-  const { name, handleOpen } = props;
+  const { name, handleOpen, maxWidth } = props;
 
   const { isMobile } = useContext(Context);
 
@@ -27,6 +27,7 @@ export const Prices: FC<PricesProps> = (props) => {
 
   return (
     <Element name={name}>
+      <Box height={128} />
       <Box
         sx={{
           width: '100%',
@@ -42,7 +43,7 @@ export const Prices: FC<PricesProps> = (props) => {
           paddingX={4}
           sx={{
             zIndex: 0,
-            maxWidth: '1024px',
+            maxWidth,
             margin: '0 auto 32px',
           }}
         >
@@ -53,7 +54,7 @@ export const Prices: FC<PricesProps> = (props) => {
           container
           spacing={8}
           sx={{
-            maxWidth: '1024px',
+            maxWidth,
             margin: '0 auto 64px',
           }}
         >

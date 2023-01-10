@@ -2,7 +2,6 @@ import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 
@@ -14,7 +13,7 @@ import { useCoaches } from './hooks/useCoaches';
 import { LandingSectionCommonProps } from '@src/types';
 
 export const Coaches: FC<LandingSectionCommonProps> = (props) => {
-  const { name } = props;
+  const { name, maxWidth } = props;
 
   const { isMobile } = useContext(Context);
 
@@ -22,22 +21,20 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box
-        sx={{
-          paddingTop: '120px',
-        }}
-      >
+      <Box paddingTop={16}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
           align="center"
           sx={{
             color: 'white',
             zIndex: 0,
+            maxWidth,
+            margin: '0 auto',
             fontWeight: 500,
             padding: '0 32px',
           }}
         >
-          Тренеры
+          Наши тренеры
         </Typography>
 
         <Typography
@@ -47,15 +44,13 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
             color: 'white',
             zIndex: 0,
             padding: '32px',
-            maxWidth: '1024px',
+            maxWidth,
             margin: '0 auto',
           }}
         >
-          Наши преподаватели — настоящие профессионалы с большим опытом работы и наградами за престижные танцевальные
-          соревнования.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, tenetur quas sunt iure ratione debitis
+          dolore tempore, soluta qui, fuga numquam eligendi?
         </Typography>
-
-        {/* <Button onClick={addCoach}>sfsf</Button> */}
 
         <Box
           sx={{
@@ -68,7 +63,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
             container
             spacing={8}
             sx={{
-              maxWidth: '1024px',
+              maxWidth,
               margin: '0 auto',
             }}
           >

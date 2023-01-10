@@ -9,6 +9,7 @@ export type ToolbarItemType = {
 
 export interface LandingSectionCommonProps {
   name: LandingSectionsType;
+  maxWidth?: string;
 }
 
 // Data
