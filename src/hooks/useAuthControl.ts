@@ -2,18 +2,15 @@ import { useEffect, useState, useCallback } from 'react';
 import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { UserType } from '@src/types';
 
-const provider = new GoogleAuthProvider();
-
-const ADMINS: Record<string, string> = {
-  '2YP21NrYIHgU52Abi1ATdsE6zjL2': 'curillaenator@gmail.com',
-};
+const PROVIDER = new GoogleAuthProvider();
+const ADMINS = JSON.parse(process.env.ADMINS as string) as string[];
 
 export const useAuthControl = () => {
   const [uid, setUid] = useState<UserType | null>(null);
   const auth = getAuth();
 
   const signIn = useCallback(() => {
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, PROVIDER);
   }, [auth]);
 
   const logOut = useCallback(() => {
@@ -27,12 +24,12 @@ export const useAuthControl = () => {
         return;
       }
 
-      const { uid, photoURL, email } = user;
+      const { uid, photoURL } = user;
 
       setUid({
         uid,
         photoURL,
-        isAdmin: uid in ADMINS && ADMINS[uid] === email,
+        isAdmin: ADMINS.includes(uid),
       });
     });
   }, [auth]);

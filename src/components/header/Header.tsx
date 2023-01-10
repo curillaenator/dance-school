@@ -15,7 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-// import MenuIcon from '@mui/icons-material/Menu';
 import { List, ArrowBack, Logout, Settings, SwipeRight } from '@mui/icons-material';
 
 import { Context } from '@src/context';
@@ -25,7 +24,7 @@ import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 import { AppBarStyled } from './styled';
 
 export const Header: FC = () => {
-  const { uid, signIn, isMobile, logOut, openDrawer } = useContext(Context);
+  const { uid, isMobile, logOut, openDrawer } = useContext(Context);
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
 
   const navigate = useNavigate();
@@ -45,8 +44,6 @@ export const Header: FC = () => {
     if (isLanding) openDrawer();
     if (!isLanding) navigate('/');
   }, [isLanding, openDrawer, navigate]);
-
-  console.log(signIn);
 
   return (
     <AppBarStyled>
@@ -87,22 +84,6 @@ export const Header: FC = () => {
             ))}
           </ButtonGroup>
         )}
-
-        {/* {!uid && (
-          <Button
-            size="large"
-            onClick={signIn}
-            sx={{
-              minHeight: 56,
-              position: 'absolute',
-              top: '50%',
-              right: '32px',
-              transform: 'translate(0,-50%)',
-            }}
-          >
-            <MenuIcon color="inherit" />
-          </Button>
-        )} */}
 
         {uid?.isAdmin && (
           <Button
