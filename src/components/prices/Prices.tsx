@@ -33,7 +33,7 @@ export const Prices: FC<PricesProps> = (props) => {
           width: '100%',
         }}
         paddingY={8}
-        bgcolor={(theme) => theme.palette.success.main}
+        bgcolor={(theme) => theme.palette.success.dark}
       >
         <Typography
           variant={isMobile ? 'h4' : 'h3'}

@@ -25,8 +25,8 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
           align="center"
+          color={(theme) => theme.palette.text.primary}
           sx={{
-            color: 'white',
             zIndex: 0,
             maxWidth,
             margin: '0 auto',
@@ -40,8 +40,8 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
         <Typography
           variant="subtitle1"
           align="center"
+          color={(theme) => theme.palette.text.secondary}
           sx={{
-            color: 'white',
             zIndex: 0,
             padding: '32px',
             maxWidth,
