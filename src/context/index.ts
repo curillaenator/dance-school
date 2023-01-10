@@ -9,6 +9,7 @@ interface ContextType {
   signIn: () => void;
   logOut: () => void;
   mainSlider: string[];
+  gallery: string[];
   openDrawer: () => void;
   closeDrawer: () => void;
 }
@@ -19,6 +20,7 @@ export const Context = createContext<ContextType>({
   signIn: () => {},
   logOut: () => {},
   mainSlider: [],
+  gallery: [],
   openDrawer: () => {},
   closeDrawer: () => {},
 });

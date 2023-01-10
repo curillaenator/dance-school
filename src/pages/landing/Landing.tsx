@@ -10,7 +10,7 @@ import { Contacts } from '@src/components/contacts';
 
 import { Application } from './components';
 
-import { useModalControl } from './hooks/useModalControl';
+import { useModalControl } from '@src/hooks/useModalControl';
 
 export const Landing: FC = () => {
   const { open, handleClose, handleOpen } = useModalControl();

@@ -6,9 +6,6 @@ import { Context } from '@src/context';
 
 import { ImageStyled, SwiperStyled } from './styled';
 
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-
 export const Background: FC = () => {
   const { mainSlider } = useContext(Context);
 

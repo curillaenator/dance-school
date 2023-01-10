@@ -73,7 +73,7 @@ export const Prices: FC<PricesProps> = (props) => {
               margin: '0 auto',
             }}
           >
-            Оставить заявку
+            Позвоните мне
           </Button>
         </Box>
       </Box>

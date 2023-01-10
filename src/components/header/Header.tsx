@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import { List, ArrowBack, Logout, Settings, SwipeRight } from '@mui/icons-material';
 
 import { Context } from '@src/context';
@@ -44,7 +44,9 @@ export const Header: FC = () => {
   const handleActionButton = useCallback(() => {
     if (isLanding) openDrawer();
     if (!isLanding) navigate('/');
-  }, [isLanding, handleClose]);
+  }, [isLanding, openDrawer, navigate]);
+
+  console.log(signIn);
 
   return (
     <AppBarStyled>
@@ -86,7 +88,7 @@ export const Header: FC = () => {
           </ButtonGroup>
         )}
 
-        {!uid && (
+        {/* {!uid && (
           <Button
             size="large"
             onClick={signIn}
@@ -100,7 +102,7 @@ export const Header: FC = () => {
           >
             <MenuIcon color="inherit" />
           </Button>
-        )}
+        )} */}
 
         {uid?.isAdmin && (
           <Button

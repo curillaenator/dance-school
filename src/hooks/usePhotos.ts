@@ -4,18 +4,20 @@ import { ST } from '@src/config';
 
 export const usePhotos = () => {
   const [mainSlider, setMainSlider] = useState<string[]>([]);
+  const [gallery, setGallery] = useState<string[]>([]);
 
   useEffect(() => {
     listAll(ref(ST, 'mainSlider'))
       .then((res) => res.items.map((item) => getDownloadURL(item)))
       .then((promises) => Promise.all(promises).then((urls) => setMainSlider(urls)));
 
-    // listAll(ref(ST, 'coaches'))
-    //   .then((res) => res.items.map((item) => [item.fullPath, getDownloadURL(item)]))
-    //   .then((touples) => Promise.all(touples));
+    listAll(ref(ST, 'gallery'))
+      .then((res) => res.items.map((item) => getDownloadURL(item)))
+      .then((promises) => Promise.all(promises).then((urls) => setGallery(urls)));
   }, []);
 
   return {
     mainSlider,
+    gallery,
   };
 };

@@ -11,12 +11,13 @@ import { PriceType } from '@src/types';
 
 const Card = styled(Paper)({
   textAlign: 'center',
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
+  // display: 'flex',
+  // alignItems: 'center',
+  // flexDirection: 'column',
   backgroundColor: 'transparent',
   backgroundImage: 'none',
   boxShadow: 'none',
+  // width: '100%',
 });
 
 export const Price: FC<PriceType> = (props) => {
@@ -25,11 +26,16 @@ export const Price: FC<PriceType> = (props) => {
   return (
     <Grid xs={12} md={6} lg={4}>
       <Card>
-        <Typography variant="h4" fontWeight={500} color={(theme) => theme.palette.text.primary} mb={1}>
+        <Typography variant="h3" fontWeight={700} color={(theme) => theme.palette.text.primary} mb={2}>
           {name}
         </Typography>
 
-        <Divider />
+        <Divider
+          sx={{
+            borderColor: 'rgba(255,255,255,0.5)',
+            marginBottom: 2,
+          }}
+        />
 
         <Typography variant="subtitle2" color={(theme) => theme.palette.text.primary} mb={1}>
           {price}
