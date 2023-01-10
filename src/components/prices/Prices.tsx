@@ -28,13 +28,7 @@ export const Prices: FC<PricesProps> = (props) => {
   return (
     <Element name={name}>
       <Box height={128} />
-      <Box
-        sx={{
-          width: '100%',
-        }}
-        paddingY={8}
-        bgcolor={(theme) => theme.palette.success.dark}
-      >
+      <Box width="100%" paddingY={16} bgcolor={(theme) => theme.palette.info.dark}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
           align="center"
