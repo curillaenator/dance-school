@@ -51,7 +51,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           color={(theme) => theme.palette.text.secondary}
           paddingX={4}
           marginX="auto"
-          mb={4}
+          mb={16}
           sx={{
             zIndex: 0,
             maxWidth,
@@ -62,64 +62,50 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           possimus.
         </Typography>
 
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color={(theme) => theme.palette.text.secondary}
-          paddingX={4}
-          marginX="auto"
-          mb={4}
-          sx={{
-            zIndex: 0,
-            maxWidth,
-          }}
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat nesciunt consectetur fuga obcaecati quis
-          aspernatur hic minima earum.
-        </Typography>
+        <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main}>
+          <ImageList
+            sx={{
+              maxWidth,
+              marginX: 'auto',
+              paddingX: 0.5,
+            }}
+            variant="quilted"
+            cols={4}
+            rowHeight={GALLERY_ROW_HEIGHT}
+          >
+            {gallery.map((item, i) => (
+              <ImageListItem
+                key={item.id}
+                cols={item.cols || 1}
+                rows={item.rows || 1}
+                sx={{
+                  borderRadius: 1,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: '0.1s ease-in-out',
 
-        <ImageList
-          sx={{
-            maxWidth,
-            marginX: 'auto',
-            paddingX: 0.5,
-          }}
-          variant="quilted"
-          cols={4}
-          rowHeight={GALLERY_ROW_HEIGHT}
-        >
-          {gallery.map((item, i) => (
-            <ImageListItem
-              key={item.id}
-              cols={item.cols || 1}
-              rows={item.rows || 1}
-              sx={{
-                borderRadius: 1,
-                overflow: 'hidden',
-                cursor: 'pointer',
-                transition: '0.1s ease-in-out',
+                  ':hover': {
+                    filter: 'saturate(110%) brightness(0.9)',
+                  },
 
-                ':hover': {
-                  filter: 'saturate(110%) brightness(0.9)',
-                },
-
-                ':active': {
-                  filter: 'saturate(120%) brightness(0.8)',
-                },
-              }}
-            >
-              <img
-                {...srcset(item.img, GALLERY_ROW_HEIGHT, item.rows, item.cols)}
-                alt={item.title}
-                loading="lazy"
-                onClick={() => {
-                  handleInitialSlide(i);
-                  handleOpen();
+                  ':active': {
+                    filter: 'saturate(120%) brightness(0.8)',
+                  },
                 }}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
+              >
+                <img
+                  {...srcset(item.img, GALLERY_ROW_HEIGHT, item.rows, item.cols)}
+                  alt={item.title}
+                  loading="lazy"
+                  onClick={() => {
+                    handleInitialSlide(i);
+                    handleOpen();
+                  }}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
 
         <Box width="100%" paddingTop={8}>
           <Box

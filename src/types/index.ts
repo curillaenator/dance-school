@@ -1,3 +1,5 @@
+export type ThemeType = 'light' | 'dark';
+
 // Landind and navigation
 
 export type LandingSectionsType = 'main' | 'coaches' | 'prices' | 'aboutus' | 'contacts';

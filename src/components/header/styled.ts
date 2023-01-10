@@ -2,8 +2,8 @@ import AppBar from '@mui/material/AppBar';
 
 import { styled } from '@mui/material/styles';
 
-export const AppBarStyled = styled(AppBar)({
+export const AppBarStyled = styled(AppBar)(({ theme }) => ({
   backgroundColor: 'transparent',
-  background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)',
+  background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 100%)`,
   boxShadow: 'none',
-});
+}));

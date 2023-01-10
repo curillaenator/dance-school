@@ -16,7 +16,6 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
 
   const { isMobile } = useContext(Context);
-
   const { coaches } = useCoaches();
 
   return (
@@ -26,13 +25,12 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           variant={isMobile ? 'h4' : 'h3'}
           align="center"
           color={(theme) => theme.palette.text.primary}
-          sx={{
-            zIndex: 0,
-            maxWidth,
-            margin: '0 auto',
-            fontWeight: 500,
-            padding: '0 32px',
-          }}
+          px={4}
+          mb={4}
+          mx="auto"
+          fontWeight={500}
+          maxWidth={maxWidth}
+          zIndex={0}
         >
           Наши тренеры
         </Typography>
@@ -41,32 +39,17 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           variant="subtitle1"
           align="center"
           color={(theme) => theme.palette.text.secondary}
-          sx={{
-            zIndex: 0,
-            padding: '32px',
-            maxWidth,
-            margin: '0 auto',
-          }}
+          px={4}
+          mb={8}
+          mx="auto"
+          zIndex={0}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, tenetur quas sunt iure ratione debitis
           dolore tempore, soluta qui, fuga numquam eligendi?
         </Typography>
 
-        <Box
-          sx={{
-            width: '100%',
-          }}
-          paddingY={8}
-          bgcolor={(theme) => theme.palette.primary.dark}
-        >
-          <Grid
-            container
-            spacing={8}
-            sx={{
-              maxWidth,
-              margin: '0 auto',
-            }}
-          >
+        <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main}>
+          <Grid container spacing={8} marginX="auto" maxWidth={maxWidth}>
             {coaches.map((coach) => (
               <Coach key={coach.id} {...coach} />
             ))}

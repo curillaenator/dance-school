@@ -1,18 +1,14 @@
 import React, { FC, useCallback } from 'react';
 import { scroller } from 'react-scroll';
-import styled from '@emotion/styled';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
-import svg from '@src/assets/drawerDecor1.svg';
+import { Logo } from '@src/components/logo';
 
-const ImgStyled = styled.img({
-  height: '50%',
-});
+import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 
 interface DrawerContentProps {
   drawer: boolean;
@@ -54,7 +50,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
           gap: '8vh',
           width: '70vw',
           height: '100%',
-          backgroundColor: '#171717',
+          backgroundColor: 'transparent',
           paddingTop: '15vh',
           borderRight: '1px solid rgba(255,255,255, 0.3)',
         }}
@@ -68,7 +64,18 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
           ))}
         </ButtonGroup>
 
-        <ImgStyled src={svg} />
+        <Box
+          width="100%"
+          maxHeight="400px"
+          overflow="hidden"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Logo width={600} height={600} />
+        </Box>
+
+        {/* <ImgStyled src={svg} /> */}
       </Box>
     </SwipeableDrawer>
   );

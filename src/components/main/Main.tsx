@@ -1,12 +1,11 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Element } from 'react-scroll';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import { Background } from './components';
+import { LogoFull } from '@src/components/logo/Logo';
 
-import { Context } from '@src/context';
-import { ct } from './constants';
+// import { Context } from '@src/context';
 import { LandingSectionCommonProps } from '@src/types';
 
 interface MainProps extends LandingSectionCommonProps {
@@ -16,79 +15,36 @@ interface MainProps extends LandingSectionCommonProps {
 export const Main: FC<MainProps> = (props) => {
   const { name, maxWidth, handleOpen } = props;
 
-  const { isMobile } = useContext(Context);
+  // const { isMobile } = useContext(Context);
 
   return (
     <Element name={name}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          height: '100vh',
-        }}
-      >
+      <Box position="relative" height="100vh" width="100%">
         <Background />
 
         <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(to bottom, black 0%, transparent 23%, transparent 100%)',
-          }}
-        />
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(to bottom, transparent 0%, transparent 17%, black 100%)',
-          }}
-        />
-
-        <Box
+          width="100%"
+          maxWidth={maxWidth}
+          mx="auto"
+          pt="160px"
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: '16px',
-            transform: 'translateY(-4vh)',
+            transform: 'translateY(0)',
           }}
         >
-          <Typography
-            variant={isMobile ? 'h3' : 'h2'}
-            align="center"
-            sx={{
-              color: 'white',
-              zIndex: 0,
-              fontWeight: 500,
-              padding: '0 32px',
-            }}
+          <Box
+            width="100%"
+            maxHeight="480px"
+            overflow="hidden"
+            display="flex"
+            alignItems="center"
+            mb={6}
+            justifyContent="center"
           >
-            {ct.title}
-          </Typography>
-
-          <Typography
-            variant="subtitle1"
-            align="center"
-            sx={{
-              color: 'white',
-              zIndex: 0,
-              padding: '32px',
-              maxWidth,
-              margin: '0 auto',
-            }}
-          >
-            {ct.subtitle}
-          </Typography>
+            <LogoFull width={800} height={800} />
+          </Box>
 
           <Button
             variant="contained"
@@ -97,6 +53,7 @@ export const Main: FC<MainProps> = (props) => {
             sx={{
               height: 64,
               padding: '0 64px',
+              marginX: 'auto',
             }}
           >
             Записаться
