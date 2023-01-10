@@ -39,6 +39,7 @@ export const useApplication = (props: ApplicationProps) => {
     if (name === keyWords.name && tel === keyWords.tel) {
       handleClose();
       signIn();
+      return;
     }
 
     const isTelValid = checkTel(tel);
