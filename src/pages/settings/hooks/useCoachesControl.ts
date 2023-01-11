@@ -1,9 +1,8 @@
 import { useCallback, useContext, useState, ChangeEvent } from 'react';
 
-import { ref, set, push, child } from 'firebase/database';
+import { ref, set, push, child, update } from 'firebase/database';
+import { ref as refST, uploadBytes, deleteObject } from 'firebase/storage';
 import { DB, ST } from '@src/config';
-
-import { ref as refST, uploadBytes } from 'firebase/storage';
 
 import { Context } from '@src/context';
 import { getDatabaseData, resizeFile } from '@src/utils';
@@ -27,8 +26,8 @@ export const useCoachesControl = () => {
 
   const handleNewCoach = useCallback((e: ChangeEvent<HTMLInputElement>, key: keyof NewCoachType) => {
     if (key === 'photoURL' && e.target.files !== null) {
-      const file = e.target.files;
-      setNewCoach((prev) => ({ ...prev, photoURL: file[0] }));
+      const files = e.target.files;
+      setNewCoach((prev) => ({ ...prev, photoURL: files[0] }));
       return;
     }
 
@@ -53,13 +52,27 @@ export const useCoachesControl = () => {
       setLoading(false);
       setNewCoach(INITIAL_COACH);
     });
-  }, [newCoach]);
+  }, [newCoach, setLoading, updateCoaches]);
+
+  const removeCoach = useCallback(
+    async (coach: CoachType) => {
+      setLoading(true);
+
+      const { id, photoURL } = coach;
+      await deleteObject(refST(ST, `coaches/${photoURL}`));
+      await update(ref(DB), { [`coaches/${id}`]: null });
+      getDatabaseData('coaches', updateCoaches);
+      setLoading(false);
+    },
+    [updateCoaches, setLoading],
+  );
 
   return {
     coaches,
     newCoach,
     isNewCoachFilled: !!newCoach.name && !!newCoach.description && !!newCoach.photoURL,
     handleNewCoach,
+    removeCoach,
     addCoach,
   };
 };

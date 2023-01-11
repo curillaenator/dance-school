@@ -5,7 +5,10 @@ import { ST } from '@src/config';
 import Grid from '@mui/material/Unstable_Grid2';
 import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import { styled } from '@mui/material/styles';
 
@@ -21,8 +24,13 @@ const Card = styled(Paper)({
   boxShadow: 'none',
 });
 
-export const Coach: FC<CoachType> = (props) => {
-  const { name, description, photoURL } = props;
+interface CoachInterface extends CoachType {
+  isEditable?: boolean;
+  onDelete?: (coach: CoachType) => void;
+}
+
+export const Coach: FC<CoachInterface> = (props) => {
+  const { id, name, description, photoURL, isEditable, onDelete = () => {} } = props;
 
   const [photo, setPhoto] = useState<string | null>(null);
   useEffect(() => {
@@ -31,7 +39,25 @@ export const Coach: FC<CoachType> = (props) => {
 
   return (
     <Grid xs={12} md={6} lg={4}>
-      <Card>
+      <Card
+        sx={{
+          position: 'relative',
+        }}
+      >
+        {isEditable && (
+          <IconButton
+            color="error"
+            onClick={() => onDelete({ id, name, description, photoURL })}
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+            }}
+          >
+            <DeleteRoundedIcon />
+          </IconButton>
+        )}
+
         <Avatar
           src={photo ? photo : undefined}
           sx={{

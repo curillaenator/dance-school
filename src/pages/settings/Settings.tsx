@@ -33,7 +33,7 @@ import { useCoachesControl } from './hooks/useCoachesControl';
 
 export const Settings: FC = () => {
   const { mainSlider, gallery, handleUpload, handleRemoveMainSlider, handleRemoveGallery } = usePhotoControl();
-  const { newCoach, coaches, isNewCoachFilled, addCoach, handleNewCoach } = useCoachesControl();
+  const { newCoach, coaches, isNewCoachFilled, addCoach, handleNewCoach, removeCoach } = useCoachesControl();
 
   return (
     <Box width="100%" pt={16} px={4} position="relative">
@@ -79,53 +79,55 @@ export const Settings: FC = () => {
           <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
             <Grid container spacing={8} width="100%">
               {coaches.map((coach) => (
-                <Coach key={coach.id} {...coach} />
+                <Coach key={coach.id} {...coach} isEditable onDelete={removeCoach} />
               ))}
             </Grid>
           </Box>
 
-          <FormControl variant="outlined" fullWidth>
-            <TextField
-              id="coach-name"
-              label="Имя нового тренера"
-              sx={{ marginBottom: 2 }}
-              autoFocus
-              value={newCoach.name}
-              // @ts-expect-error some description
-              onChange={(e) => handleNewCoach(e, 'name')}
-              autoComplete="off"
-              required
+          <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
+            <FormControl variant="outlined" fullWidth>
+              <TextField
+                id="coach-name"
+                label="Имя нового тренера"
+                sx={{ marginBottom: 2 }}
+                autoFocus
+                value={newCoach.name}
+                // @ts-expect-error some description
+                onChange={(e) => handleNewCoach(e, 'name')}
+                autoComplete="off"
+                required
+              />
+
+              <TextField
+                id="comment"
+                label={'Красивое описание тренера'}
+                sx={{ marginBottom: 2 }}
+                value={newCoach.description}
+                autoComplete="off"
+                // @ts-expect-error some description
+                onChange={(e) => handleNewCoach(e, 'description')}
+                multiline
+                minRows={2}
+                maxRows={4}
+                required
+              />
+            </FormControl>
+
+            <Avatar
+              src={newCoach.photoURL ? URL.createObjectURL(newCoach.photoURL as File) : undefined}
+              sx={{
+                width: 236,
+                height: 236,
+                marginBottom: 2,
+              }}
             />
 
-            <TextField
-              id="comment"
-              label={'Красивое описание тренера'}
-              sx={{ marginBottom: 2 }}
-              value={newCoach.description}
-              autoComplete="off"
-              // @ts-expect-error some description
-              onChange={(e) => handleNewCoach(e, 'description')}
-              multiline
-              minRows={2}
-              maxRows={4}
-              required
-            />
-          </FormControl>
-
-          <Avatar
-            src={newCoach.photoURL ? URL.createObjectURL(newCoach.photoURL as File) : undefined}
-            sx={{
-              width: 236,
-              height: 236,
-              marginBottom: 2,
-            }}
-          />
-
-          <Box mb={4}>
-            <Button startIcon={<AddAPhotoleIcon />} variant="outlined" component="label">
-              Выбрать фото тренера
-              <input hidden accept="image/*" type="file" onChange={(e) => handleNewCoach(e, 'photoURL')} />
-            </Button>
+            <Box>
+              <Button startIcon={<AddAPhotoleIcon />} variant="outlined" component="label">
+                Выбрать фото тренера
+                <input hidden accept="image/*" type="file" onChange={(e) => handleNewCoach(e, 'photoURL')} />
+              </Button>
+            </Box>
           </Box>
 
           <Button
