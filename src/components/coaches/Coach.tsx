@@ -41,11 +41,11 @@ export const Coach: FC<CoachType> = (props) => {
           }}
         />
 
-        <Typography variant="h6" fontWeight={500} color="#171717" mb={1}>
+        <Typography variant="h6" fontWeight={500} color={(theme) => theme.palette.background.default} mb={1}>
           {name}
         </Typography>
 
-        <Typography variant="subtitle2" color="#171717">
+        <Typography variant="subtitle2" color={(theme) => theme.palette.background.default}>
           {description}
         </Typography>
       </Card>

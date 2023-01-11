@@ -1,36 +1,50 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { createContext } from 'react';
-import { UserType } from '@src/types';
+import { UserType, CoachType } from '@src/types';
 
 interface ContextType {
-  uid: UserType | null;
   isMobile: boolean;
-  signIn: () => void;
-  logOut: () => void;
-  mainSlider: string[];
-  gallery: string[];
+  toggleTheme: () => void;
+
   openDrawer: () => void;
   closeDrawer: () => void;
-  toggleTheme: () => void;
+
+  uid: UserType | null;
+  signIn: () => void;
+  logOut: () => void;
+
+  mainSlider: string[];
+  gallery: string[];
   updateMainSlider: (newSlides: string[]) => void;
   updateGallery: (newSlides: string[]) => void;
+
+  coaches: CoachType[];
+  updateCoaches: (newCoaches: CoachType[]) => void;
+
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
 }
 
 export const Context = createContext<ContextType>({
-  uid: null,
   isMobile: false,
-  signIn: () => {},
-  logOut: () => {},
-  mainSlider: [],
-  gallery: [],
+  toggleTheme: () => {},
+
   openDrawer: () => {},
   closeDrawer: () => {},
-  toggleTheme: () => {},
+
+  uid: null,
+  signIn: () => {},
+  logOut: () => {},
+
+  mainSlider: [],
+  gallery: [],
   updateMainSlider: () => {},
   updateGallery: () => {},
+
+  coaches: [],
+  updateCoaches: () => {},
+
   loading: false,
   setLoading: () => {},
 });

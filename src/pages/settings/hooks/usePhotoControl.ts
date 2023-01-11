@@ -4,7 +4,7 @@ import { ST } from '@src/config';
 
 import { Context } from '@src/context';
 
-import { refetchSlides, resizeFile } from './utils';
+import { refetchStorage, resizeFile } from '@src/utils';
 
 type StoragePathType = 'mainSlider' | 'gallery';
 
@@ -23,7 +23,7 @@ export const usePhotoControl = () => {
 
         deleteObject(ref(ST, `mainSlider/${path}`))
           .then(() => {
-            refetchSlides('mainSlider', updateMainSlider);
+            refetchStorage('mainSlider', updateMainSlider);
             setLoading(false);
           })
           .catch(() => setLoading(false));
@@ -46,7 +46,7 @@ export const usePhotoControl = () => {
 
         deleteObject(ref(ST, `gallery/${path}`))
           .then(() => {
-            refetchSlides('gallery', updateGallery);
+            refetchStorage('gallery', updateGallery);
             setLoading(false);
           })
           .catch(() => setLoading(false));
@@ -79,7 +79,7 @@ export const usePhotoControl = () => {
           res.forEach((file) => {
             uploadBytes(ref(ST, `${storagePath}/${file.name}`), file)
               .then(() => {
-                refetchSlides(storagePath, updaters[storagePath]);
+                refetchStorage(storagePath, updaters[storagePath]);
                 setLoading(false);
               })
               .catch(() => setLoading(false));

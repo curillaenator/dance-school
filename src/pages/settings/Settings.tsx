@@ -1,12 +1,22 @@
 import React, { FC } from 'react';
 
 import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Unstable_Grid2';
+
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+// import Stack from '@mui/material/Stack';
+
 import Button from '@mui/material/Button';
+// import ButtonGroup from '@mui/material/ButtonGroup';
+import IconButton from '@mui/material/IconButton';
+
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -16,14 +26,18 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddAPhotoleIcon from '@mui/icons-material/AddAPhoto';
 
+import { Coach } from '@src/components/coaches';
+
 import { usePhotoControl } from './hooks/usePhotoControl';
+import { useCoachesControl } from './hooks/useCoachesControl';
 
 export const Settings: FC = () => {
   const { mainSlider, gallery, handleUpload, handleRemoveMainSlider, handleRemoveGallery } = usePhotoControl();
+  const { newCoach, coaches, isNewCoachFilled, addCoach, handleNewCoach } = useCoachesControl();
 
   return (
     <Box width="100%" pt={16} px={4} position="relative">
-      <Accordion defaultExpanded>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <Typography>Фотографии главного экрана (должно быть минимум 2)</Typography>
         </AccordionSummary>
@@ -52,6 +66,78 @@ export const Settings: FC = () => {
           <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
             Добавить
             <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e, 'mainSlider')} />
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+          <Typography>Тренеры</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
+            <Grid container spacing={8} width="100%">
+              {coaches.map((coach) => (
+                <Coach key={coach.id} {...coach} />
+              ))}
+            </Grid>
+          </Box>
+
+          <FormControl variant="outlined" fullWidth>
+            <TextField
+              id="coach-name"
+              label="Имя нового тренера"
+              sx={{ marginBottom: 2 }}
+              autoFocus
+              value={newCoach.name}
+              // @ts-expect-error some description
+              onChange={(e) => handleNewCoach(e, 'name')}
+              autoComplete="off"
+              required
+            />
+
+            <TextField
+              id="comment"
+              label={'Красивое описание тренера'}
+              sx={{ marginBottom: 2 }}
+              value={newCoach.description}
+              autoComplete="off"
+              // @ts-expect-error some description
+              onChange={(e) => handleNewCoach(e, 'description')}
+              multiline
+              minRows={2}
+              maxRows={4}
+              required
+            />
+          </FormControl>
+
+          <Avatar
+            src={newCoach.photoURL ? URL.createObjectURL(newCoach.photoURL as File) : undefined}
+            sx={{
+              width: 236,
+              height: 236,
+              marginBottom: 2,
+            }}
+          />
+
+          <Box mb={4}>
+            <Button startIcon={<AddAPhotoleIcon />} variant="outlined" component="label">
+              Выбрать фото тренера
+              <input hidden accept="image/*" type="file" onChange={(e) => handleNewCoach(e, 'photoURL')} />
+            </Button>
+          </Box>
+
+          <Button
+            variant="contained"
+            component="label"
+            onClick={addCoach}
+            disabled={!isNewCoachFilled}
+            sx={{
+              height: '56px',
+            }}
+          >
+            Добавить нового тренера
           </Button>
         </AccordionDetails>
       </Accordion>

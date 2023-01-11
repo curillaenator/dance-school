@@ -8,15 +8,13 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Coach } from './Coach';
 
 import { Context } from '@src/context';
-import { useCoaches } from './hooks/useCoaches';
 
 import { LandingSectionCommonProps } from '@src/types';
 
 export const Coaches: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
 
-  const { isMobile } = useContext(Context);
-  const { coaches } = useCoaches();
+  const { isMobile, coaches } = useContext(Context);
 
   return (
     <Element name={name}>

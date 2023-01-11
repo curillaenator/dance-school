@@ -12,8 +12,10 @@ import { Applications } from '@src/pages/applications';
 import { AppDrawer } from './components/appdrawer';
 
 import { Context } from '@src/context';
+
 import { useAuthControl } from '@src/hooks/useAuthControl';
 import { usePhotos } from '@src/hooks/usePhotos';
+import { useDatabase } from '@src/hooks/useDatabase';
 import { useDrawer } from '@src/hooks/useDrawer';
 import { useTheme } from '@src/hooks/useTheme';
 
@@ -24,19 +26,29 @@ getAnalytics(FB_APP);
 export const App: FC = () => {
   const location = useLocation();
   const authData = useAuthControl();
-  const appPhotos = usePhotos();
   const appDrawer = useDrawer();
 
-  const { isMobile, theme: currentTheme, toggleTheme } = useTheme();
+  const databaseData = useDatabase();
+  const storageData = usePhotos();
+
+  const appTheme = useTheme();
 
   const [loading, setLoading] = useState(false);
   const handleLoading = useCallback((load: boolean) => setLoading(load), []);
 
   return (
     <Context.Provider
-      value={{ ...authData, ...appPhotos, ...appDrawer, isMobile, toggleTheme, loading, setLoading: handleLoading }}
+      value={{
+        ...authData,
+        ...storageData,
+        ...databaseData,
+        ...appDrawer,
+        ...appTheme,
+        loading,
+        setLoading: handleLoading,
+      }}
     >
-      <ThemeProvider theme={currentTheme}>
+      <ThemeProvider theme={appTheme.theme}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Landing />} />
@@ -53,7 +65,7 @@ export const App: FC = () => {
           </Route>
         </Routes>
 
-        {isMobile && location.pathname === '/' && <AppDrawer {...appDrawer} />}
+        {appTheme.isMobile && location.pathname === '/' && <AppDrawer {...appDrawer} />}
       </ThemeProvider>
     </Context.Provider>
   );
