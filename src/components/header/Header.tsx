@@ -43,6 +43,19 @@ export const Header: FC = () => {
     });
   }, []);
 
+  // костыль для lazy, чтобы меню успело закрыться перед переходом
+  const handleNavigate = useCallback(
+    (to: string) => {
+      const closed = new Promise((res) => {
+        handleClose();
+        setTimeout(() => res(true), 0);
+      });
+
+      closed.then(() => navigate(to));
+    },
+    [handleClose, navigate],
+  );
+
   return (
     <AppBarStyled>
       <Box
@@ -149,26 +162,14 @@ export const Header: FC = () => {
         }}
       >
         <MenuList sx={{ minWidth: 200 }}>
-          <MenuItem
-            onClick={() => {
-              navigate('/applications');
-              handleClose();
-            }}
-            sx={{ height: 48 }}
-          >
+          <MenuItem onClick={() => handleNavigate('/applications')} sx={{ height: 48 }}>
             <ListItemIcon>
               <List fontSize="medium" />
             </ListItemIcon>
             <ListItemText>Заявки</ListItemText>
           </MenuItem>
 
-          <MenuItem
-            onClick={() => {
-              navigate('/settings');
-              handleClose();
-            }}
-            sx={{ height: 48 }}
-          >
+          <MenuItem onClick={() => handleNavigate('/settings')} sx={{ height: 48 }}>
             <ListItemIcon>
               <Settings fontSize="medium" />
             </ListItemIcon>

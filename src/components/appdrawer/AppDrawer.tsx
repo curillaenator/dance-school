@@ -51,6 +51,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
     >
       <Box
         width="70vw"
+        maxWidth="256px"
         height="100%"
         pt="15vh"
         borderRight={(theme) => `1px solid ${theme.palette.primary.main}`}
