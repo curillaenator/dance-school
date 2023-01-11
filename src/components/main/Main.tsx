@@ -1,21 +1,33 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Background } from './components';
-import { LogoFull } from '@src/components/logo/Logo';
+import Typography from '@mui/material/Typography';
+import styled from '@emotion/styled';
 
-// import { Context } from '@src/context';
+import { Background } from './components';
+
+import { Context } from '@src/context';
 import { LandingSectionCommonProps } from '@src/types';
+
+import logoFullImage from '@src/assets/logoFull.png';
 
 interface MainProps extends LandingSectionCommonProps {
   handleOpen: () => void;
 }
 
-export const Main: FC<MainProps> = (props) => {
-  const { name, maxWidth, handleOpen } = props;
+const ImgStyled = styled.img({
+  width: '100%',
+  maxWidth: '400px',
+  height: '100%',
+  objectFit: 'contain',
+  padding: '0 32px',
+});
 
-  // const { isMobile } = useContext(Context);
+export const Main: FC<MainProps> = (props) => {
+  const { name, handleOpen } = props;
+
+  const { isMobile } = useContext(Context);
 
   return (
     <Element name={name}>
@@ -24,27 +36,27 @@ export const Main: FC<MainProps> = (props) => {
 
         <Box
           width="100%"
-          maxWidth={maxWidth}
-          mx="auto"
-          pt="160px"
+          height="100%"
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
             transform: 'translateY(0)',
           }}
         >
-          <Box
-            width="100%"
-            maxHeight="480px"
-            overflow="hidden"
-            display="flex"
-            alignItems="center"
-            mb={6}
-            justifyContent="center"
-          >
-            <LogoFull width={800} height={800} />
+          <Box>
+            <ImgStyled src={logoFullImage} draggable="false" />
           </Box>
+
+          <Typography
+            variant="subtitle1"
+            fontSize={isMobile ? 22 : 26}
+            color={(theme) => theme.palette.text.primary}
+            mb={6}
+          >
+            Танцевальная Студия
+          </Typography>
 
           <Button
             variant="contained"

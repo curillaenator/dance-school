@@ -1,7 +1,29 @@
 import { useState, useCallback } from 'react';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
-import { THEMES } from '@src/theme';
+const DARK: ThemeOptions = {
+  typography: {
+    fontFamily: ['Montserrat'].join(','),
+  },
+
+  palette: {
+    mode: 'dark',
+
+    primary: {
+      main: '#D8C3AE',
+    },
+
+    secondary: {
+      main: grey[600],
+    },
+
+    background: {
+      default: '#363636',
+      paper: '#363636',
+    },
+  },
+};
 
 export const useTheme = () => {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
@@ -10,8 +32,10 @@ export const useTheme = () => {
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
+  const theme = mode === 'dark' ? DARK : {};
+
   return {
-    theme: createTheme(THEMES[mode]),
+    theme: createTheme(theme),
     toggleTheme,
   };
 };

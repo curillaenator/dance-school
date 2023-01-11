@@ -1,6 +1,6 @@
 .variables {
-  --swiper-navigation-color: #d8c3ae;
-  --swiper-pagination-color: #d8c3ae;
+  --swiper-navigation-color: var(--color-primary);
+  --swiper-pagination-color: var(--color-primary);
 }
 
 .playerContainer {
