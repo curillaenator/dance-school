@@ -21,7 +21,9 @@ import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
 
 import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
-import { AppBarStyled } from './styled';
+import { AppBarStyled, LogoStyled } from './styled';
+
+import logoImg from '@src/assets/logo.png';
 
 export const Header: FC = () => {
   const { uid, isMobile, logOut, openDrawer } = useContext(Context);
@@ -31,7 +33,7 @@ export const Header: FC = () => {
   const location = useLocation();
 
   const isLanding = location.pathname === '/';
-  const buttonSize = isMobile ? '40px' : '56px';
+  const buttonSize = '48px';
 
   const handleScroll = useCallback((to: string) => {
     scroller.scrollTo(to, {
@@ -39,11 +41,6 @@ export const Header: FC = () => {
       smooth: true,
     });
   }, []);
-
-  const handleActionButton = useCallback(() => {
-    if (isLanding) openDrawer();
-    if (!isLanding) navigate('/');
-  }, [isLanding, openDrawer, navigate]);
 
   return (
     <AppBarStyled>
@@ -58,24 +55,39 @@ export const Header: FC = () => {
           minHeight: 120,
         }}
       >
-        {isMobile && (
+        {isMobile && isLanding && (
           <IconButton
             size="large"
-            onClick={handleActionButton}
+            onClick={openDrawer}
             color="primary"
             sx={{
-              paddingLeft: 0,
               position: 'absolute',
               top: '50%',
-              left: '32px',
+              left: isMobile ? '16px' : '32px',
               transform: 'translate(0,-50%)',
             }}
           >
-            {isLanding ? <SwipeRight color="inherit" /> : <ArrowBack color="inherit" />}
+            {<SwipeRight color="inherit" />}
           </IconButton>
         )}
 
-        {!isMobile && (
+        {!isLanding && (
+          <IconButton
+            size="large"
+            onClick={() => navigate('/')}
+            color="primary"
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: isMobile ? '16px' : '32px',
+              transform: 'translate(0,-50%)',
+            }}
+          >
+            {<ArrowBack color="inherit" />}
+          </IconButton>
+        )}
+
+        {!isMobile && isLanding && (
           <ButtonGroup variant="text">
             {TOOLBAR_ITEMS.map((item) => (
               <Button key={item.title} sx={{ width: 120, minHeight: 56 }} onClick={() => handleScroll(item.to)}>
@@ -85,13 +97,13 @@ export const Header: FC = () => {
           </ButtonGroup>
         )}
 
-        {uid?.isAdmin && (
+        {uid?.isAdmin ? (
           <Button
             onClick={handleClick}
             sx={{
               position: 'absolute',
               top: '50%',
-              right: '32px',
+              right: isMobile ? '24px' : '32px',
               transform: 'translate(0,-50%)',
               padding: 0,
               minWidth: buttonSize,
@@ -105,6 +117,17 @@ export const Header: FC = () => {
               }}
             />
           </Button>
+        ) : (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              right: isMobile ? '24px' : '32px',
+              transform: 'translate(0,-50%)',
+            }}
+          >
+            <LogoStyled src={logoImg} />
+          </Box>
         )}
       </Box>
 

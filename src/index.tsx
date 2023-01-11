@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import { App } from '@src/App';
 
 import 'swiper/css';
@@ -11,4 +12,8 @@ import './index.scss';
 
 const root = document.querySelector('#root') as Element;
 
-ReactDOM.createRoot(root).render(<App />);
+ReactDOM.createRoot(root).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+);

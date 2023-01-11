@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { getAnalytics } from 'firebase/analytics';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 
 import { Layout } from '@src/layout';
@@ -25,6 +25,7 @@ getAnalytics(FB_APP);
 export const App: FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const location = useLocation();
 
   const authData = useAuthControl();
   const appPhotos = usePhotos();
@@ -33,22 +34,20 @@ export const App: FC = () => {
   const { theme: currentTheme } = useThemeSelector();
 
   return (
-    <BrowserRouter>
-      <Context.Provider value={{ ...authData, ...appPhotos, isMobile, ...appDrawer }}>
-        <ThemeProvider theme={currentTheme}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Landing />} />
+    <Context.Provider value={{ ...authData, ...appPhotos, isMobile, ...appDrawer }}>
+      <ThemeProvider theme={currentTheme}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Landing />} />
 
-              {authData.uid?.isAdmin && <Route path="applications" element={<Applications />} />}
+            {authData.uid?.isAdmin && <Route path="applications" element={<Applications />} />}
 
-              <Route path="*" element={<Landing />} />
-            </Route>
-          </Routes>
+            <Route path="*" element={<Landing />} />
+          </Route>
+        </Routes>
 
-          {isMobile && <AppDrawer {...appDrawer} />}
-        </ThemeProvider>
-      </Context.Provider>
-    </BrowserRouter>
+        {isMobile && location.pathname === '/' && <AppDrawer {...appDrawer} />}
+      </ThemeProvider>
+    </Context.Provider>
   );
 };
