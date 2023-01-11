@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import styled from '@emotion/styled';
 
-import { Close } from '@mui/icons-material';
+import Close from '@mui/icons-material/Close';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';

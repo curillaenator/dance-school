@@ -16,7 +16,11 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import { List, ArrowBack, Logout, Settings, SwipeRight } from '@mui/icons-material';
+import ListIcon from '@mui/icons-material/List';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SwipeRightIcon from '@mui/icons-material/SwipeRight';
 
 import { Context } from '@src/context';
 import { usePopover } from './hooks/usePopover';
@@ -81,7 +85,7 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            {<SwipeRight color="inherit" />}
+            {<SwipeRightIcon color="inherit" />}
           </IconButton>
         )}
 
@@ -97,7 +101,7 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            {<ArrowBack color="inherit" />}
+            {<ArrowBackIcon color="inherit" />}
           </IconButton>
         )}
 
@@ -164,14 +168,14 @@ export const Header: FC = () => {
         <MenuList sx={{ minWidth: 200 }}>
           <MenuItem onClick={() => handleNavigate('/applications')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <List fontSize="medium" />
+              <ListIcon fontSize="medium" />
             </ListItemIcon>
             <ListItemText>Заявки</ListItemText>
           </MenuItem>
 
           <MenuItem onClick={() => handleNavigate('/settings')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <Settings fontSize="medium" />
+              <SettingsIcon fontSize="medium" />
             </ListItemIcon>
             <ListItemText>Настройки</ListItemText>
           </MenuItem>
@@ -184,7 +188,7 @@ export const Header: FC = () => {
             sx={{ height: 48 }}
           >
             <ListItemIcon>
-              <Logout fontSize="medium" />
+              <LogoutIcon fontSize="medium" />
             </ListItemIcon>
             <ListItemText>Выйти</ListItemText>
           </MenuItem>

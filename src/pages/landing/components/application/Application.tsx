@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { Check } from '@mui/icons-material';
+import CheckIcon from '@mui/icons-material/Check';
 
 import { MaskedTelephone } from './MaskedTelephone';
 
@@ -48,7 +48,7 @@ export const Application: FC<ApplicationProps> = (props) => {
             color="success"
             onClick={handleClose}
             fullWidth
-            startIcon={<Check />}
+            startIcon={<CheckIcon />}
             sx={{
               height: 64,
             }}
