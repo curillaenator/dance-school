@@ -12,6 +12,11 @@ interface ContextType {
   gallery: string[];
   openDrawer: () => void;
   closeDrawer: () => void;
+  toggleTheme: () => void;
+  updateMainSlider: (newSlides: string[]) => void;
+  updateGallery: (newSlides: string[]) => void;
+  loading: boolean;
+  setLoading: (isLoading: boolean) => void;
 }
 
 export const Context = createContext<ContextType>({
@@ -23,4 +28,9 @@ export const Context = createContext<ContextType>({
   gallery: [],
   openDrawer: () => {},
   closeDrawer: () => {},
+  toggleTheme: () => {},
+  updateMainSlider: () => {},
+  updateGallery: () => {},
+  loading: false,
+  setLoading: () => {},
 });

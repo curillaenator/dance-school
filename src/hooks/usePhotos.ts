@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import { ST } from '@src/config';
 
@@ -16,8 +16,18 @@ export const usePhotos = () => {
       .then((promises) => Promise.all(promises).then((urls) => setGallery(urls)));
   }, []);
 
+  const updateMainSlider = useCallback((newSlides: string[]) => {
+    setMainSlider(newSlides);
+  }, []);
+
+  const updateGallery = useCallback((newPhotos: string[]) => {
+    setGallery(newPhotos);
+  }, []);
+
   return {
     mainSlider,
     gallery,
+    updateMainSlider,
+    updateGallery,
   };
 };

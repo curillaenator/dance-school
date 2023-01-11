@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Menu from '@mui/material/Menu';
 import MenuList from '@mui/material/MenuList';
@@ -26,7 +27,7 @@ import { AppBarStyled, LogoStyled } from './styled';
 import logoImg from '@src/assets/logo.png';
 
 export const Header: FC = () => {
-  const { uid, isMobile, logOut, openDrawer } = useContext(Context);
+  const { uid, isMobile, loading, logOut, openDrawer } = useContext(Context);
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
 
   const navigate = useNavigate();
@@ -97,6 +98,8 @@ export const Header: FC = () => {
           </ButtonGroup>
         )}
 
+        {!isLanding && loading && <CircularProgress />}
+
         {uid?.isAdmin ? (
           <Button
             onClick={handleClick}
@@ -161,6 +164,7 @@ export const Header: FC = () => {
 
           <MenuItem
             onClick={() => {
+              navigate('/settings');
               handleClose();
             }}
             sx={{ height: 48 }}
