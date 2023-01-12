@@ -1,8 +1,6 @@
 import Resizer from 'react-image-file-resizer';
 import { ref, getDownloadURL, listAll } from 'firebase/storage';
-import { ST, DB } from '@src/config';
-
-import { ref as dbRef, get } from 'firebase/database';
+import { ST } from '@src/config';
 
 export const resizeFile = (file: File, toSize = 1440): Promise<File> => {
   return new Promise((resolve) =>
@@ -16,11 +14,13 @@ export const refetchStorage = (path: string, setter: (urls: string[]) => void) =
     .then((promises) => Promise.all(promises).then((urls) => setter(urls)));
 };
 
-export const getDatabaseData = <T>(path: string, setter: (data: T[]) => void) => {
-  get(dbRef(DB, path)).then((snap) => {
-    if (snap.exists()) {
-      const data = snap.val() as Record<string, T>;
-      setter(Object.values(data));
-    }
-  });
+export const debounced = <T>(cb: (...args: T[]) => void, delay = 2000) => {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: T[]) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      cb(...args);
+    }, delay);
+  };
 };

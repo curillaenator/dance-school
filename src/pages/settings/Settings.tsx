@@ -33,7 +33,16 @@ import { useCoachesControl } from './hooks/useCoachesControl';
 
 export const Settings: FC = () => {
   const { mainSlider, gallery, handleUpload, handleRemoveMainSlider, handleRemoveGallery } = usePhotoControl();
-  const { newCoach, coaches, isNewCoachFilled, addCoach, handleNewCoach, removeCoach } = useCoachesControl();
+  const {
+    coachesStatic,
+    handleCoachesStatic,
+    newCoach,
+    coaches,
+    isNewCoachFilled,
+    addCoach,
+    handleNewCoach,
+    removeCoach,
+  } = useCoachesControl();
 
   return (
     <Box width="100%" pt={16} px={4} position="relative">
@@ -76,8 +85,35 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
+          <FormControl variant="outlined" fullWidth>
+            <TextField
+              id="coaches-title"
+              label="Заголовок секции"
+              sx={{ marginBottom: 2 }}
+              value={coachesStatic.title}
+              // @ts-expect-error some description
+              onChange={(e) => handleCoachesStatic(e, 'title')}
+              autoComplete="off"
+              required
+            />
+
+            <TextField
+              id="coaches-subtitle"
+              label={'Описание секции'}
+              sx={{ marginBottom: 2 }}
+              value={coachesStatic.subtitle}
+              autoComplete="off"
+              // @ts-expect-error some description
+              onChange={(e) => handleCoachesStatic(e, 'subtitle')}
+              multiline
+              minRows={2}
+              maxRows={4}
+              required
+            />
+          </FormControl>
+
           <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
-            <Grid container spacing={8} width="100%">
+            <Grid container marginX={0} spacing={8} width="100%">
               {coaches.map((coach) => (
                 <Coach key={coach.id} {...coach} isEditable onDelete={removeCoach} />
               ))}
@@ -90,7 +126,6 @@ export const Settings: FC = () => {
                 id="coach-name"
                 label="Имя нового тренера"
                 sx={{ marginBottom: 2 }}
-                autoFocus
                 value={newCoach.name}
                 // @ts-expect-error some description
                 onChange={(e) => handleNewCoach(e, 'name')}

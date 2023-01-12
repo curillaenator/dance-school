@@ -14,7 +14,7 @@ import { LandingSectionCommonProps } from '@src/types';
 export const Coaches: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
 
-  const { isMobile, coaches } = useContext(Context);
+  const { isMobile, coaches, staticContent } = useContext(Context);
 
   return (
     <Element name={name}>
@@ -30,7 +30,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           maxWidth={maxWidth}
           zIndex={0}
         >
-          Наши тренеры
+          {staticContent.coaches.title}
         </Typography>
 
         <Typography
@@ -42,8 +42,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           mx="auto"
           zIndex={0}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, tenetur quas sunt iure ratione debitis
-          dolore tempore, soluta qui, fuga numquam eligendi?
+          {staticContent.coaches.subtitle}
         </Typography>
 
         <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main}>

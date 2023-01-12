@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import { createContext } from 'react';
-import { UserType, CoachType } from '@src/types';
+import { UserType, CoachType, LandingStaticContentType, StaticSectionType, StaticKeysType } from '@src/types';
+import { INITIAL_STATIC_CONTENT } from '@src/shared/constants';
 
 interface ContextType {
   isMobile: boolean;
@@ -19,8 +18,10 @@ interface ContextType {
   updateMainSlider: (newSlides: string[]) => void;
   updateGallery: (newSlides: string[]) => void;
 
+  staticContent: LandingStaticContentType;
+  updateStaticContent: (key: StaticKeysType, data: Partial<StaticSectionType>) => void;
+
   coaches: CoachType[];
-  updateCoaches: (newCoaches: CoachType[]) => void;
 
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
@@ -42,8 +43,10 @@ export const Context = createContext<ContextType>({
   updateMainSlider: () => {},
   updateGallery: () => {},
 
+  staticContent: INITIAL_STATIC_CONTENT,
+  updateStaticContent: () => {},
+
   coaches: [],
-  updateCoaches: () => {},
 
   loading: false,
   setLoading: () => {},

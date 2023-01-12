@@ -14,6 +14,18 @@ export interface LandingSectionCommonProps {
   maxWidth?: string;
 }
 
+// Static landing content
+
+export type StaticKeysType = 'coaches' | 'prices' | 'activities';
+
+export interface StaticSectionType {
+  title: string;
+  subtitle?: string;
+  subtitles?: Record<string, string>;
+}
+
+export type LandingStaticContentType = Record<StaticKeysType, StaticSectionType>;
+
 // Data
 
 export interface UserType {
