@@ -1,18 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Unstable_Grid2';
+import Stack from '@mui/material/Stack';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 
 import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
 
 import Button from '@mui/material/Button';
-// import ButtonGroup from '@mui/material/ButtonGroup';
 import IconButton from '@mui/material/IconButton';
 
 import FormControl from '@mui/material/FormControl';
@@ -30,19 +29,31 @@ import { Coach } from '@src/components/coaches';
 
 import { usePhotoControl } from './hooks/usePhotoControl';
 import { useCoachesControl } from './hooks/useCoachesControl';
+import { useAboutusControl } from './hooks/useAboutusControl';
 
 export const Settings: FC = () => {
-  const { mainSlider, gallery, handleUpload, handleRemoveMainSlider, handleRemoveGallery } = usePhotoControl();
+  const {
+    mainSlider,
+    gallery,
+
+    handleUpload,
+    handleRemoveMainSlider,
+    handleRemoveGallery,
+  } = usePhotoControl();
+
   const {
     coachesStatic,
     handleCoachesStatic,
-    newCoach,
+
     coaches,
+    newCoach,
     isNewCoachFilled,
-    addCoach,
     handleNewCoach,
+    addCoach,
     removeCoach,
   } = useCoachesControl();
+
+  const { aboutusStatic, handleAboutusStatic, addSubtitle, removeSubtitle } = useAboutusControl();
 
   return (
     <Box width="100%" pt={16} px={4} position="relative">
@@ -81,6 +92,96 @@ export const Settings: FC = () => {
 
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+          <Typography>Кто мы</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <FormControl variant="outlined" fullWidth>
+            <TextField
+              id="aboutus-title"
+              label="Заголовок секции"
+              sx={{ marginBottom: 2 }}
+              value={aboutusStatic.title}
+              onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
+              autoComplete="off"
+              required
+            />
+
+            <TextField
+              id="aboutus-subtitle"
+              label={'Описание секции'}
+              sx={{ marginBottom: 2 }}
+              value={aboutusStatic.subtitle}
+              onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'subtitle')}
+              multiline
+              minRows={2}
+              maxRows={4}
+              required
+            />
+
+            {aboutusStatic.subtitles &&
+              Object.entries(aboutusStatic.subtitles).map(([key, subtitle], i) => (
+                <Stack key={key} direction="row" spacing={2} alignItems="center" mb={2}>
+                  <TextField
+                    id={`aboutus-subtitle-${key}`}
+                    label={`Описание секции ${i + 2}`}
+                    fullWidth
+                    value={subtitle}
+                    onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'subtitles', key)}
+                    multiline
+                    minRows={2}
+                    maxRows={4}
+                    required
+                  />
+
+                  <IconButton color="error" onClick={() => removeSubtitle(key)}>
+                    <DeleteRoundedIcon />
+                  </IconButton>
+                </Stack>
+              ))}
+          </FormControl>
+
+          <Button variant="contained" onClick={addSubtitle}>
+            Добавить параграф
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+          <Typography>Фотографии галлереи (должно быть минимум 6)</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <ImageList sx={{ width: '100%', height: 'auto', marginBottom: 1 }} cols={3} rowHeight={164}>
+            {gallery.map((img, i) => (
+              <ImageListItem key={`photoSlider${i}`} cols={1} rows={1}>
+                <img
+                  src={`${img}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  loading="lazy"
+                  style={{ height: '100%' }}
+                />
+                <ImageListItemBar
+                  actionIcon={
+                    <IconButton color="error" onClick={() => handleRemoveGallery(img)}>
+                      <DeleteRoundedIcon />
+                    </IconButton>
+                  }
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+
+          <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
+            Добавить
+            <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e, 'gallery')} />
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
           <Typography>Тренеры</Typography>
         </AccordionSummary>
 
@@ -115,7 +216,7 @@ export const Settings: FC = () => {
           <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
             <Grid container marginX={0} spacing={8} width="100%">
               {coaches.map((coach) => (
-                <Coach key={coach.id} {...coach} isEditable onDelete={removeCoach} />
+                <Coach key={coach.id} {...coach} isMobile isEditable onDelete={removeCoach} />
               ))}
             </Grid>
           </Box>
@@ -175,39 +276,6 @@ export const Settings: FC = () => {
             }}
           >
             Добавить нового тренера
-          </Button>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
-          <Typography>Фотографии галлереи (должно быть минимум 6)</Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <ImageList sx={{ width: '100%', height: 'auto', marginBottom: 1 }} cols={3} rowHeight={164}>
-            {gallery.map((img, i) => (
-              <ImageListItem key={`photoSlider${i}`} cols={1} rows={1}>
-                <img
-                  src={`${img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  loading="lazy"
-                  style={{ height: '100%' }}
-                />
-                <ImageListItemBar
-                  actionIcon={
-                    <IconButton color="error" onClick={() => handleRemoveGallery(img)}>
-                      <DeleteRoundedIcon />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-
-          <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
-            Добавить
-            <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e, 'gallery')} />
           </Button>
         </AccordionDetails>
       </Accordion>

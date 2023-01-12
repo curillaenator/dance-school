@@ -5,18 +5,12 @@ import { ref as refST, uploadBytes, deleteObject } from 'firebase/storage';
 import { DB, ST } from '@src/config';
 
 import { Context } from '@src/context';
-import { resizeFile, debounced } from '@src/utils';
+import { resizeFile, debouncedStaticWrite } from '@src/utils';
 
-import { CoachType, StaticKeysType, StaticSectionType } from '@src/types';
+import { CoachType, StaticSectionType } from '@src/types';
 
 interface NewCoachType extends Omit<CoachType, 'photoURL'> {
   photoURL: File | null;
-}
-
-interface StaticWriteOptionsType {
-  path: string;
-  value: string;
-  setLoading: (isLoading: boolean) => void;
 }
 
 const INITIAL_COACH: NewCoachType = {
@@ -26,18 +20,17 @@ const INITIAL_COACH: NewCoachType = {
   photoURL: null,
 };
 
-const debouncedStaticWrite = debounced((opts: StaticWriteOptionsType) => {
-  set(ref(DB, opts.path), opts.value).then(() => opts.setLoading(false));
-});
-
 export const useCoachesControl = () => {
   const { coaches, staticContent, setLoading, updateStaticContent } = useContext(Context);
   const [newCoach, setNewCoach] = useState<NewCoachType>(INITIAL_COACH);
 
   const handleCoachesStatic = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, key: StaticKeysType) => {
-      setLoading(true);
+    (e: ChangeEvent<HTMLInputElement>, key: keyof StaticSectionType) => {
       updateStaticContent('coaches', { [key]: e.target.value } as Partial<StaticSectionType>);
+
+      if (!e.target.value) return;
+
+      setLoading(true);
       debouncedStaticWrite({
         path: `static/coaches/${key}`,
         value: e.target.value,

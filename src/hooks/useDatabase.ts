@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { ref, get } from 'firebase/database';
+import { ref, get, onValue, off } from 'firebase/database';
 import { DB } from '@src/config';
 
 import { CoachType, LandingStaticContentType, StaticSectionType, StaticKeysType } from '@src/types';
@@ -8,10 +8,12 @@ import { CoachType, LandingStaticContentType, StaticSectionType, StaticKeysType 
 import { INITIAL_STATIC_CONTENT } from '@src/shared/constants';
 
 export const useDatabase = () => {
-  const [coaches, setCoaches] = useState<CoachType[]>([]);
   const [staticContent, setStaticContent] = useState<LandingStaticContentType>(INITIAL_STATIC_CONTENT);
+  const [coaches, setCoaches] = useState<CoachType[]>([]);
 
   useEffect(() => {
+    const coachesRef = ref(DB, 'coaches');
+
     get(ref(DB, 'static')).then((snap) => {
       if (snap.exists()) {
         const data = snap.val() as LandingStaticContentType;
@@ -19,12 +21,16 @@ export const useDatabase = () => {
       }
     });
 
-    get(ref(DB, 'coaches')).then((snap) => {
+    onValue(coachesRef, (snap) => {
       if (snap.exists()) {
         const data = snap.val() as Record<string, CoachType>;
         setCoaches(Object.values(data));
       }
     });
+
+    return () => {
+      off(coachesRef);
+    };
   }, []);
 
   const updateStaticContent = useCallback((key: StaticKeysType, data: Partial<StaticSectionType>) => {

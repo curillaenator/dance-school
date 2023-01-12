@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
 import YouTube from 'react-youtube';
 
@@ -13,6 +13,8 @@ import { PopupGallery } from './PopupGallery';
 import { useModalControl } from '@src/hooks/useModalControl';
 import { useGallery } from './hooks/useGallery';
 
+import { Context } from '@src/context';
+
 import { srcset } from './helpers';
 import { GALLERY_ROW_HEIGHT } from './constants';
 
@@ -23,7 +25,9 @@ import styles from './styles.module.scss';
 export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
 
-  const { isMobile, initialSlide, photos, gallery, handleInitialSlide } = useGallery();
+  const { isMobile, staticContent } = useContext(Context);
+
+  const { initialSlide, photos, gallery, handleInitialSlide } = useGallery();
   const { open, handleClose, handleOpen } = useModalControl();
 
   return (
@@ -42,7 +46,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
             maxWidth,
           }}
         >
-          Кто мы
+          {staticContent.aboutus.title}
         </Typography>
 
         <Typography
@@ -50,19 +54,36 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           align="center"
           color={(theme) => theme.palette.text.secondary}
           paddingX={4}
+          mb={1}
           marginX="auto"
-          mb={16}
           sx={{
             zIndex: 0,
             maxWidth,
           }}
         >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error adipisci labore molestiae earum consequatur
-          autem ipsam, sed dolores dicta aut tempora impedit natus dolorum! Voluptatibus corporis nisi enim recusandae
-          possimus.
+          {staticContent.aboutus.subtitle}
         </Typography>
 
-        <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main}>
+        {staticContent.aboutus.subtitles &&
+          Object.entries(staticContent.aboutus.subtitles).map(([key, subtitle]) => (
+            <Typography
+              key={key}
+              variant="subtitle1"
+              align="center"
+              color={(theme) => theme.palette.text.secondary}
+              paddingX={4}
+              mb={1}
+              marginX="auto"
+              sx={{
+                zIndex: 0,
+                maxWidth,
+              }}
+            >
+              {subtitle}
+            </Typography>
+          ))}
+
+        <Box width="100%" paddingY={16} my={16} bgcolor={(theme) => theme.palette.primary.main}>
           <ImageList
             sx={{
               maxWidth,

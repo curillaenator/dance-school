@@ -25,12 +25,13 @@ const Card = styled(Paper)({
 });
 
 interface CoachInterface extends CoachType {
+  isMobile: boolean;
   isEditable?: boolean;
   onDelete?: (coach: CoachType) => void;
 }
 
 export const Coach: FC<CoachInterface> = (props) => {
-  const { id, name, description, photoURL, isEditable, onDelete = () => {} } = props;
+  const { id, name, description, photoURL, isEditable, onDelete = () => {}, isMobile } = props;
 
   const [photo, setPhoto] = useState<string | null>(null);
   useEffect(() => {
@@ -61,8 +62,8 @@ export const Coach: FC<CoachInterface> = (props) => {
         <Avatar
           src={photo ? photo : undefined}
           sx={{
-            width: 236,
-            height: 236,
+            width: isMobile ? 236 : 256,
+            height: isMobile ? 236 : 256,
             marginBottom: 2,
           }}
         />

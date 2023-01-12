@@ -16,7 +16,7 @@ export interface LandingSectionCommonProps {
 
 // Static landing content
 
-export type StaticKeysType = 'coaches' | 'prices' | 'activities';
+export type StaticKeysType = 'coaches' | 'prices' | 'aboutus';
 
 export interface StaticSectionType {
   title: string;

@@ -18,11 +18,11 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box paddingTop={16}>
+      <Box width="100%" paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
           align="center"
-          color={(theme) => theme.palette.text.primary}
+          color={(theme) => theme.palette.background.default}
           px={4}
           mb={4}
           mx="auto"
@@ -36,22 +36,20 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
         <Typography
           variant="subtitle1"
           align="center"
-          color={(theme) => theme.palette.text.secondary}
+          color={(theme) => theme.palette.background.default}
           px={4}
-          mb={8}
+          mb={16}
           mx="auto"
           zIndex={0}
         >
           {staticContent.coaches.subtitle}
         </Typography>
 
-        <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main}>
-          <Grid container spacing={8} marginX="auto" maxWidth={maxWidth}>
-            {coaches.map((coach) => (
-              <Coach key={coach.id} {...coach} />
-            ))}
-          </Grid>
-        </Box>
+        <Grid container spacing={8} marginX="auto" maxWidth={maxWidth}>
+          {coaches.map((coach) => (
+            <Coach key={coach.id} isMobile={isMobile} {...coach} />
+          ))}
+        </Grid>
       </Box>
     </Element>
   );
