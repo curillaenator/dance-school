@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -24,22 +25,19 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddAPhotoleIcon from '@mui/icons-material/AddAPhoto';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 import { Coach } from '@src/components/coaches';
+import { Gallery } from '@src/components/aboutus';
 
 import { usePhotoControl } from './hooks/usePhotoControl';
 import { useCoachesControl } from './hooks/useCoachesControl';
 import { useAboutusControl } from './hooks/useAboutusControl';
 
-export const Settings: FC = () => {
-  const {
-    mainSlider,
-    gallery,
+import { GALLERY_CONFIG } from '@src/shared/constants';
 
-    handleUpload,
-    handleRemoveMainSlider,
-    handleRemoveGallery,
-  } = usePhotoControl();
+export const Settings: FC = () => {
+  const { mainSlider, gallery, handleUpload, handleRemove } = usePhotoControl();
 
   const {
     coachesStatic,
@@ -74,9 +72,25 @@ export const Settings: FC = () => {
                 />
                 <ImageListItemBar
                   actionIcon={
-                    <IconButton color="error" onClick={() => handleRemoveMainSlider(img)}>
-                      <DeleteRoundedIcon />
-                    </IconButton>
+                    <>
+                      <Tooltip title="Заменить" placement="top">
+                        <IconButton color="primary" component="label">
+                          <ChangeCircleIcon />
+                          <input
+                            hidden
+                            accept="image/*"
+                            type="file"
+                            onChange={(e) => handleUpload(e, 'mainSlider', img)}
+                          />
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title="Удалить" placement="top">
+                        <IconButton color="error" onClick={() => handleRemove(img, 'mainSlider')}>
+                          <DeleteRoundedIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </>
                   }
                 />
               </ImageListItem>
@@ -90,7 +104,7 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion defaultExpanded>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
           <Typography>Кто мы</Typography>
         </AccordionSummary>
@@ -149,29 +163,11 @@ export const Settings: FC = () => {
 
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
-          <Typography>Фотографии галлереи (должно быть минимум 6)</Typography>
+          <Typography>{`Фотографии галлереи (должно быть минимум ${GALLERY_CONFIG.length})`}</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <ImageList sx={{ width: '100%', height: 'auto', marginBottom: 1 }} cols={3} rowHeight={164}>
-            {gallery.map((img, i) => (
-              <ImageListItem key={`photoSlider${i}`} cols={1} rows={1}>
-                <img
-                  src={`${img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  loading="lazy"
-                  style={{ height: '100%' }}
-                />
-                <ImageListItemBar
-                  actionIcon={
-                    <IconButton color="error" onClick={() => handleRemoveGallery(img)}>
-                      <DeleteRoundedIcon />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
+          <Gallery gallery={gallery} isMobile editable handleRemove={handleRemove} handleUpload={handleUpload} />
 
           <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
             Добавить

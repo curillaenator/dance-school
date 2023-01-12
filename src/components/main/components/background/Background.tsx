@@ -6,6 +6,7 @@ import { Autoplay, EffectFade } from 'swiper';
 
 import { Context } from '@src/context';
 
+import { MAIN_SLIDER_SPEED, MAIN_SLIDER_DELAY } from '@src/shared/constants';
 import { ImageStyled, SwiperStyled } from './styled';
 
 export const Background: FC = () => {
@@ -16,10 +17,10 @@ export const Background: FC = () => {
     <>
       <SwiperStyled
         autoplay={{
-          delay: 5000,
+          delay: MAIN_SLIDER_DELAY,
           disableOnInteraction: false,
         }}
-        speed={1200}
+        speed={MAIN_SLIDER_SPEED}
         loop={true}
         spaceBetween={0}
         slidesPerView={1}

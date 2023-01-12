@@ -57,3 +57,7 @@ export interface PriceType {
   price: string;
   description: string;
 }
+
+// Storage
+
+export type StoragePathsType = 'mainSlider' | 'gallery';

@@ -1,103 +1,93 @@
-import { useCallback, ChangeEvent, useContext } from 'react';
+import { useCallback, ChangeEvent, useContext, useMemo } from 'react';
 import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { ST } from '@src/config';
 
 import { Context } from '@src/context';
+import { refetchStorage, resizeFile, findStoragePathFromUrl } from '@src/utils';
 
-import { refetchStorage, resizeFile } from '@src/utils';
-
-type StoragePathType = 'mainSlider' | 'gallery';
+import { GALLERY_CONFIG } from '@src/shared/constants';
+import { StoragePathsType } from '@src/types';
 
 export const usePhotoControl = () => {
   const { mainSlider, updateMainSlider, gallery, updateGallery, loading, setLoading } = useContext(Context);
 
-  const handleRemoveMainSlider = useCallback(
-    (url: string) => {
-      setLoading(true);
-
-      const match = url.match(/mainSlider%2F.*\?alt*/);
-      const fPath = match ? match[0] : null;
-
-      if (!!fPath) {
-        const path = fPath.replace('mainSlider%2F', '').replace('?alt', '');
-
-        deleteObject(ref(ST, `mainSlider/${path}`))
-          .then(() => {
-            refetchStorage('mainSlider', updateMainSlider);
-            setLoading(false);
-          })
-          .catch(() => setLoading(false));
-      } else {
-        setLoading(false);
-      }
-    },
-    [setLoading, updateMainSlider],
+  const photoUpdaters: Record<StoragePathsType, (url: string[]) => void> = useMemo(
+    () => ({
+      mainSlider: updateMainSlider,
+      gallery: updateGallery,
+    }),
+    [updateGallery, updateMainSlider],
   );
 
-  const handleRemoveGallery = useCallback(
-    (url: string) => {
+  const handleRemove = useCallback(
+    async (url: string, storagePath: StoragePathsType) => {
       setLoading(true);
 
-      const match = url.match(/gallery%2F.*\?alt*/);
-      const fPath = match ? match[0] : null;
+      const fileName = findStoragePathFromUrl(url, storagePath);
 
-      if (!!fPath) {
-        const path = fPath.replace('gallery%2F', '').replace('?alt', '');
-
-        deleteObject(ref(ST, `gallery/${path}`))
-          .then(() => {
-            refetchStorage('gallery', updateGallery);
-            setLoading(false);
-          })
-          .catch(() => setLoading(false));
-      } else {
-        setLoading(false);
+      if (!!fileName) {
+        try {
+          await deleteObject(ref(ST, `${storagePath}/${fileName}`));
+          await refetchStorage(storagePath, photoUpdaters[storagePath]);
+          setLoading(false);
+        } catch {
+          setLoading(false);
+        }
       }
     },
-    [setLoading, updateGallery],
+    [photoUpdaters, setLoading],
   );
 
   const handleUpload = useCallback(
-    (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathType) => {
+    async (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathsType, url?: string) => {
+      const files = a.target.files;
+      if (!files || !files.length) return;
+
       setLoading(true);
 
-      const updaters: Record<StoragePathType, (url: string[]) => void> = {
-        mainSlider: updateMainSlider,
-        gallery: updateGallery,
-      };
+      const fileNameToReplace = findStoragePathFromUrl(
+        url || 'realy-none-existing-file-name.bad-extention',
+        storagePath,
+      );
 
-      const files = a.target.files;
-
-      if (!!files && files.length > 0) {
-        const resized = [];
-
-        for (let i = 0; i < files.length; i++) {
-          resized.push(resizeFile(files[i]));
-        }
-
-        Promise.all(resized).then((res) =>
-          res.forEach((file) => {
-            uploadBytes(ref(ST, `${storagePath}/${file.name}`), file)
-              .then(() => {
-                refetchStorage(storagePath, updaters[storagePath]);
-                setLoading(false);
-              })
-              .catch(() => setLoading(false));
-          }),
-        );
-      } else {
+      if (fileNameToReplace) {
+        const resized = await resizeFile(files[0]);
+        await uploadBytes(ref(ST, `${storagePath}/${fileNameToReplace}`), resized);
+        refetchStorage(storagePath, photoUpdaters[storagePath]);
         setLoading(false);
+
+        return;
       }
+
+      const resized = [];
+
+      for (let i = 0; i < files.length; i++) {
+        resized.push(resizeFile(files[i]));
+      }
+
+      const resizedFiles = await Promise.all(resized);
+      const uploads = resizedFiles.map(async (file) => await uploadBytes(ref(ST, `${storagePath}/${file.name}`), file));
+
+      Promise.all(uploads).then(() => {
+        refetchStorage(storagePath, photoUpdaters[storagePath]);
+        setLoading(false);
+      });
     },
-    [setLoading, updateGallery, updateMainSlider],
+    [photoUpdaters, setLoading],
   );
 
   return {
-    gallery,
+    gallery: gallery.map((url, i) => ({
+      id: `photoId${i}`,
+      img: url,
+      title: `photo${i}`,
+      rows: GALLERY_CONFIG[i]?.rows || 1,
+      cols: GALLERY_CONFIG[i]?.cols || 1,
+    })),
+
     mainSlider,
     loading,
     handleUpload,
-    handleRemoveMainSlider,
-    handleRemoveGallery,
+    handleRemove,
   };
 };
