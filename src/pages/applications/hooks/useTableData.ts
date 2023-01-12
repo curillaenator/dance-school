@@ -4,14 +4,14 @@ import { DB } from '@src/config';
 
 import { ApplicationType } from '@src/types';
 
+const applicationsRef = ref(DB, 'applications');
+
 export const useTableData = () => {
   const [applications, setApplications] = useState<Record<string, ApplicationType>>({});
   const [selected, setSelected] = useState<string | null>(null);
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(-1);
-
-  const applicationsRef = ref(DB, 'applications');
 
   useEffect(() => {
     onValue(applicationsRef, (snap) => {
@@ -20,15 +20,12 @@ export const useTableData = () => {
     });
 
     return () => off(applicationsRef);
-  }, [applicationsRef]);
+  }, []);
 
-  const updateCalled = useCallback(
-    (application: ApplicationType) => {
-      const { id, called } = application;
-      update(applicationsRef, { [`${id}/called`]: !called });
-    },
-    [applicationsRef],
-  );
+  const updateCalled = useCallback((application: ApplicationType) => {
+    const { id, called } = application;
+    update(applicationsRef, { [`${id}/called`]: !called });
+  }, []);
 
   const remove = useCallback(
     (id: string) => {
@@ -40,7 +37,7 @@ export const useTableData = () => {
         }
       }
     },
-    [selected, applicationsRef],
+    [selected],
   );
 
   const selectApplication = useCallback((id: string | null) => {

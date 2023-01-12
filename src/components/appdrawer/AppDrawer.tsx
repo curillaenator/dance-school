@@ -47,7 +47,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
       ModalProps={{
         keepMounted: true,
       }}
-      swipeAreaWidth={32}
+      swipeAreaWidth={56}
     >
       <Box
         width="70vw"
