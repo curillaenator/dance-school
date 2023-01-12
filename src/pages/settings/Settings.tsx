@@ -85,11 +85,13 @@ export const Settings: FC = () => {
                         </IconButton>
                       </Tooltip>
 
-                      <Tooltip title="Удалить" placement="top">
-                        <IconButton color="error" onClick={() => handleRemove(img, 'mainSlider')}>
-                          <DeleteRoundedIcon />
-                        </IconButton>
-                      </Tooltip>
+                      {mainSlider.length > 2 && (
+                        <Tooltip title="Удалить" placement="top">
+                          <IconButton color="error" onClick={() => handleRemove(img, 'mainSlider')}>
+                            <DeleteRoundedIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                     </>
                   }
                 />

@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import ChangeCircle from '@mui/icons-material/ChangeCircle';
 
+import { GALLERY_CONFIG } from '@src/shared/constants';
 import { GALLERY_ROW_HEIGHT } from './constants';
 import { srcset } from './helpers';
 import { GalleryProps } from './interfaces';
@@ -90,11 +91,13 @@ export const Gallery: FC<GalleryProps> = (props) => {
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title="Удалить" placement="top">
-                      <IconButton color="error" onClick={() => handleRemove(img, 'gallery')}>
-                        <DeleteRoundedIcon />
-                      </IconButton>
-                    </Tooltip>
+                    {gallery.length > GALLERY_CONFIG.length && (
+                      <Tooltip title="Удалить" placement="top">
+                        <IconButton color="error" onClick={() => handleRemove(img, 'gallery')}>
+                          <DeleteRoundedIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
                   </>
                 }
               />
