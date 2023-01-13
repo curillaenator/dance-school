@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 
-import { Gallery } from './Gallery';
-import { PopupGallery } from './PopupGallery';
+import { Gallery } from '@src/components/photogallery';
+import { PopupGallery } from '@src/components/popupgallery';
 
 import { useModalControl } from '@src/hooks/useModalControl';
 import { useGallery } from './hooks/useGallery';
@@ -20,9 +20,7 @@ import styles from './styles.module.scss';
 
 export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
-
   const { isMobile, staticContent } = useContext(Context);
-
   const { initialSlide, photos, gallery, handleInitialSlide } = useGallery();
   const { open, handleClose, handleOpen } = useModalControl();
 

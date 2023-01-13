@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 
 import Dialog from '@mui/material/Dialog';
+import { ApplicationForm } from '@src/components/applicationform';
 
-import { Main } from '@src/components/main';
-import { Coaches } from '@src/components/coaches';
-import { Prices } from '@src/components/prices';
-import { Aboutus } from '@src/components/aboutus';
-import { Contacts } from '@src/components/contacts';
-
-import { Application } from './components';
+import { Main } from './sections/main';
+import { Coaches } from './sections/coaches';
+import { Prices } from './sections/prices';
+import { Aboutus } from './sections/aboutus';
+import { Contacts } from './sections/contacts';
 
 import { useModalControl } from '@src/hooks/useModalControl';
 
@@ -26,7 +25,7 @@ export const Landing: FC = () => {
       <Contacts name='contacts' maxWidth={MAX_WIDTH} />
 
       <Dialog onClose={handleClose} open={open}>
-        <Application handleClose={handleClose} />
+        <ApplicationForm handleClose={handleClose} />
       </Dialog>
     </>
   );

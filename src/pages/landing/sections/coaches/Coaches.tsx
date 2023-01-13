@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { Coach } from './Coach';
+import { Coach } from '@src/components/coach';
 
 import { Context } from '@src/context';
 

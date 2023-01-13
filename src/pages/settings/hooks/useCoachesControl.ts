@@ -5,7 +5,7 @@ import { ref as refST, uploadBytes, deleteObject } from 'firebase/storage';
 import { DB, ST } from '@src/config';
 
 import { Context } from '@src/context';
-import { resizeFile, debouncedStaticWrite } from '@src/utils';
+import { resizeFile, debouncedWriteDB } from '@src/utils';
 
 import { CoachType, StaticSectionType } from '@src/types';
 
@@ -31,10 +31,11 @@ export const useCoachesControl = () => {
       if (!e.target.value) return;
 
       setLoading(true);
-      debouncedStaticWrite({
+
+      debouncedWriteDB({
         path: `static/coaches/${key}`,
         value: e.target.value,
-        setLoading,
+        onWriteEnd: () => setLoading(false),
       });
     },
     [setLoading, updateStaticContent],

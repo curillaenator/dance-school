@@ -4,7 +4,7 @@ import { ref, push, child, update } from 'firebase/database';
 import { DB } from '@src/config';
 
 import { Context } from '@src/context';
-import { debouncedStaticWrite } from '@src/utils';
+import { debouncedWriteDB } from '@src/utils';
 
 import { StaticSectionType } from '@src/types';
 
@@ -24,10 +24,10 @@ export const useAboutusControl = () => {
       if (!e.target.value) return;
 
       setLoading(true);
-      debouncedStaticWrite({
+      debouncedWriteDB({
         path: isAdditions ? `static/aboutus/${key}/${id}` : `static/aboutus/${key}`,
         value: e.target.value,
-        setLoading,
+        onWriteEnd: () => setLoading(false),
       });
     },
     [staticContent.aboutus.subtitles, setLoading, updateStaticContent],

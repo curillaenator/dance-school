@@ -27,8 +27,8 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddAPhotoleIcon from '@mui/icons-material/AddAPhoto';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
-import { Coach } from '@src/components/coaches';
-import { Gallery } from '@src/components/aboutus';
+import { Coach } from '@src/components/coach';
+import { Gallery } from '@src/components/photogallery';
 
 import { usePhotoControl } from './hooks/usePhotoControl';
 import { useCoachesControl } from './hooks/useCoachesControl';
