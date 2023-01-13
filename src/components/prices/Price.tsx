@@ -26,7 +26,7 @@ export const Price: FC<PriceType> = (props) => {
   return (
     <Grid xs={12} md={6} lg={4}>
       <Card>
-        <Typography variant="h3" fontWeight={700} color={(theme) => theme.palette.text.primary} mb={2}>
+        <Typography variant='h3' fontWeight={700} color={(theme) => theme.palette.text.primary} mb={2}>
           {name}
         </Typography>
 
@@ -37,11 +37,11 @@ export const Price: FC<PriceType> = (props) => {
           }}
         />
 
-        <Typography variant="subtitle2" color={(theme) => theme.palette.text.primary} mb={1}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary} mb={1}>
           {price}
         </Typography>
 
-        <Typography variant="subtitle2" color={(theme) => theme.palette.text.primary}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary}>
           {description}
         </Typography>
       </Card>

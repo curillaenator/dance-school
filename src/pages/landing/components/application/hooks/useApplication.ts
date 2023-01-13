@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useCallback, ChangeEvent, useContext } from 'react';
 import { ref, set, push, child } from 'firebase/database';
 

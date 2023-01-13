@@ -35,17 +35,17 @@ export const Application: FC<ApplicationProps> = (props) => {
             width: '100%',
           }}
         >
-          <Typography variant="h3" align="left" sx={{ color: 'white' }} fontWeight={500} mb={4}>
+          <Typography variant='h3' align='left' sx={{ color: 'white' }} fontWeight={500} mb={4}>
             {labels.titleSuccess}
           </Typography>
 
-          <Typography variant="subtitle1" align="left" sx={{ color: 'white' }} mb={4}>
+          <Typography variant='subtitle1' align='left' sx={{ color: 'white' }} mb={4}>
             {labels.subtitleSuccess}
           </Typography>
 
           <Button
-            variant="contained"
-            color="success"
+            variant='contained'
+            color='success'
             onClick={handleClose}
             fullWidth
             startIcon={<CheckIcon />}
@@ -58,34 +58,34 @@ export const Application: FC<ApplicationProps> = (props) => {
         </Box>
       )}
 
-      {step === 'loading' && <CircularProgress color="inherit" />}
+      {step === 'loading' && <CircularProgress color='inherit' />}
 
       {step === 'new' && (
         <>
-          <Typography variant="h5" align="left" sx={{ color: 'white' }} fontWeight={500} mb={4}>
+          <Typography variant='h5' align='left' sx={{ color: 'white' }} fontWeight={500} mb={4}>
             {labels.title}
           </Typography>
 
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant='outlined' fullWidth>
             <TextField
-              id="applicant-name"
+              id='applicant-name'
               label={errors.name ? labels.nameError : labels.name}
               sx={{ marginBottom: 2 }}
               autoFocus
               value={name}
               onChange={handleName}
-              autoComplete="off"
+              autoComplete='off'
               error={errors.name}
               required
             />
 
             <TextField
-              id="telephone"
+              id='telephone'
               label={errors.tel ? labels.telError : labels.tel}
               sx={{ marginBottom: 2 }}
               value={tel}
               onChange={handleTel}
-              autoComplete="off"
+              autoComplete='off'
               error={errors.tel}
               required
               InputProps={{
@@ -95,11 +95,11 @@ export const Application: FC<ApplicationProps> = (props) => {
             />
 
             <TextField
-              id="comment"
+              id='comment'
               label={labels.comment}
               sx={{ marginBottom: 4 }}
               value={comment}
-              autoComplete="off"
+              autoComplete='off'
               onChange={handleComment}
               multiline
               minRows={2}
@@ -108,16 +108,16 @@ export const Application: FC<ApplicationProps> = (props) => {
           </FormControl>
 
           <ButtonGroup sx={{ marginBottom: 2, height: '56px' }} fullWidth>
-            <Button variant="contained" onClick={submit}>
+            <Button variant='contained' onClick={submit}>
               Отправить
             </Button>
 
-            <Button variant="outlined" onClick={cancel}>
+            <Button variant='outlined' onClick={cancel}>
               Отмена
             </Button>
           </ButtonGroup>
 
-          <Typography variant="subtitle2" align="left" sx={{ color: 'rgba(255,255,255,0.5)' }}>
+          <Typography variant='subtitle2' align='left' sx={{ color: 'rgba(255,255,255,0.5)' }}>
             {labels.subtitle}
           </Typography>
         </>

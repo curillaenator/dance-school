@@ -50,18 +50,18 @@ export const App: FC = () => {
     >
       <ThemeProvider theme={appTheme.theme}>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path='/' element={<Layout />}>
             <Route index element={<Landing />} />
 
             {authData.uid?.isAdmin && (
               <>
-                <Route path="applications" element={<Applications />} />
-                <Route path="settings" element={<Settings />} />
+                <Route path='applications' element={<Applications />} />
+                <Route path='settings' element={<Settings />} />
               </>
             )}
 
             {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-            <Route path="*" element={<Landing />} />
+            <Route path='*' element={<Landing />} />
           </Route>
         </Routes>
 

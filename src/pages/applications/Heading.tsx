@@ -24,11 +24,11 @@ export const Heading: FC<HeadingProps> = (props) => {
           <>
             <TableCell>{TITLES.heading.tel}</TableCell>
 
-            <TableCell align="right">{TITLES.heading.comment}</TableCell>
+            <TableCell align='right'>{TITLES.heading.comment}</TableCell>
 
-            <TableCell align="right">{TITLES.heading.called}</TableCell>
+            <TableCell align='right'>{TITLES.heading.called}</TableCell>
 
-            <TableCell align="right">{TITLES.heading.remove}</TableCell>
+            <TableCell align='right'>{TITLES.heading.remove}</TableCell>
           </>
         )}
       </TableRow>

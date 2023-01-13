@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack --mode production",
-    "optimize": "webpack --mode production --profile --json > stats.json",
     "devbuild": "webpack",
     "prepare": "husky install",
     "lint": "npx eslint --fix ./src"

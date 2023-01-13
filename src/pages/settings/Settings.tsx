@@ -54,9 +54,9 @@ export const Settings: FC = () => {
   const { aboutusStatic, handleAboutusStatic, addSubtitle, removeSubtitle } = useAboutusControl();
 
   return (
-    <Box width="100%" pt={16} px={4} position="relative">
+    <Box width='100%' pt={16} px={4} position='relative'>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1a-content' id='panel1a-header'>
           <Typography>Фотографии главного экрана (должно быть минимум 2)</Typography>
         </AccordionSummary>
 
@@ -67,27 +67,27 @@ export const Settings: FC = () => {
                 <img
                   src={`${img}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  loading="lazy"
+                  loading='lazy'
                   style={{ height: '100%' }}
                 />
                 <ImageListItemBar
                   actionIcon={
                     <>
-                      <Tooltip title="Заменить" placement="top">
-                        <IconButton color="primary" component="label">
+                      <Tooltip title='Заменить' placement='top'>
+                        <IconButton color='primary' component='label'>
                           <ChangeCircleIcon />
                           <input
                             hidden
-                            accept="image/*"
-                            type="file"
+                            accept='image/*'
+                            type='file'
                             onChange={(e) => handleUpload(e, 'mainSlider', img)}
                           />
                         </IconButton>
                       </Tooltip>
 
                       {mainSlider.length > 2 && (
-                        <Tooltip title="Удалить" placement="top">
-                          <IconButton color="error" onClick={() => handleRemove(img, 'mainSlider')}>
+                        <Tooltip title='Удалить' placement='top'>
+                          <IconButton color='error' onClick={() => handleRemove(img, 'mainSlider')}>
                             <DeleteRoundedIcon />
                           </IconButton>
                         </Tooltip>
@@ -99,32 +99,32 @@ export const Settings: FC = () => {
             ))}
           </ImageList>
 
-          <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
+          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
             Добавить
-            <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e, 'mainSlider')} />
+            <input hidden accept='image/*' multiple type='file' onChange={(e) => handleUpload(e, 'mainSlider')} />
           </Button>
         </AccordionDetails>
       </Accordion>
 
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
           <Typography>Кто мы</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant='outlined' fullWidth>
             <TextField
-              id="aboutus-title"
-              label="Заголовок секции"
+              id='aboutus-title'
+              label='Заголовок секции'
               sx={{ marginBottom: 2 }}
               value={aboutusStatic.title}
               onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
-              autoComplete="off"
+              autoComplete='off'
               required
             />
 
             <TextField
-              id="aboutus-subtitle"
+              id='aboutus-subtitle'
               label={'Описание секции'}
               sx={{ marginBottom: 2 }}
               value={aboutusStatic.subtitle}
@@ -137,7 +137,7 @@ export const Settings: FC = () => {
 
             {aboutusStatic.subtitles &&
               Object.entries(aboutusStatic.subtitles).map(([key, subtitle], i) => (
-                <Stack key={key} direction="row" spacing={2} alignItems="center" mb={2}>
+                <Stack key={key} direction='row' spacing={2} alignItems='center' mb={2}>
                   <TextField
                     id={`aboutus-subtitle-${key}`}
                     label={`Описание секции ${i + 2}`}
@@ -150,58 +150,58 @@ export const Settings: FC = () => {
                     required
                   />
 
-                  <IconButton color="error" onClick={() => removeSubtitle(key)}>
+                  <IconButton color='error' onClick={() => removeSubtitle(key)}>
                     <DeleteRoundedIcon />
                   </IconButton>
                 </Stack>
               ))}
           </FormControl>
 
-          <Button variant="contained" onClick={addSubtitle}>
+          <Button variant='contained' onClick={addSubtitle}>
             Добавить параграф
           </Button>
         </AccordionDetails>
       </Accordion>
 
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
           <Typography>{`Фотографии галлереи (должно быть минимум ${GALLERY_CONFIG.length})`}</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
           <Gallery gallery={gallery} isMobile editable handleRemove={handleRemove} handleUpload={handleUpload} />
 
-          <Button startIcon={<AddAPhotoleIcon />} variant="contained" component="label">
+          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
             Добавить
-            <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e, 'gallery')} />
+            <input hidden accept='image/*' multiple type='file' onChange={(e) => handleUpload(e, 'gallery')} />
           </Button>
         </AccordionDetails>
       </Accordion>
 
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
           <Typography>Тренеры</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant='outlined' fullWidth>
             <TextField
-              id="coaches-title"
-              label="Заголовок секции"
+              id='coaches-title'
+              label='Заголовок секции'
               sx={{ marginBottom: 2 }}
               value={coachesStatic.title}
               // @ts-expect-error some description
               onChange={(e) => handleCoachesStatic(e, 'title')}
-              autoComplete="off"
+              autoComplete='off'
               required
             />
 
             <TextField
-              id="coaches-subtitle"
+              id='coaches-subtitle'
               label={'Описание секции'}
               sx={{ marginBottom: 2 }}
               value={coachesStatic.subtitle}
-              autoComplete="off"
+              autoComplete='off'
               // @ts-expect-error some description
               onChange={(e) => handleCoachesStatic(e, 'subtitle')}
               multiline
@@ -211,8 +211,8 @@ export const Settings: FC = () => {
             />
           </FormControl>
 
-          <Box width="100%" paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
-            <Grid container marginX={0} spacing={8} width="100%">
+          <Box width='100%' paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
+            <Grid container marginX={0} spacing={8} width='100%'>
               {coaches.map((coach) => (
                 <Coach key={coach.id} {...coach} isMobile isEditable onDelete={removeCoach} />
               ))}
@@ -220,24 +220,24 @@ export const Settings: FC = () => {
           </Box>
 
           <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
-            <FormControl variant="outlined" fullWidth>
+            <FormControl variant='outlined' fullWidth>
               <TextField
-                id="coach-name"
-                label="Имя нового тренера"
+                id='coach-name'
+                label='Имя нового тренера'
                 sx={{ marginBottom: 2 }}
                 value={newCoach.name}
                 // @ts-expect-error some description
                 onChange={(e) => handleNewCoach(e, 'name')}
-                autoComplete="off"
+                autoComplete='off'
                 required
               />
 
               <TextField
-                id="comment"
+                id='comment'
                 label={'Красивое описание тренера'}
                 sx={{ marginBottom: 2 }}
                 value={newCoach.description}
-                autoComplete="off"
+                autoComplete='off'
                 // @ts-expect-error some description
                 onChange={(e) => handleNewCoach(e, 'description')}
                 multiline
@@ -257,16 +257,16 @@ export const Settings: FC = () => {
             />
 
             <Box>
-              <Button startIcon={<AddAPhotoleIcon />} variant="outlined" component="label">
+              <Button startIcon={<AddAPhotoleIcon />} variant='outlined' component='label'>
                 Выбрать фото тренера
-                <input hidden accept="image/*" type="file" onChange={(e) => handleNewCoach(e, 'photoURL')} />
+                <input hidden accept='image/*' type='file' onChange={(e) => handleNewCoach(e, 'photoURL')} />
               </Button>
             </Box>
           </Box>
 
           <Button
-            variant="contained"
-            component="label"
+            variant='contained'
+            component='label'
             onClick={addCoach}
             disabled={!isNewCoachFilled}
             sx={{

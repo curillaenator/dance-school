@@ -60,13 +60,13 @@ export const Applications: FC = () => {
           maxHeight: 'calc(100vh - 120px)',
         }}
       >
-        <Table stickyHeader aria-label="simple table">
+        <Table stickyHeader aria-label='simple table'>
           <Heading isMobile={isMobile} />
 
           <TableBody>
             {tableData.map((application) => (
               <TableRow key={application.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
+                <TableCell component='th' scope='row'>
                   {!isMobile ? (
                     processLongName(application.name)
                   ) : (
@@ -92,15 +92,15 @@ export const Applications: FC = () => {
                   <>
                     <TableCell>{application.tel}</TableCell>
 
-                    <TableCell align="right" style={{ maxWidth: '360px' }}>
+                    <TableCell align='right' style={{ maxWidth: '360px' }}>
                       {application.comment}
                     </TableCell>
 
-                    <TableCell align="right" style={{ width: '64px' }}>
+                    <TableCell align='right' style={{ width: '64px' }}>
                       <Checkbox checked={application.called} onChange={() => updateCalled(application)} />
                     </TableCell>
 
-                    <TableCell align="right" style={{ width: '64px' }}>
+                    <TableCell align='right' style={{ width: '64px' }}>
                       <IconButton onClick={() => remove(application.id)}>
                         <RemoveIcon />
                       </IconButton>

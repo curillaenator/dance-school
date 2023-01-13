@@ -40,7 +40,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
 
   return (
     <SwipeableDrawer
-      anchor="left"
+      anchor='left'
       open={drawer}
       onOpen={openDrawer}
       onClose={closeDrawer}
@@ -50,18 +50,18 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
       swipeAreaWidth={56}
     >
       <Box
-        width="70vw"
-        maxWidth="256px"
-        height="100%"
-        pt="15vh"
+        width='70vw'
+        maxWidth='256px'
+        height='100%'
+        pt='15vh'
         borderRight={(theme) => `1px solid ${theme.palette.primary.main}`}
-        role="presentation"
+        role='presentation'
       >
         <ButtonGroup
           fullWidth
-          orientation="vertical"
-          size="large"
-          variant="contained"
+          orientation='vertical'
+          size='large'
+          variant='contained'
           sx={{
             marginBottom: 8,
           }}

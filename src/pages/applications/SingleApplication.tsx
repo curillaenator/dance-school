@@ -51,21 +51,21 @@ export const SingleApplication: FC<SingleApplicationProps> = (props) => {
                 top: 0,
                 right: 0,
               }}
-              color="primary"
-              size="large"
+              color='primary'
+              size='large'
               onClick={handleClose}
             >
-              <CloseIcon color="inherit" />
+              <CloseIcon color='inherit' />
             </IconButton>
 
             <Typography
-              variant="h5"
+              variant='h5'
               fontWeight={500}
-              color="text.primary"
+              color='text.primary'
               mb={2}
-              overflow="hidden"
-              whiteSpace="nowrap"
-              textOverflow="ellipsis"
+              overflow='hidden'
+              whiteSpace='nowrap'
+              textOverflow='ellipsis'
               sx={{
                 maxWidth: 'calc(100% - 32px)',
               }}
@@ -73,12 +73,12 @@ export const SingleApplication: FC<SingleApplicationProps> = (props) => {
               {data.name}
             </Typography>
 
-            <Button size="large" variant="text" fullWidth sx={{ marginBottom: 2 }} onClick={() => copyTel(data.tel)}>
+            <Button size='large' variant='text' fullWidth sx={{ marginBottom: 2 }} onClick={() => copyTel(data.tel)}>
               {telString}
             </Button>
 
             {!!data.comment && (
-              <Typography color="text.secondary" mb={2}>
+              <Typography color='text.secondary' mb={2}>
                 {data.comment}
               </Typography>
             )}
@@ -86,15 +86,15 @@ export const SingleApplication: FC<SingleApplicationProps> = (props) => {
             <CardActions>
               <ButtonGroup fullWidth>
                 <Button
-                  size="medium"
-                  variant="contained"
+                  size='medium'
+                  variant='contained'
                   color={data.called ? 'secondary' : 'primary'}
                   onClick={() => updateCalled(data)}
                 >
                   {data.called ? 'В активное' : 'В старое'}
                 </Button>
 
-                <Button size="medium" variant="outlined" color="error" onClick={() => remove(data.id)}>
+                <Button size='medium' variant='outlined' color='error' onClick={() => remove(data.id)}>
                   Удалить
                 </Button>
               </ButtonGroup>

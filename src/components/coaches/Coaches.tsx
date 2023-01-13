@@ -18,14 +18,14 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box width="100%" paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
+      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
-          align="center"
+          align='center'
           color={(theme) => theme.palette.background.default}
           px={4}
           mb={4}
-          mx="auto"
+          mx='auto'
           fontWeight={500}
           maxWidth={maxWidth}
           zIndex={0}
@@ -34,18 +34,18 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
         </Typography>
 
         <Typography
-          variant="subtitle1"
-          align="center"
+          variant='subtitle1'
+          align='center'
           color={(theme) => theme.palette.background.default}
           px={4}
           mb={16}
-          mx="auto"
+          mx='auto'
           zIndex={0}
         >
           {staticContent.coaches.subtitle}
         </Typography>
 
-        <Grid container spacing={8} marginX="auto" maxWidth={maxWidth}>
+        <Grid container spacing={8} marginX='auto' maxWidth={maxWidth}>
           {coaches.map((coach) => (
             <Coach key={coach.id} isMobile={isMobile} {...coach} />
           ))}

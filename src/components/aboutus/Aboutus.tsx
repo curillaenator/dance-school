@@ -31,11 +31,11 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
       <Box paddingTop={16}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
-          align="center"
+          align='center'
           color={(theme) => theme.palette.text.primary}
           fontWeight={500}
           paddingX={4}
-          marginX="auto"
+          marginX='auto'
           mb={4}
           sx={{
             zIndex: 0,
@@ -46,12 +46,12 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
         </Typography>
 
         <Typography
-          variant="subtitle1"
-          align="center"
+          variant='subtitle1'
+          align='center'
           color={(theme) => theme.palette.text.secondary}
           paddingX={4}
           mb={1}
-          marginX="auto"
+          marginX='auto'
           sx={{
             zIndex: 0,
             maxWidth,
@@ -64,12 +64,12 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           Object.entries(staticContent.aboutus.subtitles).map(([key, subtitle]) => (
             <Typography
               key={key}
-              variant="subtitle1"
-              align="center"
+              variant='subtitle1'
+              align='center'
               color={(theme) => theme.palette.text.secondary}
               paddingX={4}
               mb={1}
-              marginX="auto"
+              marginX='auto'
               sx={{
                 zIndex: 0,
                 maxWidth,
@@ -87,20 +87,20 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           handleInitialSlide={handleInitialSlide}
         />
 
-        <Box width="100%" paddingTop={8}>
+        <Box width='100%' paddingTop={8}>
           <Box
-            marginX="auto"
-            width="100%"
+            marginX='auto'
+            width='100%'
             sx={{
               maxWidth,
             }}
           >
-            <YouTube videoId="wKp-rKaMIVQ" className={styles.playerContainer} iframeClassName={styles.iframe} />
+            <YouTube videoId='wKp-rKaMIVQ' className={styles.playerContainer} iframeClassName={styles.iframe} />
           </Box>
         </Box>
       </Box>
 
-      <Dialog onClose={handleClose} open={open} fullWidth maxWidth="lg">
+      <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
         <PopupGallery photos={photos} initialSlide={initialSlide} handleClose={handleClose} />
       </Dialog>
     </Element>

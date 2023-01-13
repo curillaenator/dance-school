@@ -40,8 +40,8 @@ export const PopupGallery: FC<PopupGalleryProps> = (props) => {
     >
       <IconButton
         onClick={handleClose}
-        color="primary"
-        size="large"
+        color='primary'
+        size='large'
         sx={{
           position: 'absolute',
           top: 0,

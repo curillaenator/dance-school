@@ -75,9 +75,9 @@ export const Header: FC = () => {
       >
         {isMobile && isLanding && (
           <IconButton
-            size="large"
+            size='large'
             onClick={openDrawer}
-            color="primary"
+            color='primary'
             sx={{
               position: 'absolute',
               top: '50%',
@@ -85,15 +85,15 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            {<SwipeRightIcon color="inherit" />}
+            {<SwipeRightIcon color='inherit' />}
           </IconButton>
         )}
 
         {!isLanding && (
           <IconButton
-            size="large"
+            size='large'
             onClick={() => navigate('/')}
-            color="primary"
+            color='primary'
             sx={{
               position: 'absolute',
               top: '50%',
@@ -101,12 +101,12 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            {<ArrowBackIcon color="inherit" />}
+            {<ArrowBackIcon color='inherit' />}
           </IconButton>
         )}
 
         {!isMobile && isLanding && (
-          <ButtonGroup variant="text">
+          <ButtonGroup variant='text'>
             {TOOLBAR_ITEMS.map((item) => (
               <Button key={item.title} sx={{ width: 120, minHeight: 56 }} onClick={() => handleScroll(item.to)}>
                 {item.title}
@@ -168,14 +168,14 @@ export const Header: FC = () => {
         <MenuList sx={{ minWidth: 200 }}>
           <MenuItem onClick={() => handleNavigate('/applications')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <ListIcon fontSize="medium" />
+              <ListIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Заявки</ListItemText>
           </MenuItem>
 
           <MenuItem onClick={() => handleNavigate('/settings')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <SettingsIcon fontSize="medium" />
+              <SettingsIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Настройки</ListItemText>
           </MenuItem>
@@ -188,7 +188,7 @@ export const Header: FC = () => {
             sx={{ height: 48 }}
           >
             <ListItemIcon>
-              <LogoutIcon fontSize="medium" />
+              <LogoutIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Выйти</ListItemText>
           </MenuItem>

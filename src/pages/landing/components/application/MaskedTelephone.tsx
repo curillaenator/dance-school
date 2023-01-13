@@ -13,7 +13,7 @@ export const MaskedTelephone = forwardRef<HTMLElement, TelMaskedProps>((props, r
     <IMaskInput
       {...rest}
       name={name}
-      mask="+7 (#00) 000-00-00"
+      mask='+7 (#00) 000-00-00'
       definitions={{ '#': /[1-9]/ }}
       // @ts-expect-error description
       inputRef={ref}

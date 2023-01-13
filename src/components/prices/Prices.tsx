@@ -27,10 +27,10 @@ export const Prices: FC<PricesProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box width="100%" paddingY={16} bgcolor={(theme) => theme.palette.error.dark}>
+      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.error.dark}>
         <Typography
           variant={isMobile ? 'h4' : 'h3'}
-          align="center"
+          align='center'
           color={(theme) => theme.palette.text.primary}
           fontWeight={500}
           paddingX={4}
@@ -56,10 +56,10 @@ export const Prices: FC<PricesProps> = (props) => {
           ))}
         </Grid>
 
-        <Box display="flex" justifyContent="center">
+        <Box display='flex' justifyContent='center'>
           <Button
-            variant="contained"
-            size="large"
+            variant='contained'
+            size='large'
             onClick={handleOpen}
             sx={{
               height: 64,

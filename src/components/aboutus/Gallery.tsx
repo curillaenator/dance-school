@@ -43,7 +43,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
 
   return (
     <Box
-      width="100%"
+      width='100%'
       paddingY={editable ? 0.5 : 16}
       my={editable ? 0 : 16}
       mb={editable ? 4 : 0}
@@ -55,7 +55,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
           marginX: 'auto',
           paddingX: isMobile ? 0.5 : 4,
         }}
-        variant="quilted"
+        variant='quilted'
         cols={4}
         rowHeight={GALLERY_ROW_HEIGHT}
       >
@@ -73,7 +73,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
             <ImgStyled
               {...srcset(img, GALLERY_ROW_HEIGHT, rows, cols)}
               alt={title}
-              loading="lazy"
+              loading='lazy'
               onClick={() => {
                 handleInitialSlide(i);
                 handleOpen();
@@ -84,16 +84,16 @@ export const Gallery: FC<GalleryProps> = (props) => {
               <ImageListItemBar
                 actionIcon={
                   <>
-                    <Tooltip title="Заменить" placement="top">
-                      <IconButton color="primary" component="label">
+                    <Tooltip title='Заменить' placement='top'>
+                      <IconButton color='primary' component='label'>
                         <ChangeCircle />
-                        <input hidden accept="image/*" type="file" onChange={(e) => handleUpload(e, 'gallery', img)} />
+                        <input hidden accept='image/*' type='file' onChange={(e) => handleUpload(e, 'gallery', img)} />
                       </IconButton>
                     </Tooltip>
 
                     {gallery.length > GALLERY_CONFIG.length && (
-                      <Tooltip title="Удалить" placement="top">
-                        <IconButton color="error" onClick={() => handleRemove(img, 'gallery')}>
+                      <Tooltip title='Удалить' placement='top'>
+                        <IconButton color='error' onClick={() => handleRemove(img, 'gallery')}>
                           <DeleteRoundedIcon />
                         </IconButton>
                       </Tooltip>

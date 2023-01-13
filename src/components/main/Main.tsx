@@ -31,12 +31,12 @@ export const Main: FC<MainProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box position="relative" height="100vh" width="100%">
+      <Box position='relative' height='100vh' width='100%'>
         <Background />
 
         <Box
-          width="100%"
-          height="100%"
+          width='100%'
+          height='100%'
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -46,11 +46,11 @@ export const Main: FC<MainProps> = (props) => {
           }}
         >
           <Box>
-            <ImgStyled src={logoFullImage} draggable="false" />
+            <ImgStyled src={logoFullImage} draggable='false' />
           </Box>
 
           <Typography
-            variant="subtitle1"
+            variant='subtitle1'
             fontSize={isMobile ? 22 : 26}
             color={(theme) => theme.palette.text.primary}
             mb={6}
@@ -59,8 +59,8 @@ export const Main: FC<MainProps> = (props) => {
           </Typography>
 
           <Button
-            variant="contained"
-            size="large"
+            variant='contained'
+            size='large'
             onClick={handleOpen}
             sx={{
               height: 64,

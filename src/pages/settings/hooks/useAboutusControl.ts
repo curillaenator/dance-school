@@ -55,7 +55,7 @@ export const useAboutusControl = () => {
       updateStaticContent('aboutus', { subtitles });
       setLoading(false);
     },
-    [staticContent.aboutus, updateStaticContent],
+    [staticContent.aboutus, setLoading, updateStaticContent],
   );
 
   return {

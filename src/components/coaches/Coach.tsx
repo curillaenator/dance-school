@@ -47,7 +47,7 @@ export const Coach: FC<CoachInterface> = (props) => {
       >
         {isEditable && (
           <IconButton
-            color="error"
+            color='error'
             onClick={() => onDelete({ id, name, description, photoURL })}
             sx={{
               position: 'absolute',
@@ -68,11 +68,11 @@ export const Coach: FC<CoachInterface> = (props) => {
           }}
         />
 
-        <Typography variant="h6" fontWeight={500} color={(theme) => theme.palette.background.default} mb={1}>
+        <Typography variant='h6' fontWeight={500} color={(theme) => theme.palette.background.default} mb={1}>
           {name}
         </Typography>
 
-        <Typography variant="subtitle2" color={(theme) => theme.palette.background.default}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.background.default}>
           {description}
         </Typography>
       </Card>
