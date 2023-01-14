@@ -65,7 +65,13 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
           }}
         >
           {TOOLBAR_ITEMS.map((item) => (
-            <Button key={item.title} onClick={() => handleScroll(item.to)}>
+            <Button
+              key={item.title}
+              onClick={() => handleScroll(item.to)}
+              sx={{
+                borderRadius: 0,
+              }}
+            >
               {item.title}
             </Button>
           ))}

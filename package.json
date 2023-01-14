@@ -62,7 +62,6 @@
     "react-imask": "^6.4.3",
     "react-router-dom": "^6.6.1",
     "react-scroll": "^1.8.9",
-    "react-youtube": "^10.1.0",
     "swiper": "^8.4.5"
   }
 }

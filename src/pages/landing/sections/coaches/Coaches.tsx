@@ -41,6 +41,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           mb={16}
           mx='auto'
           zIndex={0}
+          maxWidth={maxWidth}
         >
           {staticContent.coaches.subtitle}
         </Typography>

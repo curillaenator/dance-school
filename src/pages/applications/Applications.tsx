@@ -43,23 +43,8 @@ export const Applications: FC = () => {
     rowsPerPage > 0 ? applicationsMaped.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : applicationsMaped;
 
   return (
-    <>
-      <Box
-        sx={{
-          width: '100%',
-          height: 120,
-          backgroundColor: '#121212',
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
-        }}
-      />
-      <TableContainer
-        component={Paper}
-        sx={{
-          padding: '0 32px 32px',
-          minHeight: 'calc(100vh - 120px)',
-          maxHeight: 'calc(100vh - 120px)',
-        }}
-      >
+    <Box pt={16} px={4} pb={4} minHeight='100vh'>
+      <TableContainer component={Paper}>
         <Table stickyHeader aria-label='simple table'>
           <Heading isMobile={isMobile} />
 
@@ -101,7 +86,7 @@ export const Applications: FC = () => {
                     </TableCell>
 
                     <TableCell align='right' style={{ width: '64px' }}>
-                      <IconButton onClick={() => remove(application.id)}>
+                      <IconButton color='error' onClick={() => remove(application.id)}>
                         <RemoveIcon />
                       </IconButton>
                     </TableCell>
@@ -144,6 +129,6 @@ export const Applications: FC = () => {
           updateCalled={updateCalled}
         />
       )}
-    </>
+    </Box>
   );
 };

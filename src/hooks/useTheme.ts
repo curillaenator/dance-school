@@ -1,53 +1,8 @@
 import { useState, useCallback } from 'react';
-import { createTheme, ThemeOptions, useTheme as useGlobalTheme } from '@mui/material/styles';
+import { createTheme, useTheme as useGlobalTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { grey } from '@mui/material/colors';
 
-const DARK: ThemeOptions = {
-  typography: {
-    fontFamily: ['Montserrat'].join(','),
-  },
-
-  palette: {
-    mode: 'dark',
-
-    primary: {
-      main: '#D8C3AE',
-    },
-
-    secondary: {
-      main: grey[600],
-    },
-
-    background: {
-      default: '#363636',
-      paper: '#363636',
-    },
-  },
-};
-
-const LIGHT: ThemeOptions = {
-  typography: {
-    fontFamily: ['Montserrat'].join(','),
-  },
-
-  palette: {
-    mode: 'light',
-
-    primary: {
-      main: '#D8C3AE',
-    },
-
-    secondary: {
-      main: grey[400],
-    },
-
-    background: {
-      default: '#ffffff',
-      paper: '#ffffff',
-    },
-  },
-};
+import { DARK, LIGHT } from '@src/shared/theme';
 
 export const useTheme = () => {
   const globalTheme = useGlobalTheme();

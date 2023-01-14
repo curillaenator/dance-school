@@ -24,7 +24,7 @@ export const INITIAL_STATIC_CONTENT: LandingStaticContentType = {
     subtitles: {},
   },
   aboutus: {
-    title: 'Наши активности',
+    title: 'Кто мы',
     subtitle: '',
     subtitles: {},
   },

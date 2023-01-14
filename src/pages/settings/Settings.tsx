@@ -29,6 +29,7 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 import { Coach } from '@src/components/coach';
 import { Gallery } from '@src/components/photogallery';
+import { VideoGallery } from '@src/components/videogallery';
 
 import { usePhotoControl } from './hooks/usePhotoControl';
 import { useCoachesControl } from './hooks/useCoachesControl';
@@ -54,8 +55,8 @@ export const Settings: FC = () => {
   const { aboutusStatic, handleAboutusStatic, addSubtitle, removeSubtitle } = useAboutusControl();
 
   return (
-    <Box width='100%' pt={16} px={4} position='relative'>
-      <Accordion>
+    <Box width='100%' pt={16} px={4} pb={4} position='relative' minHeight='100vh'>
+      <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1a-content' id='panel1a-header'>
           <Typography>Фотографии главного экрана (должно быть минимум 2)</Typography>
         </AccordionSummary>
@@ -106,7 +107,7 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
           <Typography>Кто мы</Typography>
         </AccordionSummary>
@@ -163,8 +164,23 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
+      <Accordion sx={{ marginBottom: 2 }}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel3a-content' id='panel3a-header'>
+          <Typography>{`Видео (должно быть минимум 2)`}</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <VideoGallery previews={[]} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
+
+          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
+            Добавить
+            <input hidden accept='video/*' type='file' onChange={() => {}} />
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion sx={{ marginBottom: 2 }}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel4a-content' id='panel4a-header'>
           <Typography>{`Фотографии галлереи (должно быть минимум ${GALLERY_CONFIG.length})`}</Typography>
         </AccordionSummary>
 
@@ -179,7 +195,7 @@ export const Settings: FC = () => {
       </Accordion>
 
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2a-content' id='panel2a-header'>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel5a-content' id='panel5a-header'>
           <Typography>Тренеры</Typography>
         </AccordionSummary>
 
