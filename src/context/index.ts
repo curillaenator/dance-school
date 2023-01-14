@@ -1,6 +1,14 @@
 import { createContext } from 'react';
-import { UserType, CoachType, LandingStaticContentType, StaticSectionType, StaticKeysType } from '@src/types';
 import { INITIAL_STATIC_CONTENT } from '@src/shared/constants';
+
+import {
+  UserType,
+  CoachType,
+  LandingStaticContentType,
+  StaticSectionType,
+  StaticKeysType,
+  VideoType,
+} from '@src/types';
 
 interface ContextType {
   isMobile: boolean;
@@ -22,6 +30,7 @@ interface ContextType {
   updateStaticContent: (key: StaticKeysType, data: Partial<StaticSectionType>) => void;
 
   coaches: CoachType[];
+  videos: VideoType[];
 
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
@@ -47,6 +56,7 @@ export const Context = createContext<ContextType>({
   updateStaticContent: () => {},
 
   coaches: [],
+  videos: [],
 
   loading: false,
   setLoading: () => {},

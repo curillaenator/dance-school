@@ -1,16 +1,15 @@
 import { ChangeEvent } from 'react';
-import { StoragePathsType } from '@src/types';
+import { StoragePathsType, VideoType } from '@src/types';
 
-// export interface GalleryType {
-//   id: string;
-//   img: string;
-//   title: string;
-//   rows: number;
-//   cols: number;
-// }
+export interface VideoPreviewProps extends VideoType {
+  handleOpen?: () => void;
+  editable?: boolean;
+  handleRemove?: (url: string, storagePath: StoragePathsType) => void;
+  handleUpload?: (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathsType, url?: string) => void;
+}
 
-export interface GalleryProps {
-  previews: string[];
+export interface VideoGalleryProps {
+  videos: VideoType[];
   isMobile: boolean;
   maxWidth?: string;
   handleOpen?: () => void;

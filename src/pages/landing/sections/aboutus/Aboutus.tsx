@@ -9,6 +9,7 @@ import { Gallery } from '@src/components/photogallery';
 import { PopupGallery } from '@src/components/popupgallery';
 
 import { VideoGallery } from '@src/components/videogallery';
+import { VideoPlayer } from '@src/components/videoplayer';
 
 import { useModalControl } from '@src/hooks/useModalControl';
 import { useGallery } from './hooks/useGallery';
@@ -22,7 +23,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
 
   const [modalContent, setModalContent] = useState<'photo' | 'video'>('photo');
 
-  const { isMobile, staticContent } = useContext(Context);
+  const { isMobile, staticContent, videos } = useContext(Context);
   const { initialSlide, photos, gallery, handleInitialSlide } = useGallery();
   const { open, handleClose, handleOpen } = useModalControl();
 
@@ -87,28 +88,17 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
             fontWeight={500}
             paddingX={4}
             marginX='auto'
-            mb={4}
+            mb={8}
             sx={{
               zIndex: 0,
               maxWidth,
             }}
           >
-            Наши активности
+            Чему научим
           </Typography>
 
-          <Gallery
-            gallery={gallery}
-            maxWidth={maxWidth}
-            isMobile={isMobile}
-            handleOpen={() => {
-              setModalContent('photo');
-              handleOpen();
-            }}
-            handleInitialSlide={handleInitialSlide}
-          />
-
           <VideoGallery
-            previews={[]}
+            videos={videos}
             maxWidth={maxWidth}
             isMobile={isMobile}
             handleOpen={() => {
@@ -119,7 +109,22 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
         </Box>
 
         <Box paddingY={16}>
-          {/* <Gallery
+          <Typography
+            variant={isMobile ? 'h4' : 'h3'}
+            align='center'
+            color={(theme) => theme.palette.text.primary}
+            fontWeight={500}
+            paddingX={4}
+            marginX='auto'
+            mb={8}
+            sx={{
+              zIndex: 0,
+              maxWidth,
+            }}
+          >
+            Фотогаллерея
+          </Typography>
+          <Gallery
             gallery={gallery}
             maxWidth={maxWidth}
             isMobile={isMobile}
@@ -128,7 +133,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
               handleOpen();
             }}
             handleInitialSlide={handleInitialSlide}
-          /> */}
+          />
         </Box>
       </Box>
 
@@ -136,6 +141,8 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
         {modalContent === 'photo' && (
           <PopupGallery photos={photos} initialSlide={initialSlide} handleClose={handleClose} />
         )}
+
+        {modalContent === 'video' && <VideoPlayer id='123' videoPath='test.mp4' />}
       </Dialog>
     </Element>
   );

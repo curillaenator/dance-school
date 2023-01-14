@@ -170,7 +170,7 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <VideoGallery previews={[]} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
+          <VideoGallery videos={[]} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
 
           <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
             Добавить

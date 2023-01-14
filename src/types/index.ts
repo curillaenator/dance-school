@@ -58,6 +58,13 @@ export interface PriceType {
   description: string;
 }
 
+export interface VideoType {
+  id: string;
+  title: string;
+  thumbPath: string;
+  videoPath: string;
+}
+
 // Storage
 
 export type StoragePathsType = 'mainSlider' | 'gallery';
