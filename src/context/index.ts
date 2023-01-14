@@ -8,6 +8,7 @@ import {
   StaticSectionType,
   StaticKeysType,
   VideoType,
+  PriceType,
 } from '@src/types';
 
 interface ContextType {
@@ -31,6 +32,7 @@ interface ContextType {
 
   coaches: CoachType[];
   videos: VideoType[];
+  prices: PriceType[];
 
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
@@ -57,6 +59,7 @@ export const Context = createContext<ContextType>({
 
   coaches: [],
   videos: [],
+  prices: [],
 
   loading: false,
   setLoading: () => {},

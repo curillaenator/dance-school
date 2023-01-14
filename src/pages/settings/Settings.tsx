@@ -24,16 +24,23 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import AddAPhotoleIcon from '@mui/icons-material/AddAPhoto';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import VideoFileIcon from '@mui/icons-material/VideoFile';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import CheckIcon from '@mui/icons-material/Check';
+import AddIcon from '@mui/icons-material/Add';
 
 import { Coach } from '@src/components/coach';
 import { Gallery } from '@src/components/photogallery';
 import { VideoGallery } from '@src/components/videogallery';
+import { Price } from '@src/components/price';
+import { LinearProgress } from '@src/components/linearprogress';
 
 import { usePhotoControl } from './hooks/usePhotoControl';
 import { useCoachesControl } from './hooks/useCoachesControl';
 import { useAboutusControl } from './hooks/useAboutusControl';
+import { usePricesControl } from './hooks/usePricesControl';
+import { useVideosControl } from './hooks/useVideosControl';
 
 import { GALLERY_CONFIG } from '@src/shared/constants';
 
@@ -53,6 +60,18 @@ export const Settings: FC = () => {
   } = useCoachesControl();
 
   const { aboutusStatic, handleAboutusStatic, addSubtitle, removeSubtitle } = useAboutusControl();
+
+  const { prices, newPrice, isNewPriceFilled, handleNewPrice, addPrice, removePrice } = usePricesControl();
+
+  const {
+    videos,
+    newVideo,
+    isVideoReadyToUpload,
+    uploadProgress,
+
+    handleNewVideo,
+    addVideo,
+  } = useVideosControl();
 
   return (
     <Box width='100%' pt={16} px={4} pb={4} position='relative' minHeight='100vh'>
@@ -100,7 +119,7 @@ export const Settings: FC = () => {
             ))}
           </ImageList>
 
-          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
+          <Button startIcon={<AddAPhotoIcon />} variant='contained' component='label'>
             Добавить
             <input hidden accept='image/*' multiple type='file' onChange={(e) => handleUpload(e, 'mainSlider')} />
           </Button>
@@ -164,18 +183,67 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ marginBottom: 2 }}>
+      <Accordion sx={{ marginBottom: 2 }} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel3a-content' id='panel3a-header'>
           <Typography>{`Видео (должно быть минимум 2)`}</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <VideoGallery videos={[]} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
+          <VideoGallery videos={videos} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
 
-          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
+          <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
+            <FormControl variant='outlined' fullWidth>
+              <TextField
+                id='video-title'
+                label='Название видео'
+                sx={{ marginBottom: 1 }}
+                value={newVideo.title}
+                onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'title')}
+                autoComplete='off'
+                required
+              />
+            </FormControl>
+
+            <Stack direction='row' spacing={1} mb={1} alignItems='center'>
+              <Button startIcon={<AddAPhotoIcon />} variant='contained' component='label' sx={{ height: '40px' }}>
+                Выбрать обложку видео
+                <input
+                  hidden
+                  accept='image/*'
+                  type='file'
+                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'thumbPath')}
+                />
+              </Button>
+
+              {!!newVideo.thumbPath && <Avatar src={URL.createObjectURL(newVideo.thumbPath)} />}
+            </Stack>
+
+            <Stack direction='row' spacing={1} alignItems='center'>
+              <Button startIcon={<VideoFileIcon />} variant='contained' component='label' sx={{ height: '40px' }}>
+                Выбрать видео файл
+                <input
+                  hidden
+                  accept='video/*'
+                  type='file'
+                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'videoPath')}
+                />
+              </Button>
+
+              {!!newVideo.videoPath && <CheckIcon color='success' />}
+            </Stack>
+          </Box>
+
+          <Button
+            onClick={addVideo}
+            startIcon={<AddIcon />}
+            disabled={!isVideoReadyToUpload}
+            variant='contained'
+            sx={{ height: '56px' }}
+          >
             Добавить
-            <input hidden accept='video/*' type='file' onChange={() => {}} />
           </Button>
+
+          {uploadProgress !== null && <LinearProgress value={uploadProgress} />}
         </AccordionDetails>
       </Accordion>
 
@@ -187,14 +255,14 @@ export const Settings: FC = () => {
         <AccordionDetails>
           <Gallery gallery={gallery} isMobile editable handleRemove={handleRemove} handleUpload={handleUpload} />
 
-          <Button startIcon={<AddAPhotoleIcon />} variant='contained' component='label'>
+          <Button startIcon={<AddAPhotoIcon />} variant='contained' component='label'>
             Добавить
             <input hidden accept='image/*' multiple type='file' onChange={(e) => handleUpload(e, 'gallery')} />
           </Button>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel5a-content' id='panel5a-header'>
           <Typography>Тренеры</Typography>
         </AccordionSummary>
@@ -273,7 +341,7 @@ export const Settings: FC = () => {
             />
 
             <Box>
-              <Button startIcon={<AddAPhotoleIcon />} variant='outlined' component='label'>
+              <Button startIcon={<AddAPhotoIcon />} variant='outlined' component='label'>
                 Выбрать фото тренера
                 <input hidden accept='image/*' type='file' onChange={(e) => handleNewCoach(e, 'photoURL')} />
               </Button>
@@ -290,6 +358,77 @@ export const Settings: FC = () => {
             }}
           >
             Добавить нового тренера
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel6a-content' id='panel6a-header'>
+          <Typography>Цены</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Box width='100%' bgcolor={(theme) => theme.palette.error.dark}>
+            <Grid
+              container
+              spacing={8}
+              sx={{
+                margin: '0 auto 64px',
+              }}
+            >
+              {prices.map((price) => (
+                <Price key={price.id} {...price} editable removePrice={removePrice} />
+              ))}
+            </Grid>
+          </Box>
+
+          <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
+            <FormControl variant='outlined' fullWidth>
+              <TextField
+                id='price-title'
+                label='Название тарифа'
+                sx={{ marginBottom: 2 }}
+                value={newPrice.name}
+                onChange={(e) => handleNewPrice(e as ChangeEvent<HTMLInputElement>, 'name')}
+                autoComplete='off'
+                required
+              />
+
+              <TextField
+                id='price-value'
+                label='Цена тарифа'
+                sx={{ marginBottom: 2 }}
+                value={newPrice.price}
+                onChange={(e) => handleNewPrice(e as ChangeEvent<HTMLInputElement>, 'price')}
+                autoComplete='off'
+                required
+              />
+
+              <TextField
+                id='price-description'
+                label={'Описание тарифа'}
+                sx={{ marginBottom: 2 }}
+                value={newPrice.description}
+                onChange={(e) => handleNewPrice(e as ChangeEvent<HTMLInputElement>, 'description')}
+                autoComplete='off'
+                multiline
+                minRows={2}
+                maxRows={4}
+                required
+              />
+            </FormControl>
+          </Box>
+
+          <Button
+            variant='contained'
+            component='label'
+            onClick={addPrice}
+            disabled={!isNewPriceFilled}
+            sx={{
+              height: '56px',
+            }}
+          >
+            Добавить новый тариф
           </Button>
         </AccordionDetails>
       </Accordion>

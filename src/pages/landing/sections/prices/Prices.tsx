@@ -10,8 +10,6 @@ import { Price } from '@src/components/price';
 
 import { Context } from '@src/context';
 
-import { usePrices } from './hooks/usePrices';
-
 import { LandingSectionCommonProps } from '@src/types';
 
 interface PricesProps extends LandingSectionCommonProps {
@@ -20,10 +18,7 @@ interface PricesProps extends LandingSectionCommonProps {
 
 export const Prices: FC<PricesProps> = (props) => {
   const { name, handleOpen, maxWidth } = props;
-
-  const { isMobile } = useContext(Context);
-
-  const { prices } = usePrices();
+  const { isMobile, prices } = useContext(Context);
 
   return (
     <Element name={name}>

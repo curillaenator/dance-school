@@ -12,7 +12,7 @@ export interface VideoGalleryProps {
   videos: VideoType[];
   isMobile: boolean;
   maxWidth?: string;
-  handleOpen?: () => void;
+  handleOpen?: (video: VideoType) => void;
   editable?: boolean;
   handleRemove?: (url: string, storagePath: StoragePathsType) => void;
   handleUpload?: (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathsType, url?: string) => void;

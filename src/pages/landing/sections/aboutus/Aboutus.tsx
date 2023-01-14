@@ -16,15 +16,16 @@ import { useGallery } from './hooks/useGallery';
 
 import { Context } from '@src/context';
 
-import { LandingSectionCommonProps } from '@src/types';
+import { LandingSectionCommonProps, VideoType } from '@src/types';
 
 export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
 
   const [modalContent, setModalContent] = useState<'photo' | 'video'>('photo');
 
-  const { isMobile, staticContent, videos } = useContext(Context);
-  const { initialSlide, photos, gallery, handleInitialSlide } = useGallery();
+  const { isMobile, staticContent } = useContext(Context);
+
+  const { initialSlide, videos, currentVideo, photos, gallery, handleInitialSlide, handlePlayerVideo } = useGallery();
   const { open, handleClose, handleOpen } = useModalControl();
 
   return (
@@ -101,8 +102,9 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
             videos={videos}
             maxWidth={maxWidth}
             isMobile={isMobile}
-            handleOpen={() => {
+            handleOpen={(video: VideoType) => {
               setModalContent('video');
+              handlePlayerVideo(video);
               handleOpen();
             }}
           />
@@ -124,6 +126,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           >
             Фотогаллерея
           </Typography>
+
           <Gallery
             gallery={gallery}
             maxWidth={maxWidth}
@@ -142,7 +145,9 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           <PopupGallery photos={photos} initialSlide={initialSlide} handleClose={handleClose} />
         )}
 
-        {modalContent === 'video' && <VideoPlayer id='123' videoPath='test.mp4' />}
+        {modalContent === 'video' && (
+          <VideoPlayer id={currentVideo?.id || ''} videoPath={currentVideo?.videoPath || ''} />
+        )}
       </Dialog>
     </Element>
   );

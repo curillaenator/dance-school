@@ -34,7 +34,7 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
             key={video.id}
             {...video}
             editable={editable}
-            handleOpen={handleOpen}
+            handleOpen={() => handleOpen(video)}
             handleRemove={handleRemove}
             handleUpload={handleUpload}
           />
