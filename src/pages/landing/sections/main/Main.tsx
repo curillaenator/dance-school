@@ -10,8 +10,6 @@ import { Background } from './components';
 import { Context } from '@src/context';
 import { LandingSectionCommonProps } from '@src/types';
 
-import logoFullImage from '@src/assets/logoFull.png';
-
 interface MainProps extends LandingSectionCommonProps {
   handleOpen: () => void;
 }
@@ -46,7 +44,7 @@ export const Main: FC<MainProps> = (props) => {
           }}
         >
           <Box>
-            <ImgStyled src={logoFullImage} draggable='false' />
+            <ImgStyled src='images/logoFull.png' draggable='false' />
           </Box>
 
           <Typography

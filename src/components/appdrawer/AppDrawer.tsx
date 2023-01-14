@@ -9,8 +9,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 
-import logoImg from '@src/assets/logo.png';
-
 interface DrawerContentProps {
   drawer: boolean;
   openDrawer: () => void;
@@ -73,7 +71,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
           ))}
         </ButtonGroup>
 
-        <ImgStyled src={logoImg} />
+        <ImgStyled src='images/logo.png' />
       </Box>
     </SwipeableDrawer>
   );

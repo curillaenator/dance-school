@@ -28,8 +28,6 @@ import { usePopover } from './hooks/usePopover';
 import { TOOLBAR_ITEMS, SCROLL_SPEED } from '@src/shared/constants';
 import { AppBarStyled, LogoStyled } from './styled';
 
-import logoImg from '@src/assets/logo.png';
-
 export const Header: FC = () => {
   const { uid, isMobile, loading, logOut, openDrawer } = useContext(Context);
   const { target, popoverId, open, handleClick, handleClose } = usePopover({});
@@ -146,7 +144,7 @@ export const Header: FC = () => {
               transform: 'translate(0,-50%)',
             }}
           >
-            <LogoStyled src={logoImg} />
+            <LogoStyled src='images/logo.png' />
           </Box>
         )}
       </Box>
