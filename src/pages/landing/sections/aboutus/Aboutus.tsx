@@ -95,7 +95,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
               maxWidth,
             }}
           >
-            Наша школа
+            {staticContent.aboutus.info}
           </Typography>
 
           <VideoGallery

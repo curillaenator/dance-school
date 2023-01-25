@@ -20,6 +20,7 @@ export type StaticKeysType = 'coaches' | 'prices' | 'aboutus';
 
 export interface StaticSectionType {
   title: string;
+  info?: string;
   subtitle?: string;
   subtitles?: Record<string, string>;
 }
