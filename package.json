@@ -57,6 +57,7 @@
     "@mui/material": "^5.11.3",
     "firebase": "^9.15.0",
     "html-react-parser": "^3.0.8",
+    "notistack": "^2.0.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-image-file-resizer": "^0.4.8",

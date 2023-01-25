@@ -1,4 +1,5 @@
 import { useCallback, ChangeEvent, useContext, useMemo } from 'react';
+import { useSnackbar } from 'notistack';
 import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { ST } from '@src/config';
 
@@ -10,6 +11,7 @@ import { StoragePathsType } from '@src/types';
 
 export const usePhotoControl = () => {
   const { mainSlider, updateMainSlider, gallery, updateGallery, loading, setLoading } = useContext(Context);
+  const { enqueueSnackbar } = useSnackbar();
 
   const photoUpdaters: Record<StoragePathsType, (url: string[]) => void> = useMemo(
     () => ({
@@ -21,21 +23,23 @@ export const usePhotoControl = () => {
 
   const handleRemove = useCallback(
     async (url: string, storagePath: StoragePathsType) => {
-      setLoading(true);
-
       const fileName = findStoragePathFromUrl(url, storagePath);
 
       if (!!fileName) {
         try {
+          setLoading(true);
           await deleteObject(ref(ST, `${storagePath}/${fileName}`));
           await refetchStorage(storagePath, photoUpdaters[storagePath]);
+
+          enqueueSnackbar('Фото удалено', { variant: 'warning' });
           setLoading(false);
-        } catch {
+        } catch (err) {
+          enqueueSnackbar('Что-то не так :(', { variant: 'error' });
           setLoading(false);
         }
       }
     },
-    [photoUpdaters, setLoading],
+    [photoUpdaters, setLoading, enqueueSnackbar],
   );
 
   const handleUpload = useCallback(
@@ -54,6 +58,8 @@ export const usePhotoControl = () => {
         const resized = await resizeFile(files[0]);
         await uploadBytes(ref(ST, `${storagePath}/${fileNameToReplace}`), resized);
         refetchStorage(storagePath, photoUpdaters[storagePath]);
+
+        enqueueSnackbar('Фото обновлено', { variant: 'success' });
         setLoading(false);
 
         return;
@@ -70,10 +76,12 @@ export const usePhotoControl = () => {
 
       Promise.all(uploads).then(() => {
         refetchStorage(storagePath, photoUpdaters[storagePath]);
+
+        enqueueSnackbar('Фото загружено', { variant: 'success' });
         setLoading(false);
       });
     },
-    [photoUpdaters, setLoading],
+    [photoUpdaters, setLoading, enqueueSnackbar],
   );
 
   return {

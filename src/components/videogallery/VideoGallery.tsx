@@ -15,7 +15,7 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
     editable = false,
     handleOpen = () => {},
     handleRemove = () => {},
-    handleUpload = () => {},
+    handleEdit = () => {},
   } = props;
 
   return (
@@ -24,11 +24,11 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
         sx={{
           maxWidth,
           marginX: 'auto',
-          paddingX: isMobile ? 0.5 : 4,
+          paddingX: 4,
         }}
         cols={1}
-        // rowHeight={isMobile ? 320 : 600}
-        rowHeight={600}
+        rowHeight={isMobile ? 720 : 600}
+        // rowHeight={600}
         gap={0}
       >
         {videos.map((video, i) => (
@@ -38,7 +38,7 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
             editable={editable}
             handleOpen={() => handleOpen(video)}
             handleRemove={handleRemove}
-            handleUpload={handleUpload}
+            handleEdit={handleEdit}
             isEven={i % 2 === 0}
             isMobile={isMobile}
           />

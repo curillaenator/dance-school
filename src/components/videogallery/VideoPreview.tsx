@@ -5,6 +5,7 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { ST } from '@src/config';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
@@ -16,7 +17,8 @@ import Tooltip from '@mui/material/Tooltip';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 // import ChangeCircle from '@mui/icons-material/ChangeCircle';
-import PlayCircle from '@mui/icons-material/PlayCircle';
+import EditIcon from '@mui/icons-material/Edit';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 import { VideoPreviewProps } from './interfaces';
 
@@ -47,6 +49,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
     isEven,
     isMobile,
     handleRemove = () => {},
+    handleEdit = () => {},
   } = props;
 
   const [img, setImg] = useState<string>('');
@@ -58,7 +61,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
   return (
     <ImageListItem cols={1} rows={1} sx={{ overflow: 'hidden' }}>
       <Stack direction={handleDirection(isMobile, isEven)} height='100%'>
-        <Box position='relative' width={isMobile ? '100%' : '50%'} height={isMobile ? '50%' : '100%'} flexShrink={0}>
+        <Box position='relative' width={isMobile ? '100%' : '50%'} height={isMobile ? '33%' : '100%'} flexShrink={0}>
           <ImgStyled src={img} alt={title} loading='lazy' />
 
           {!editable && (
@@ -76,7 +79,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
               })}
               onClick={handleOpen}
             >
-              <PlayCircle
+              <PlayCircleIcon
                 color='error'
                 sx={{
                   width: '56px',
@@ -91,12 +94,14 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
               title={title}
               actionIcon={
                 <>
-                  {/* <Tooltip title='Заменить' placement='top'>
-                    <IconButton color='primary' component='label'>
-                      <ChangeCircle />
-                      <input hidden accept='image/*' type='file' onChange={() => {}} />
+                  <Tooltip title='Редактировать' placement='top'>
+                    <IconButton
+                      color='primary'
+                      onClick={() => handleEdit({ id, title, thumbPath, videoPath, description })}
+                    >
+                      <EditIcon />
                     </IconButton>
-                  </Tooltip> */}
+                  </Tooltip>
 
                   <Tooltip title='Удалить' placement='top'>
                     <IconButton
@@ -114,7 +119,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
 
         <Box
           width={isMobile ? '100%' : '50%'}
-          height={isMobile ? '50%' : '100%'}
+          height={isMobile ? '67%' : '100%'}
           p={4}
           display='flex'
           alignItems='center'
@@ -125,9 +130,26 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
             {title}
           </Typography>
 
-          <Typography variant='body1' align='center'>
-            {parse(description)}
+          <Typography
+            variant='body1'
+            align='center'
+            mb={2}
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '11',
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
+            {parse(JSON.parse(description))}
           </Typography>
+
+          {!editable && (
+            <Button onClick={handleOpen} startIcon={<PlayCircleIcon />} variant='text' color='error'>
+              Смотреть
+            </Button>
+          )}
         </Box>
       </Stack>
     </ImageListItem>

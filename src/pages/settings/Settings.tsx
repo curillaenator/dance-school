@@ -1,4 +1,5 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, useContext } from 'react';
+import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -13,6 +14,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 
 import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import IconButton from '@mui/material/IconButton';
 
 import FormControl from '@mui/material/FormControl';
@@ -29,6 +31,8 @@ import VideoFileIcon from '@mui/icons-material/VideoFile';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
+import UpdateIcon from '@mui/icons-material/Update';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { Coach } from '@src/components/coach';
 import { Gallery } from '@src/components/photogallery';
@@ -43,8 +47,11 @@ import { usePricesControl } from './hooks/usePricesControl';
 import { useVideosControl } from './hooks/useVideosControl';
 
 import { GALLERY_CONFIG } from '@src/shared/constants';
+import { Context } from '@src/context';
 
 export const Settings: FC = () => {
+  const { isMobile } = useContext(Context);
+
   const { mainSlider, gallery, handleUpload, handleRemove } = usePhotoControl();
 
   const {
@@ -68,10 +75,15 @@ export const Settings: FC = () => {
     newVideo,
     isVideoReadyToUpload,
     uploadProgress,
+    isEdit,
+    coverPreview,
 
     handleNewVideo,
     addVideo,
     removeVideo,
+    editVideo,
+    updateVideo,
+    cancelEdit,
   } = useVideosControl();
 
   return (
@@ -190,71 +202,111 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <VideoGallery videos={videos} isMobile editable handleRemove={removeVideo} handleUpload={() => {}} />
+          <VideoGallery
+            videos={videos}
+            isMobile={isMobile}
+            editable
+            handleRemove={removeVideo}
+            handleEdit={editVideo}
+          />
 
-          <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
-            <FormControl variant='outlined' fullWidth>
-              <TextField
-                id='video-title'
-                label='Название видео'
-                sx={{ marginBottom: 1 }}
-                value={newVideo.title}
-                onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'title')}
-                autoComplete='off'
-                required
-              />
-
-              <TextField
-                id='video-description'
-                label={'Описание видео'}
-                sx={{ marginBottom: 2 }}
-                value={newVideo.description}
-                onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'description')}
-                multiline
-                minRows={2}
-                maxRows={4}
-                required
-              />
-            </FormControl>
-
-            <Stack direction='row' spacing={1} mb={1} alignItems='center'>
-              <Button startIcon={<AddAPhotoIcon />} variant='contained' component='label' sx={{ height: '40px' }}>
-                Выбрать обложку видео
-                <input
-                  hidden
-                  accept='image/*'
-                  type='file'
-                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'thumbPath')}
+          <Element name='video-edit-form'>
+            <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
+              <FormControl variant='outlined' fullWidth>
+                <TextField
+                  id='video-title'
+                  label='Название видео'
+                  sx={{ marginBottom: 1 }}
+                  value={newVideo.title}
+                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'title')}
+                  autoComplete='off'
+                  required
                 />
-              </Button>
 
-              {!!newVideo.thumbPath && <Avatar src={URL.createObjectURL(newVideo.thumbPath)} />}
-            </Stack>
-
-            <Stack direction='row' spacing={1} alignItems='center'>
-              <Button startIcon={<VideoFileIcon />} variant='contained' component='label' sx={{ height: '40px' }}>
-                Выбрать видео файл
-                <input
-                  hidden
-                  accept='video/*'
-                  type='file'
-                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'videoPath')}
+                <TextField
+                  id='video-description'
+                  label={'Описание видео'}
+                  sx={{ marginBottom: 2 }}
+                  value={newVideo.description}
+                  onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'description')}
+                  multiline
+                  minRows={2}
+                  maxRows={8}
+                  required
                 />
+              </FormControl>
+
+              <Stack direction='row' spacing={1} mb={1} alignItems='center'>
+                <Button startIcon={<AddAPhotoIcon />} variant='contained' component='label' sx={{ height: '40px' }}>
+                  Обложка видео
+                  <input
+                    hidden
+                    accept='image/*'
+                    type='file'
+                    onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'thumbPath')}
+                  />
+                </Button>
+
+                {!!coverPreview && <Avatar src={coverPreview} />}
+              </Stack>
+
+              <Stack direction='row' spacing={1} alignItems='center'>
+                <Button
+                  startIcon={<VideoFileIcon />}
+                  variant='contained'
+                  component='label'
+                  sx={{ height: '40px' }}
+                  // disabled={isEdit}
+                >
+                  Файл
+                  <input
+                    hidden
+                    accept='video/*'
+                    type='file'
+                    onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'videoPath')}
+                  />
+                </Button>
+
+                {!!newVideo.videoPath && typeof newVideo.videoPath === 'string' && (
+                  <>
+                    <Typography>{newVideo.videoPath}</Typography>
+                    <CheckIcon color='success' />
+                  </>
+                )}
+
+                {!!newVideo.videoPath && typeof newVideo.videoPath !== 'string' && (
+                  <>
+                    <Typography>{newVideo.videoPath.name}</Typography>
+                    <CheckIcon color='success' />
+                  </>
+                )}
+              </Stack>
+            </Box>
+          </Element>
+
+          <ButtonGroup>
+            <Button
+              onClick={isEdit ? updateVideo : addVideo}
+              startIcon={isEdit ? <UpdateIcon /> : <AddIcon />}
+              disabled={!isVideoReadyToUpload}
+              variant='contained'
+              sx={{ height: '56px' }}
+            >
+              {isEdit ? 'Обновить' : 'Добавить'}
+            </Button>
+
+            {isEdit && (
+              <Button
+                onClick={cancelEdit}
+                startIcon={<CancelIcon />}
+                // disabled={!isVideoReadyToUpload}
+                variant='outlined'
+                sx={{ height: '56px' }}
+              >
+                Отменить
               </Button>
-
-              {!!newVideo.videoPath && <CheckIcon color='success' />}
-            </Stack>
-          </Box>
-
-          <Button
-            onClick={addVideo}
-            startIcon={<AddIcon />}
-            disabled={!isVideoReadyToUpload}
-            variant='contained'
-            sx={{ height: '56px' }}
-          >
-            Добавить
-          </Button>
+            )}
+          </ButtonGroup>
 
           {uploadProgress !== null && <LinearProgress value={uploadProgress} />}
         </AccordionDetails>
