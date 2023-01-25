@@ -27,16 +27,20 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
           paddingX: isMobile ? 0.5 : 4,
         }}
         cols={1}
-        rowHeight={isMobile ? 320 : 600}
+        // rowHeight={isMobile ? 320 : 600}
+        rowHeight={600}
+        gap={0}
       >
-        {videos.map((video) => (
+        {videos.map((video, i) => (
           <VideoPreview
-            key={video.id}
             {...video}
+            key={video.id}
             editable={editable}
             handleOpen={() => handleOpen(video)}
             handleRemove={handleRemove}
             handleUpload={handleUpload}
+            isEven={i % 2 === 0}
+            isMobile={isMobile}
           />
         ))}
       </ImageList>

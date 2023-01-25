@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState, ChangeEvent } from 'react';
 
-import { ref, set, push, child } from 'firebase/database';
-import { ref as refST, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { ref, set, push, child, update } from 'firebase/database';
+import { ref as refST, uploadBytes, uploadBytesResumable, deleteObject } from 'firebase/storage';
 import { DB, ST } from '@src/config';
 
 import { resizeFile } from '@src/utils';
@@ -18,6 +18,7 @@ interface NewVideoType extends Omit<VideoType, 'thumbPath' | 'videoPath'> {
 const INITIAL_VIDEO: NewVideoType = {
   id: '',
   title: '',
+  description: '',
   thumbPath: null,
   videoPath: null,
 };
@@ -50,9 +51,12 @@ export const useVideosControl = () => {
     const data = {
       ...newVideo,
       id: newVideoId,
+      description: JSON.stringify(newVideo.description)?.replace(/\\n/g, '<br />'),
       thumbPath: thumb.name,
       videoPath: video.name,
     };
+
+    console.log(data.description);
 
     // Storage
     const resized = await resizeFile(thumb);
@@ -66,7 +70,7 @@ export const useVideosControl = () => {
       'state_changed',
       (snap) => {
         const progress = (snap.bytesTransferred / snap.totalBytes) * 100;
-        console.log(progress);
+        // console.log(progress);
         setUploadProgress(Math.floor(progress));
       },
       (err) => {
@@ -83,12 +87,33 @@ export const useVideosControl = () => {
     );
   }, [newVideo, setLoading]);
 
+  const removeVideo = useCallback(
+    async (video: VideoType) => {
+      const { id, thumbPath, videoPath } = video;
+
+      setLoading(true);
+
+      try {
+        await deleteObject(refST(ST, `videos/${id}/${thumbPath}`));
+        await deleteObject(refST(ST, `videos/${id}/${videoPath}`));
+        await update(ref(DB), { [`videos/${id}`]: null });
+      } catch (err) {
+        console.log(err);
+      }
+
+      setLoading(false);
+    },
+    [setLoading],
+  );
+
   return {
     videos,
     newVideo,
-    isVideoReadyToUpload: !!newVideo.title && !!newVideo.thumbPath && !!newVideo.videoPath,
+    isVideoReadyToUpload: !!newVideo.title && !!newVideo.description && !!newVideo.thumbPath && !!newVideo.videoPath,
+    // isVideoReadyToUpload: true,
     uploadProgress,
     handleNewVideo,
     addVideo,
+    removeVideo,
   };
 };

@@ -71,6 +71,7 @@ export const Settings: FC = () => {
 
     handleNewVideo,
     addVideo,
+    removeVideo,
   } = useVideosControl();
 
   return (
@@ -189,7 +190,7 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <VideoGallery videos={videos} isMobile editable handleRemove={() => {}} handleUpload={() => {}} />
+          <VideoGallery videos={videos} isMobile editable handleRemove={removeVideo} handleUpload={() => {}} />
 
           <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
             <FormControl variant='outlined' fullWidth>
@@ -200,6 +201,18 @@ export const Settings: FC = () => {
                 value={newVideo.title}
                 onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'title')}
                 autoComplete='off'
+                required
+              />
+
+              <TextField
+                id='video-description'
+                label={'Описание видео'}
+                sx={{ marginBottom: 2 }}
+                value={newVideo.description}
+                onChange={(e) => handleNewVideo(e as ChangeEvent<HTMLInputElement>, 'description')}
+                multiline
+                minRows={2}
+                maxRows={4}
                 required
               />
             </FormControl>

@@ -3,9 +3,11 @@ import { StoragePathsType, VideoType } from '@src/types';
 
 export interface VideoPreviewProps extends VideoType {
   handleOpen?: () => void;
+  isMobile?: boolean;
   editable?: boolean;
-  handleRemove?: (url: string, storagePath: StoragePathsType) => void;
+  handleRemove?: (video: VideoType) => void;
   handleUpload?: (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathsType, url?: string) => void;
+  isEven?: boolean;
 }
 
 export interface VideoGalleryProps {
@@ -14,6 +16,6 @@ export interface VideoGalleryProps {
   maxWidth?: string;
   handleOpen?: (video: VideoType) => void;
   editable?: boolean;
-  handleRemove?: (url: string, storagePath: StoragePathsType) => void;
+  handleRemove?: (video: VideoType) => void;
   handleUpload?: (a: ChangeEvent<HTMLInputElement>, storagePath: StoragePathsType, url?: string) => void;
 }

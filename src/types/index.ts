@@ -61,6 +61,7 @@ export interface PriceType {
 export interface VideoType {
   id: string;
   title: string;
+  description: string;
   thumbPath: string;
   videoPath: string;
 }
