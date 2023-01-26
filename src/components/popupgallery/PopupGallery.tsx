@@ -40,16 +40,23 @@ export const PopupGallery: FC<PopupGalleryProps> = (props) => {
     >
       <IconButton
         onClick={handleClose}
-        color='primary'
         size='large'
         sx={{
           position: 'absolute',
-          top: 0,
+          top: 4,
           right: 0,
+          p: 0,
           zIndex: 10,
+          color: 'white',
+          borderRadius: 1,
         }}
       >
-        <Close />
+        <Close
+          sx={{
+            width: '48px',
+            height: '48px',
+          }}
+        />
       </IconButton>
 
       <SwiperStyled

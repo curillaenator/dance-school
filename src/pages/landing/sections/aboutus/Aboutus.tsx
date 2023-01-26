@@ -146,7 +146,11 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
         )}
 
         {modalContent === 'video' && (
-          <VideoPlayer id={currentVideo?.id || ''} videoPath={currentVideo?.videoPath || ''} />
+          <VideoPlayer
+            handleClose={handleClose}
+            id={currentVideo?.id || ''}
+            videoPath={currentVideo?.videoPath || ''}
+          />
         )}
       </Dialog>
     </Element>

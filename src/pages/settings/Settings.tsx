@@ -196,7 +196,7 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ marginBottom: 2 }} defaultExpanded>
+      <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel3a-content' id='panel3a-header'>
           <Typography>{`Видео (должно быть минимум 2)`}</Typography>
         </AccordionSummary>

@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
-import { useState, useCallback, ChangeEvent, useContext } from 'react';
+import { useState, useCallback, ChangeEvent, useContext, useReducer } from 'react';
 import { ref, set, push, child } from 'firebase/database';
 
 import { DB } from '@src/config';
 import { Context } from '@src/context';
+
+import { formReducer, INITIAL_FORM_STATE, actions, errActions, ApplicationKind, ACTIONS_ASSOC } from './formReducer';
 
 import { NUMS, MIN_NAME_LENGTH } from '../constants';
 import { ApplicationType } from '@src/types';
@@ -20,26 +22,16 @@ const checkTel = (tel: string) => {
 
 export const useApplication = (props: ApplicationProps) => {
   const { handleClose } = props;
-  const { signIn } = useContext(Context);
+  const { signIn, signInWithLogin } = useContext(Context);
 
-  const [name, setName] = useState<string>('');
-  const [tel, setTel] = useState<string>('');
-  const [comment, setComment] = useState<string>('');
+  const [formState, dispatch] = useReducer(formReducer, INITIAL_FORM_STATE);
+  const { name, tel, comment, errors } = formState;
 
-  const [errors, setErrors] = useState({ name: false, tel: false, comment: false });
-
-  const [step, setStep] = useState<'new' | 'loading' | 'success' | 'error'>('new');
-
-  const clear = useCallback(() => {
-    setName('');
-    setTel('');
-    setComment('');
-  }, []);
+  const [step, setStep] = useState<'new' | 'loading' | 'success' | 'error' | 'login'>('new');
 
   const submit = useCallback(() => {
     if (name === keyWords.name && tel === keyWords.tel) {
-      handleClose();
-      signIn();
+      setStep('login');
       return;
     }
 
@@ -47,8 +39,8 @@ export const useApplication = (props: ApplicationProps) => {
     const isNameValid = name.length > MIN_NAME_LENGTH;
 
     if (!isNameValid || !isTelValid) {
-      if (!isNameValid) setErrors((prev) => ({ ...prev, name: true }));
-      if (!isTelValid) setErrors((prev) => ({ ...prev, tel: true }));
+      if (!isNameValid) dispatch(errActions.setErrors({ key: 'name', value: true }));
+      if (!isTelValid) dispatch(errActions.setErrors({ key: 'tel', value: true }));
       return;
     }
 
@@ -68,57 +60,63 @@ export const useApplication = (props: ApplicationProps) => {
 
     set(ref(DB, `applications/${newApplicationId}`), data)
       .then(() => {
-        clear();
+        dispatch(actions.resetForm(''));
         setStep('success');
       })
       .catch((err) => {
         console.log(err);
         setStep('error');
       });
-  }, [name, tel, comment, clear, handleClose, signIn]);
+  }, [name, tel, comment, dispatch]);
 
   const cancel = useCallback(() => {
-    clear();
+    dispatch(actions.resetForm(''));
     handleClose();
-  }, [handleClose, clear]);
+  }, [handleClose, dispatch]);
 
-  const handleName = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (errors.name) {
-        setErrors((prev) => ({ ...prev, name: false }));
-      }
-
-      setName(e.target.value);
+  const handleApplication = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, field: ApplicationKind) => {
+      if (errors[field]) dispatch(errActions.setErrors({ key: field, value: false }));
+      dispatch(ACTIONS_ASSOC[field](e.target.value));
     },
-    [errors.name],
+    [errors.name, dispatch],
   );
 
-  const handleTel = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (errors.tel) {
-        setErrors((prev) => ({ ...prev, tel: false }));
+  const handleLoginForm = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, field: keyof typeof actions) => {
+      if (errors.login) {
+        dispatch(errActions.setErrors({ key: 'login', value: '' }));
       }
 
-      setTel(e.target.value);
+      const action = actions[field];
+      dispatch(action(e.target.value));
     },
-    [errors.tel],
+    [dispatch, errors.login],
   );
 
-  const handleComment = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
-  }, []);
+  const handleEmailLogin = useCallback(() => {
+    const { login, pass } = formState;
+
+    signInWithLogin(login, pass, {
+      scCb: () => {
+        dispatch(actions.resetForm(''));
+        handleClose();
+      },
+      errCb: (msg: string) => {
+        dispatch(errActions.setErrors({ key: 'login', value: msg }));
+      },
+    });
+  }, [formState, handleClose, signInWithLogin, dispatch]);
 
   return {
-    name,
-    tel,
-    comment,
-    errors,
     step,
-    handleName,
-    handleTel,
-    handleComment,
+    formState,
+    signIn,
+    handleApplication,
     submit,
     cancel,
     handleClose,
+    handleLoginForm,
+    handleEmailLogin,
   };
 };

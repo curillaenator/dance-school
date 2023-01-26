@@ -13,3 +13,9 @@ export const labels = {
 
 export const NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 export const MIN_NAME_LENGTH = 5;
+
+export const ERROR_MESSAGES_ASSOC: Record<string, string> = {
+  'Firebase: Error (auth/user-not-found).': 'Нет такого пользователя',
+  'Firebase: Error (auth/invalid-email).': 'Некорректный логин',
+  'Firebase: Error (auth/wrong-password).': 'Некорректный пароль',
+};

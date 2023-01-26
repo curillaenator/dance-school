@@ -3,9 +3,17 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { ST } from '@src/config';
 
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-export const VideoPlayer: FC<{ id: string; videoPath: string }> = (props) => {
-  const { id, videoPath } = props;
+interface VideoPlayerProps {
+  id: string;
+  videoPath: string;
+  handleClose: () => void;
+}
+
+export const VideoPlayer: FC<VideoPlayerProps> = (props) => {
+  const { id, videoPath, handleClose } = props;
 
   const [src, setSrc] = useState<string>('');
 
@@ -14,7 +22,27 @@ export const VideoPlayer: FC<{ id: string; videoPath: string }> = (props) => {
   }, [id, videoPath]);
 
   return (
-    <Box>
+    <Box position='relative' width='100%' height='100%'>
+      <IconButton
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          p: 0,
+          zIndex: 10,
+          color: 'white',
+          borderRadius: 1,
+        }}
+        onClick={handleClose}
+      >
+        <CloseIcon
+          sx={{
+            width: '48px',
+            height: '48px',
+          }}
+        />
+      </IconButton>
+
       {src && (
         <video controls width='100%'>
           <source src={src} />

@@ -21,6 +21,14 @@ interface ContextType {
   uid: UserType | null;
   signIn: () => void;
   logOut: () => void;
+  signInWithLogin: (
+    email: string,
+    pass: string,
+    opts?: {
+      errCb?: (message: string) => void;
+      scCb?: () => void;
+    },
+  ) => void;
 
   mainSlider: string[];
   gallery: string[];
@@ -48,6 +56,7 @@ export const Context = createContext<ContextType>({
   uid: null,
   signIn: () => {},
   logOut: () => {},
+  signInWithLogin: () => {},
 
   mainSlider: [],
   gallery: [],
