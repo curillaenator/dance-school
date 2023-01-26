@@ -5,12 +5,12 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  // createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { UserType } from '@src/types';
 
-type SignInWithLoginType = (
+type SignWithLoginType = (
   email: string,
   pass: string,
   opts?: {
@@ -54,7 +54,7 @@ export const useAuthControl = () => {
     });
   }, []);
 
-  const signInWithLogin: SignInWithLoginType = useCallback((email, pass, opts = DEFAULT_LOGIN_OPTS) => {
+  const signInWithLogin: SignWithLoginType = useCallback((email, pass, opts = DEFAULT_LOGIN_OPTS) => {
     const { errCb = () => {}, scCb = () => {} } = opts;
 
     signInWithEmailAndPassword(auth, email, pass)
@@ -62,16 +62,24 @@ export const useAuthControl = () => {
       .catch((err) => errCb(err.message));
   }, []);
 
-  // const signUpWithLogin = useCallback((creds: { email: string; pass: string }) => {
-  //   const { email, pass } = creds;
+  const signUpWithLogin: SignWithLoginType = useCallback((email, pass, opts = DEFAULT_LOGIN_OPTS) => {
+    const { errCb = () => {}, scCb = () => {} } = opts;
 
-  //   createUserWithEmailAndPassword(auth, email, pass);
-  // }, []);
+    console.log(email, pass);
+
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then(() => scCb())
+      .catch((err) => {
+        console.log(err);
+        errCb(err.message);
+      });
+  }, []);
 
   return {
     uid,
     signIn,
     logOut,
     signInWithLogin,
+    signUpWithLogin,
   };
 };

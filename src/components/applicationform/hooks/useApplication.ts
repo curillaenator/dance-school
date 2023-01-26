@@ -22,7 +22,7 @@ const checkTel = (tel: string) => {
 
 export const useApplication = (props: ApplicationProps) => {
   const { handleClose } = props;
-  const { signIn, signInWithLogin } = useContext(Context);
+  const { signIn, signInWithLogin, signUpWithLogin } = useContext(Context);
 
   const [formState, dispatch] = useReducer(formReducer, INITIAL_FORM_STATE);
   const { name, tel, comment, errors } = formState;
@@ -108,6 +108,24 @@ export const useApplication = (props: ApplicationProps) => {
     });
   }, [formState, handleClose, signInWithLogin, dispatch]);
 
+  const handleEmailSignUp = useCallback(() => {
+    const { login, pass } = formState;
+
+    signUpWithLogin(login, pass, {
+      scCb: () => {
+        dispatch(actions.resetForm(''));
+        handleClose();
+      },
+      errCb: (msg: string) => {
+        dispatch(errActions.setErrors({ key: 'login', value: msg }));
+      },
+    });
+  }, [formState, handleClose, signUpWithLogin, dispatch]);
+
+  const handleIsNewUser = useCallback(() => {
+    dispatch(actions.setIsNewUser(formState.isNewUser === 'nope' ? 'yep' : 'nope'));
+  }, [formState.isNewUser]);
+
   return {
     step,
     formState,
@@ -118,5 +136,7 @@ export const useApplication = (props: ApplicationProps) => {
     handleClose,
     handleLoginForm,
     handleEmailLogin,
+    handleEmailSignUp,
+    handleIsNewUser,
   };
 };

@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import CheckIcon from '@mui/icons-material/Check';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -22,8 +24,19 @@ import { labels, ERROR_MESSAGES_ASSOC } from './constants';
 import { ApplicationProps } from './interfaces';
 
 export const Application: FC<ApplicationProps> = (props) => {
-  const { step, formState, signIn, handleApplication, submit, cancel, handleClose, handleLoginForm, handleEmailLogin } =
-    useApplication(props);
+  const {
+    step,
+    formState,
+    signIn,
+    handleApplication,
+    submit,
+    cancel,
+    handleClose,
+    handleLoginForm,
+    handleEmailLogin,
+    handleEmailSignUp,
+    handleIsNewUser,
+  } = useApplication(props);
 
   return (
     <Box
@@ -35,6 +48,12 @@ export const Application: FC<ApplicationProps> = (props) => {
       {step === 'login' && (
         <Box width='100%' display='flex' flexDirection='column' alignItems='center' gap={2}>
           <FormControl variant='outlined' fullWidth>
+            <FormControlLabel
+              control={<Switch checked={formState.isNewUser === 'yep'} onChange={handleIsNewUser} />}
+              label='Зарегаться'
+              sx={{ mb: 2 }}
+            />
+
             <TextField
               id='login'
               label='Логин'
@@ -63,12 +82,12 @@ export const Application: FC<ApplicationProps> = (props) => {
           )}
 
           <Button
-            onClick={handleEmailLogin}
+            onClick={formState.isNewUser === 'yep' ? handleEmailSignUp : handleEmailLogin}
             startIcon={<LoginIcon />}
             variant='contained'
             sx={{ px: '96px', height: '56px' }}
           >
-            Войти
+            {formState.isNewUser === 'nope' ? 'Войти' : 'Дай админку!'}
           </Button>
 
           <Typography mt={2} width='100%' align='center'>

@@ -13,6 +13,7 @@ interface ActionType<T = string | ErrorPayload> {
     | 'SET_COMMENT'
     | 'SET_ERRORS'
     | 'SET_ALL_ERRORS'
+    | 'SET_NEW_USER'
     | 'RESET_FORM';
   payload: T;
 }
@@ -27,6 +28,7 @@ interface StateType {
   comment: string;
   login: string;
   pass: string;
+  isNewUser: string;
   errors: Errors;
 }
 
@@ -37,6 +39,7 @@ const SET_COMMENT = 'SET_COMMENT';
 const SET_LOGIN = 'SET_LOGIN';
 const SET_PASS = 'SET_PASS';
 
+const SET_NEW_USER = 'SET_NEW_USER';
 const RESET_FORM = 'RESET_FORM';
 
 const SET_ALL_ERRORS = 'SET_ALL_ERRORS';
@@ -55,6 +58,7 @@ export const INITIAL_FORM_STATE: StateType = {
   comment: '',
   login: '',
   pass: '',
+  isNewUser: 'nope',
   errors: INITIAL_ERRORS,
 };
 
@@ -84,6 +88,9 @@ export const formReducer: Reducer<StateType, ActionType> = (state, action): Stat
     case SET_PASS:
       return { ...state, pass: stringPayload };
 
+    case SET_NEW_USER:
+      return { ...state, isNewUser: stringPayload };
+
     // ///
 
     case RESET_FORM:
@@ -97,8 +104,6 @@ export const formReducer: Reducer<StateType, ActionType> = (state, action): Stat
     case SET_ERRORS:
       const pl = payload as ErrorPayload;
       const { key, value } = pl;
-
-      console.log(key, value);
       return { ...state, errors: { ...state.errors, [key]: value } };
 
     default:
@@ -111,6 +116,7 @@ const setTel: ACreator = (tel) => ({ type: SET_TEL, payload: tel });
 const setComment: ACreator = (comment) => ({ type: SET_COMMENT, payload: comment });
 const setLogin: ACreator = (login) => ({ type: SET_LOGIN, payload: login });
 const setPass: ACreator = (pass) => ({ type: SET_PASS, payload: pass });
+const setIsNewUser: ACreator = (isNew) => ({ type: SET_NEW_USER, payload: isNew });
 
 const resetForm: ACreator = () => ({ type: RESET_FORM, payload: 'none' });
 
@@ -124,6 +130,7 @@ export const actions = {
   setLogin,
   setPass,
   resetForm,
+  setIsNewUser,
 };
 
 export const errActions = {

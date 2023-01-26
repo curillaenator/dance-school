@@ -29,6 +29,14 @@ interface ContextType {
       scCb?: () => void;
     },
   ) => void;
+  signUpWithLogin: (
+    email: string,
+    pass: string,
+    opts?: {
+      errCb?: (message: string) => void;
+      scCb?: () => void;
+    },
+  ) => void;
 
   mainSlider: string[];
   gallery: string[];
@@ -57,6 +65,7 @@ export const Context = createContext<ContextType>({
   signIn: () => {},
   logOut: () => {},
   signInWithLogin: () => {},
+  signUpWithLogin: () => {},
 
   mainSlider: [],
   gallery: [],
