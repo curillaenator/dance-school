@@ -3,6 +3,7 @@ import { ref, set, push, child, update } from 'firebase/database';
 import { DB } from '@src/config';
 
 import { Context } from '@src/context';
+import { inputToHtml } from '@src/utils';
 import { PriceType } from '@src/types';
 
 const INITIAL_PRICE: PriceType = {
@@ -27,6 +28,7 @@ export const usePricesControl = () => {
 
     await set(ref(DB, `prices/${newPriceId}`), {
       ...newPrice,
+      description: inputToHtml(newPrice.description),
       id: newPriceId,
     });
 

@@ -329,9 +329,8 @@ export const Settings: FC = () => {
               id='coaches-title'
               label='Заголовок секции'
               sx={{ marginBottom: 2 }}
-              value={coachesStatic.title}
-              // @ts-expect-error some description
-              onChange={(e) => handleCoachesStatic(e, 'title')}
+              value={htmlToInput(coachesStatic.title || '')}
+              onChange={(e) => handleCoachesStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
               autoComplete='off'
               required
             />
@@ -340,13 +339,12 @@ export const Settings: FC = () => {
               id='coaches-subtitle'
               label={'Описание секции'}
               sx={{ marginBottom: 2 }}
-              value={coachesStatic.subtitle}
+              value={htmlToInput(coachesStatic.subtitle || '')}
               autoComplete='off'
-              // @ts-expect-error some description
-              onChange={(e) => handleCoachesStatic(e, 'subtitle')}
+              onChange={(e) => handleCoachesStatic(e as ChangeEvent<HTMLInputElement>, 'subtitle')}
               multiline
               minRows={2}
-              maxRows={4}
+              maxRows={12}
               required
             />
           </FormControl>
@@ -366,8 +364,7 @@ export const Settings: FC = () => {
                 label='Имя нового тренера'
                 sx={{ marginBottom: 2 }}
                 value={newCoach.name}
-                // @ts-expect-error some description
-                onChange={(e) => handleNewCoach(e, 'name')}
+                onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'name')}
                 autoComplete='off'
                 required
               />
@@ -378,8 +375,7 @@ export const Settings: FC = () => {
                 sx={{ marginBottom: 2 }}
                 value={newCoach.description}
                 autoComplete='off'
-                // @ts-expect-error some description
-                onChange={(e) => handleNewCoach(e, 'description')}
+                onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'description')}
                 multiline
                 minRows={2}
                 maxRows={4}

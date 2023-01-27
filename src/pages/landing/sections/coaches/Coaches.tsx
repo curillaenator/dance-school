@@ -8,7 +8,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Coach } from '@src/components/coach';
 
 import { Context } from '@src/context';
-
+import { jsonToHtml } from '@src/utils';
 import { LandingSectionCommonProps } from '@src/types';
 
 export const Coaches: FC<LandingSectionCommonProps> = (props) => {
@@ -30,7 +30,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           maxWidth={maxWidth}
           zIndex={0}
         >
-          {staticContent.coaches.title}
+          {jsonToHtml(staticContent.coaches.title)}
         </Typography>
 
         <Typography
@@ -43,7 +43,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
           zIndex={0}
           maxWidth={maxWidth}
         >
-          {staticContent.coaches.subtitle}
+          {jsonToHtml(staticContent.coaches.subtitle || '')}
         </Typography>
 
         <Grid container spacing={8} marginX='auto' maxWidth={maxWidth}>

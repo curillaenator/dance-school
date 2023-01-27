@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import { styled } from '@mui/material/styles';
-
+import { jsonToHtml } from '@src/utils';
 import { PriceType } from '@src/types';
 
 const Card = styled(Paper)({
@@ -59,12 +59,12 @@ export const Price: FC<PriceProps> = (props) => {
           }}
         />
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary} mb={1}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary} mb={2}>
           {price}
         </Typography>
 
         <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary}>
-          {description}
+          {jsonToHtml(description)}
         </Typography>
       </Card>
     </Grid>

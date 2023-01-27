@@ -5,7 +5,7 @@ import { ref as refST, uploadBytes, deleteObject } from 'firebase/storage';
 import { DB, ST } from '@src/config';
 
 import { Context } from '@src/context';
-import { resizeFile, debouncedWriteDB } from '@src/utils';
+import { resizeFile, debouncedWriteDB, inputToHtml } from '@src/utils';
 
 import { CoachType, StaticSectionType } from '@src/types';
 
@@ -26,7 +26,7 @@ export const useCoachesControl = () => {
 
   const handleCoachesStatic = useCallback(
     (e: ChangeEvent<HTMLInputElement>, key: keyof StaticSectionType) => {
-      updateStaticContent('coaches', { [key]: e.target.value } as Partial<StaticSectionType>);
+      updateStaticContent('coaches', { [key]: inputToHtml(e.target.value) } as Partial<StaticSectionType>);
 
       if (!e.target.value) return;
 
@@ -34,7 +34,7 @@ export const useCoachesControl = () => {
 
       debouncedWriteDB({
         path: `static/coaches/${key}`,
-        value: e.target.value,
+        value: inputToHtml(e.target.value),
         onWriteEnd: () => setLoading(false),
       });
     },
@@ -60,8 +60,9 @@ export const useCoachesControl = () => {
     const newCoachId = push(child(ref(DB), 'coaches')).key as string;
 
     const data = {
-      ...newCoach,
       id: newCoachId,
+      name: inputToHtml(newCoach.name),
+      description: inputToHtml(newCoach.description),
       photoURL: file.name,
     };
 

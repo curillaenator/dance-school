@@ -125,7 +125,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
           justifyContent='center'
           flexDirection='column'
         >
-          <Typography align='center' variant='h4' mb={2}>
+          <Typography align='center' variant='h4' fontSize={24} fontWeight={500} mb={2}>
             {title}
           </Typography>
 

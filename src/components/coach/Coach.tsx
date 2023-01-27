@@ -12,6 +12,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import { styled } from '@mui/material/styles';
 
+import { jsonToHtml } from '@src/utils';
 import { CoachType } from '@src/types';
 
 const Card = styled(Paper)({
@@ -68,12 +69,18 @@ export const Coach: FC<CoachInterface> = (props) => {
           }}
         />
 
-        <Typography variant='h6' fontWeight={500} color={(theme) => theme.palette.background.default} mb={1}>
-          {name}
+        <Typography
+          variant='h4'
+          fontSize={24}
+          fontWeight={500}
+          color={(theme) => theme.palette.background.default}
+          mb={1}
+        >
+          {jsonToHtml(name)}
         </Typography>
 
         <Typography variant='subtitle2' color={(theme) => theme.palette.background.default}>
-          {description}
+          {jsonToHtml(description)}
         </Typography>
       </Card>
     </Grid>
