@@ -22,7 +22,7 @@ export interface StaticSectionType {
   title: string;
   info?: string;
   subtitle?: string;
-  subtitles?: Record<string, string>;
+  // subtitles?: Record<string, string>;
 }
 
 export type LandingStaticContentType = Record<StaticKeysType, StaticSectionType>;

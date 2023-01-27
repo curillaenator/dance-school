@@ -1,7 +1,9 @@
 import React, { FC, useContext, useState } from 'react';
 import { Element } from 'react-scroll';
+import parse from 'html-react-parser';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 
@@ -18,8 +20,12 @@ import { Context } from '@src/context';
 
 import { LandingSectionCommonProps, VideoType } from '@src/types';
 
-export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
-  const { name, maxWidth } = props;
+interface AboutusProps extends LandingSectionCommonProps {
+  handleOpen: () => void;
+}
+
+export const Aboutus: FC<AboutusProps> = (props) => {
+  const { name, maxWidth, handleOpen: handleOpenApplication } = props;
 
   const [modalContent, setModalContent] = useState<'photo' | 'video'>('photo');
 
@@ -44,7 +50,7 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
             maxWidth,
           }}
         >
-          {staticContent.aboutus.title}
+          {parse(JSON.parse(staticContent.aboutus.title))}
         </Typography>
 
         <Typography
@@ -52,34 +58,30 @@ export const Aboutus: FC<LandingSectionCommonProps> = (props) => {
           align='center'
           color={(theme) => theme.palette.text.secondary}
           paddingX={4}
-          mb={1}
+          mb={8}
           marginX='auto'
           sx={{
             zIndex: 0,
             maxWidth,
           }}
         >
-          {staticContent.aboutus.subtitle}
+          {parse(JSON.parse(staticContent.aboutus.subtitle || ''))}
         </Typography>
 
-        {staticContent.aboutus.subtitles &&
-          Object.entries(staticContent.aboutus.subtitles).map(([key, subtitle]) => (
-            <Typography
-              key={key}
-              variant='subtitle1'
-              align='center'
-              color={(theme) => theme.palette.text.secondary}
-              paddingX={4}
-              mb={1}
-              marginX='auto'
-              sx={{
-                zIndex: 0,
-                maxWidth,
-              }}
-            >
-              {subtitle}
-            </Typography>
-          ))}
+        <Box display='flex' justifyContent='center'>
+          <Button
+            variant='contained'
+            size='large'
+            onClick={handleOpenApplication}
+            sx={{
+              height: 64,
+              padding: '0 64px',
+              margin: '0 auto',
+            }}
+          >
+            Оставить заявку
+          </Button>
+        </Box>
 
         <Box paddingY={16} mt={16} bgcolor={(theme) => theme.palette.primary.main}>
           <Typography

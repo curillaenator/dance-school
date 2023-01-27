@@ -79,7 +79,7 @@ export const useApplication = (props: ApplicationProps) => {
       if (errors[field]) dispatch(errActions.setErrors({ key: field, value: false }));
       dispatch(ACTIONS_ASSOC[field](e.target.value));
     },
-    [errors.name, dispatch],
+    [errors, dispatch],
   );
 
   const handleLoginForm = useCallback(

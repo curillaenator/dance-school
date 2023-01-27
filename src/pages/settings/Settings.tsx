@@ -49,6 +49,8 @@ import { useVideosControl } from './hooks/useVideosControl';
 import { GALLERY_CONFIG } from '@src/shared/constants';
 import { Context } from '@src/context';
 
+import { htmlToInput } from '@src/utils';
+
 export const Settings: FC = () => {
   const { isMobile } = useContext(Context);
 
@@ -66,7 +68,7 @@ export const Settings: FC = () => {
     removeCoach,
   } = useCoachesControl();
 
-  const { aboutusStatic, handleAboutusStatic, addSubtitle, removeSubtitle } = useAboutusControl();
+  const { aboutusStatic, handleAboutusStatic } = useAboutusControl();
 
   const { prices, newPrice, isNewPriceFilled, handleNewPrice, addPrice, removePrice } = usePricesControl();
 
@@ -150,7 +152,8 @@ export const Settings: FC = () => {
               id='aboutus-title'
               label='Заголовок секции'
               sx={{ marginBottom: 2 }}
-              value={aboutusStatic.title}
+              // value={aboutusStatic.title}
+              value={htmlToInput(aboutusStatic.title || '')}
               onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
               autoComplete='off'
               required
@@ -160,15 +163,16 @@ export const Settings: FC = () => {
               id='aboutus-subtitle'
               label={'Описание секции'}
               sx={{ marginBottom: 2 }}
-              value={aboutusStatic.subtitle}
+              // value={aboutusStatic.subtitle}
+              value={htmlToInput(aboutusStatic.subtitle || '')}
               onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'subtitle')}
               multiline
               minRows={2}
-              maxRows={4}
+              maxRows={12}
               required
             />
 
-            {aboutusStatic.subtitles &&
+            {/* {aboutusStatic.subtitles &&
               Object.entries(aboutusStatic.subtitles).map(([key, subtitle], i) => (
                 <Stack key={key} direction='row' spacing={2} alignItems='center' mb={2}>
                   <TextField
@@ -187,12 +191,12 @@ export const Settings: FC = () => {
                     <DeleteRoundedIcon />
                   </IconButton>
                 </Stack>
-              ))}
+              ))} */}
           </FormControl>
 
-          <Button variant='contained' onClick={addSubtitle}>
+          {/* <Button variant='contained' onClick={addSubtitle}>
             Добавить параграф
-          </Button>
+          </Button> */}
         </AccordionDetails>
       </Accordion>
 

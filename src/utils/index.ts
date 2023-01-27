@@ -24,6 +24,9 @@ export const debounced = <T>(cb: (...args: T[]) => void, delay = 2000) => {
   };
 };
 
+export const htmlToInput = (value: string) => JSON.parse(value.replace(/<br \/>/g, '\\n')) as string;
+export const inputToHtml = (value: string) => JSON.stringify(value).replace(/\\n/g, '<br />');
+
 // firebase api utils
 
 export const findStoragePathFromUrl = (url: string, path: StoragePathsType) => {

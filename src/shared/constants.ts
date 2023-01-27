@@ -12,21 +12,20 @@ export const TOOLBAR_ITEMS: ToolbarItemType = [
   { title: 'КОНТАКТЫ', to: 'contacts' },
 ];
 
+const DUMMY = JSON.stringify('');
+
 export const INITIAL_STATIC_CONTENT: LandingStaticContentType = {
   coaches: {
     title: 'Тренеры',
     subtitle: '',
-    subtitles: {},
   },
   prices: {
     title: 'Цены',
     subtitle: '',
-    subtitles: {},
   },
   aboutus: {
-    title: 'Кто мы',
-    subtitle: '',
-    subtitles: {},
+    title: DUMMY,
+    subtitle: DUMMY,
   },
 };
 
