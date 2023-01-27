@@ -15,7 +15,9 @@ import {
 import { INITIAL_STATIC_CONTENT } from '@src/shared/constants';
 
 export const useDatabase = () => {
-  const [staticContent, setStaticContent] = useState<LandingStaticContentType>(INITIAL_STATIC_CONTENT);
+  const [staticContent, setStaticContent] = useState<LandingStaticContentType>(
+    INITIAL_STATIC_CONTENT as unknown as LandingStaticContentType,
+  );
   const [coaches, setCoaches] = useState<CoachType[]>([]);
   const [videos, setVideos] = useState<VideoType[]>([]);
   const [prices, setPrices] = useState<PriceType[]>([]);
@@ -27,7 +29,7 @@ export const useDatabase = () => {
 
     get(ref(DB, 'static')).then((snap) => {
       if (snap.exists()) {
-        const data = snap.val() as LandingStaticContentType;
+        const data = snap.val();
         setStaticContent(data);
       }
     });

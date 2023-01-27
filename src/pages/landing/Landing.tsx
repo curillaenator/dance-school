@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useCallback } from 'react';
 
 import Dialog from '@mui/material/Dialog';
 import { ApplicationForm } from '@src/components/applicationform';
@@ -13,10 +13,18 @@ import { Contacts } from './sections/contacts';
 
 import { useModalControl } from '@src/hooks/useModalControl';
 
+import { Context } from '@src/context';
+
 const MAX_WIDTH = '1280px';
 
 export const Landing: FC = () => {
   const { open, handleClose, handleOpen } = useModalControl();
+  const { setDesiredCoach } = useContext(Context);
+
+  const handleApplicationFormClose = useCallback(() => {
+    setDesiredCoach(null);
+    handleClose();
+  }, [handleClose, setDesiredCoach]);
 
   return (
     <>
@@ -24,12 +32,12 @@ export const Landing: FC = () => {
       <Aboutus name='aboutus' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Programs name='programs' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Photogallery name='photogallery' maxWidth={MAX_WIDTH} />
-      <Coaches name='coaches' maxWidth={MAX_WIDTH} />
+      <Coaches name='coaches' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Prices name='prices' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Contacts name='contacts' maxWidth={MAX_WIDTH} />
 
-      <Dialog onClose={handleClose} open={open}>
-        <ApplicationForm handleClose={handleClose} />
+      <Dialog onClose={handleApplicationFormClose} open={open}>
+        <ApplicationForm handleClose={handleApplicationFormClose} />
       </Dialog>
     </>
   );

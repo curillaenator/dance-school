@@ -16,12 +16,15 @@ export interface LandingSectionCommonProps {
 
 // Static landing content
 
-export type StaticKeysType = 'coaches' | 'prices' | 'aboutus' | 'programs' | 'photogallery';
+export type StaticKeysType = 'coaches' | 'prices' | 'aboutus' | 'programs' | 'photogallery' | 'contacts';
 
 export interface StaticSectionType {
   title: string;
   subtitle?: string;
 }
+
+export type ContactsType = 'tels' | 'email' | 'telegram' | 'whatsapp' | 'instagram' | 'vkontakte' | 'youtube';
+export type StaticContactsSectionType = Record<ContactsType, string>;
 
 export type LandingStaticContentType = Record<StaticKeysType, StaticSectionType>;
 

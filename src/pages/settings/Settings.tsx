@@ -45,6 +45,7 @@ import { useCoachesControl } from './hooks/useCoachesControl';
 import { useAboutusControl } from './hooks/useAboutusControl';
 import { usePricesControl } from './hooks/usePricesControl';
 import { useVideosControl } from './hooks/useVideosControl';
+import { useContactsControl } from './hooks/useContactsControl';
 
 import { GALLERY_CONFIG } from '@src/shared/constants';
 import { Context } from '@src/context';
@@ -89,6 +90,8 @@ export const Settings: FC = () => {
     updateVideo,
     cancelEdit,
   } = useVideosControl();
+
+  const { staticContacts, handleContactsStatic } = useContactsControl();
 
   return (
     <Box width='100%' pt={16} px={4} pb={4} position='relative' minHeight='100vh'>
@@ -414,7 +417,7 @@ export const Settings: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel6a-content' id='panel6a-header'>
           <Typography>Цены</Typography>
         </AccordionSummary>
@@ -482,6 +485,81 @@ export const Settings: FC = () => {
           >
             Добавить новый тариф
           </Button>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel6a-content' id='panel6a-header'>
+          <Typography>Контакты</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <FormControl variant='outlined' fullWidth>
+            <TextField
+              id='contacts-phones'
+              label='Телефоны'
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.tels}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'tels')}
+              autoComplete='off'
+              required
+            />
+
+            <TextField
+              id='contacts-email'
+              label={'Email'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.email}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'email')}
+              autoComplete='off'
+              required
+            />
+
+            <TextField
+              id='contacts-telegram'
+              label={'Ссылка на Telegram'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.telegram}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'telegram')}
+              autoComplete='off'
+            />
+
+            <TextField
+              id='contacts-whatsapp'
+              label={'Ссылка на WhatsApp'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.whatsapp}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'whatsapp')}
+              autoComplete='off'
+            />
+
+            <TextField
+              id='contacts-instagram'
+              label={'Ссылка на Instagram'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.instagram}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'instagram')}
+              autoComplete='off'
+            />
+
+            <TextField
+              id='contacts-vk'
+              label={'Ссылка на VK'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.vkontakte}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'vkontakte')}
+              autoComplete='off'
+            />
+
+            <TextField
+              id='contacts-youtube'
+              label={'Ссылка на Youtube'}
+              sx={{ marginBottom: 2 }}
+              value={staticContacts.youtube}
+              onChange={(e) => handleContactsStatic(e as ChangeEvent<HTMLInputElement>, 'youtube')}
+              autoComplete='off'
+            />
+          </FormControl>
         </AccordionDetails>
       </Accordion>
     </Box>

@@ -46,6 +46,9 @@ interface ContextType {
   staticContent: LandingStaticContentType;
   updateStaticContent: (key: StaticKeysType, data: Partial<StaticSectionType>) => void;
 
+  desiredCoach: CoachType | null;
+  setDesiredCoach: (coach: CoachType | null) => void;
+
   coaches: CoachType[];
   videos: VideoType[];
   prices: PriceType[];
@@ -74,6 +77,9 @@ export const Context = createContext<ContextType>({
 
   staticContent: INITIAL_STATIC_CONTENT,
   updateStaticContent: () => {},
+
+  desiredCoach: null,
+  setDesiredCoach: () => {},
 
   coaches: [],
   videos: [],

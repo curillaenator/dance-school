@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useCallback, ChangeEvent, useContext, useReducer } from 'react';
+import { useState, useCallback, ChangeEvent, useContext, useReducer, useEffect } from 'react';
 import { ref, set, push, child } from 'firebase/database';
 
 import { DB } from '@src/config';
@@ -7,6 +7,7 @@ import { Context } from '@src/context';
 
 import { formReducer, INITIAL_FORM_STATE, actions, errActions, ApplicationKind, ACTIONS_ASSOC } from './formReducer';
 
+import { jsonToHtml } from '@src/utils';
 import { NUMS, MIN_NAME_LENGTH } from '../constants';
 import { ApplicationType } from '@src/types';
 import { ApplicationProps } from '../interfaces';
@@ -22,7 +23,7 @@ const checkTel = (tel: string) => {
 
 export const useApplication = (props: ApplicationProps) => {
   const { handleClose } = props;
-  const { signIn, signInWithLogin, signUpWithLogin } = useContext(Context);
+  const { desiredCoach, signIn, signInWithLogin, signUpWithLogin } = useContext(Context);
 
   const [formState, dispatch] = useReducer(formReducer, INITIAL_FORM_STATE);
   const { name, tel, comment, errors } = formState;
@@ -74,7 +75,7 @@ export const useApplication = (props: ApplicationProps) => {
     handleClose();
   }, [handleClose, dispatch]);
 
-  const handleApplication = useCallback(
+  const handleApplicationForm = useCallback(
     (e: ChangeEvent<HTMLInputElement>, field: ApplicationKind) => {
       if (errors[field]) dispatch(errActions.setErrors({ key: field, value: false }));
       dispatch(ACTIONS_ASSOC[field](e.target.value));
@@ -126,11 +127,17 @@ export const useApplication = (props: ApplicationProps) => {
     dispatch(actions.setIsNewUser(formState.isNewUser === 'nope' ? 'yep' : 'nope'));
   }, [formState.isNewUser]);
 
+  useEffect(() => {
+    if (!!desiredCoach) {
+      dispatch(actions.setComment(`Хочу к тренеру ${jsonToHtml(desiredCoach.name)}`));
+    }
+  }, [desiredCoach]);
+
   return {
     step,
     formState,
     signIn,
-    handleApplication,
+    handleApplicationForm,
     submit,
     cancel,
     handleClose,

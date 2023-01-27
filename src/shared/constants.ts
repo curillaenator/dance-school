@@ -1,4 +1,4 @@
-import { ToolbarItemType, LandingStaticContentType } from '@src/types';
+import { ToolbarItemType } from '@src/types';
 
 export const MAIN_SLIDER_DELAY = 3000;
 export const MAIN_SLIDER_SPEED = 800;
@@ -16,7 +16,7 @@ export const TOOLBAR_ITEMS: ToolbarItemType = [
 
 const DUMMY = JSON.stringify('');
 
-export const INITIAL_STATIC_CONTENT: LandingStaticContentType = {
+export const INITIAL_STATIC_CONTENT = {
   coaches: {
     title: DUMMY,
     subtitle: DUMMY,
@@ -36,6 +36,15 @@ export const INITIAL_STATIC_CONTENT: LandingStaticContentType = {
   photogallery: {
     title: DUMMY,
     subtitle: DUMMY,
+  },
+  contacts: {
+    tels: '',
+    email: '',
+    telegram: '',
+    whatsapp: '',
+    instagram: '',
+    vkontakte: '',
+    youtube: '',
   },
 };
 

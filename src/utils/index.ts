@@ -29,6 +29,32 @@ export const jsonToHtml = (value: string) => parse(JSON.parse(value));
 export const htmlToInput = (value: string) => JSON.parse(value.replace(/<br \/>/g, '\\n')) as string;
 export const inputToHtml = (value: string) => JSON.stringify(value).replace(/\\n/g, '<br />');
 
+// type MergeObject = Record<string, object | string>;
+
+// const isObject = (item?: MergeObject) => item && typeof item === 'object';
+
+// export const mergeDeep = (target: MergeObject, ...sources: MergeObject[]): object => {
+//   if (!sources.length) return target;
+//   const source = sources.shift() as MergeObject;
+
+//   if (isObject(target) && isObject(source)) {
+//     for (const key in source) {
+//       //@ts-expect-error description
+//       if (isObject(source[key])) {
+//         if (!target[key]) Object.assign(target, { [key]: {} });
+//         //@ts-expect-error description
+//         mergeDeep(target[key], source[key]);
+//       } else {
+//         Object.assign(target, {
+//           [key]: source[key],
+//         });
+//       }
+//     }
+//   }
+
+//   return mergeDeep(target, ...sources);
+// };
+
 // firebase api utils
 
 export const findStoragePathFromUrl = (url: string, path: StoragePathsType) => {

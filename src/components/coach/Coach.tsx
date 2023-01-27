@@ -4,11 +4,14 @@ import { ST } from '@src/config';
 
 import Grid from '@mui/material/Unstable_Grid2';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 import { styled } from '@mui/material/styles';
 
@@ -29,10 +32,21 @@ interface CoachInterface extends CoachType {
   isMobile: boolean;
   isEditable?: boolean;
   onDelete?: (coach: CoachType) => void;
+  handleOpen?: (coach: CoachType) => void;
 }
 
 export const Coach: FC<CoachInterface> = (props) => {
-  const { id, name, description, photoURL, isEditable, onDelete = () => {}, isMobile } = props;
+  const {
+    id,
+    name,
+    description,
+    photoURL,
+    isEditable,
+    isMobile,
+
+    onDelete = () => {},
+    handleOpen = () => {},
+  } = props;
 
   const [photo, setPhoto] = useState<string | null>(null);
   useEffect(() => {
@@ -79,9 +93,24 @@ export const Coach: FC<CoachInterface> = (props) => {
           {jsonToHtml(name)}
         </Typography>
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.background.default}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.background.default} mb={isEditable ? 0 : 2}>
           {jsonToHtml(description)}
         </Typography>
+
+        {!isEditable && (
+          <Box display='flex' justifyContent='center'>
+            <Button
+              startIcon={<ThumbUpIcon />}
+              variant='text'
+              color='error'
+              size='medium'
+              onClick={() => handleOpen({ id, name, description, photoURL })}
+              sx={{ margin: '0 auto 12px' }}
+            >
+              Хочу к тренеру
+            </Button>
+          </Box>
+        )}
       </Card>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC } from 'react';
 import { getAnalytics } from 'firebase/analytics';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
@@ -18,6 +18,8 @@ import { usePhotos } from '@src/hooks/usePhotos';
 import { useDatabase } from '@src/hooks/useDatabase';
 import { useDrawer } from '@src/hooks/useDrawer';
 import { useTheme } from '@src/hooks/useTheme';
+import { useLoading } from '@src/hooks/useLoading';
+import { useDesiredCoach } from '@src/hooks/useDesiredCoach';
 
 import { FB_APP } from '@src/config';
 
@@ -27,14 +29,11 @@ export const App: FC = () => {
   const location = useLocation();
   const authData = useAuthControl();
   const appDrawer = useDrawer();
-
   const databaseData = useDatabase();
   const storageData = usePhotos();
-
   const appTheme = useTheme();
-
-  const [loading, setLoading] = useState(false);
-  const handleLoading = useCallback((load: boolean) => setLoading(load), []);
+  const loadingData = useLoading();
+  const desiredCoachData = useDesiredCoach();
 
   return (
     <Context.Provider
@@ -44,8 +43,8 @@ export const App: FC = () => {
         ...databaseData,
         ...appDrawer,
         ...appTheme,
-        loading,
-        setLoading: handleLoading,
+        ...loadingData,
+        ...desiredCoachData,
       }}
     >
       <ThemeProvider theme={appTheme.theme}>

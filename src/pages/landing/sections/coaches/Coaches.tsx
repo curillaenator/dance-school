@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useCallback } from 'react';
 import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
@@ -9,12 +9,24 @@ import { Coach } from '@src/components/coach';
 
 import { Context } from '@src/context';
 import { jsonToHtml } from '@src/utils';
-import { LandingSectionCommonProps } from '@src/types';
+import { LandingSectionCommonProps, CoachType } from '@src/types';
 
-export const Coaches: FC<LandingSectionCommonProps> = (props) => {
-  const { name, maxWidth } = props;
+interface CoachesProps extends LandingSectionCommonProps {
+  handleOpen: () => void;
+}
 
-  const { isMobile, coaches, staticContent } = useContext(Context);
+export const Coaches: FC<CoachesProps> = (props) => {
+  const { name, maxWidth, handleOpen } = props;
+
+  const { isMobile, coaches, staticContent, setDesiredCoach } = useContext(Context);
+
+  const handleOpenApplicationFormWithComment = useCallback(
+    (desiredCoach: CoachType) => {
+      setDesiredCoach(desiredCoach);
+      handleOpen();
+    },
+    [setDesiredCoach, handleOpen],
+  );
 
   return (
     <Element name={name}>
@@ -48,7 +60,7 @@ export const Coaches: FC<LandingSectionCommonProps> = (props) => {
 
         <Grid container spacing={8} marginX='auto' maxWidth={maxWidth}>
           {coaches.map((coach) => (
-            <Coach key={coach.id} isMobile={isMobile} {...coach} />
+            <Coach key={coach.id} isMobile={isMobile} {...coach} handleOpen={handleOpenApplicationFormWithComment} />
           ))}
         </Grid>
       </Box>

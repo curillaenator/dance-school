@@ -28,7 +28,7 @@ export const Application: FC<ApplicationProps> = (props) => {
     step,
     formState,
     signIn,
-    handleApplication,
+    handleApplicationForm,
     submit,
     cancel,
     handleClose,
@@ -157,7 +157,7 @@ export const Application: FC<ApplicationProps> = (props) => {
               sx={{ marginBottom: 2 }}
               autoFocus
               value={formState.name}
-              onChange={(e) => handleApplication(e as ChangeEvent<HTMLInputElement>, 'name')}
+              onChange={(e) => handleApplicationForm(e as ChangeEvent<HTMLInputElement>, 'name')}
               autoComplete='off'
               error={formState.errors.name as boolean}
               required
@@ -168,7 +168,7 @@ export const Application: FC<ApplicationProps> = (props) => {
               label={formState.errors.tel ? labels.telError : labels.tel}
               sx={{ marginBottom: 2 }}
               value={formState.tel}
-              onChange={(e) => handleApplication(e as ChangeEvent<HTMLInputElement>, 'tel')}
+              onChange={(e) => handleApplicationForm(e as ChangeEvent<HTMLInputElement>, 'tel')}
               autoComplete='off'
               error={formState.errors.tel as boolean}
               required
@@ -184,7 +184,7 @@ export const Application: FC<ApplicationProps> = (props) => {
               sx={{ marginBottom: 4 }}
               value={formState.comment}
               autoComplete='off'
-              onChange={(e) => handleApplication(e as ChangeEvent<HTMLInputElement>, 'comment')}
+              onChange={(e) => handleApplicationForm(e as ChangeEvent<HTMLInputElement>, 'comment')}
               multiline
               minRows={2}
               maxRows={4}
