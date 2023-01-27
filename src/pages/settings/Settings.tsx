@@ -79,7 +79,9 @@ export const Settings: FC = () => {
     uploadProgress,
     isEdit,
     coverPreview,
+    videosStatic,
 
+    handleVideosStatic,
     handleNewVideo,
     addVideo,
     removeVideo,
@@ -152,7 +154,6 @@ export const Settings: FC = () => {
               id='aboutus-title'
               label='Заголовок секции'
               sx={{ marginBottom: 2 }}
-              // value={aboutusStatic.title}
               value={htmlToInput(aboutusStatic.title || '')}
               onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
               autoComplete='off'
@@ -163,7 +164,6 @@ export const Settings: FC = () => {
               id='aboutus-subtitle'
               label={'Описание секции'}
               sx={{ marginBottom: 2 }}
-              // value={aboutusStatic.subtitle}
               value={htmlToInput(aboutusStatic.subtitle || '')}
               onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'subtitle')}
               multiline
@@ -171,32 +171,7 @@ export const Settings: FC = () => {
               maxRows={12}
               required
             />
-
-            {/* {aboutusStatic.subtitles &&
-              Object.entries(aboutusStatic.subtitles).map(([key, subtitle], i) => (
-                <Stack key={key} direction='row' spacing={2} alignItems='center' mb={2}>
-                  <TextField
-                    id={`aboutus-subtitle-${key}`}
-                    label={`Описание секции ${i + 2}`}
-                    fullWidth
-                    value={subtitle}
-                    onChange={(e) => handleAboutusStatic(e as ChangeEvent<HTMLInputElement>, 'subtitles', key)}
-                    multiline
-                    minRows={2}
-                    maxRows={4}
-                    required
-                  />
-
-                  <IconButton color='error' onClick={() => removeSubtitle(key)}>
-                    <DeleteRoundedIcon />
-                  </IconButton>
-                </Stack>
-              ))} */}
           </FormControl>
-
-          {/* <Button variant='contained' onClick={addSubtitle}>
-            Добавить параграф
-          </Button> */}
         </AccordionDetails>
       </Accordion>
 
@@ -206,6 +181,18 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
+          <FormControl variant='outlined' fullWidth>
+            <TextField
+              id='programs-title'
+              label='Заголовок секции'
+              sx={{ marginBottom: 4 }}
+              value={htmlToInput(videosStatic.title)}
+              onChange={(e) => handleVideosStatic(e as ChangeEvent<HTMLInputElement>, 'title')}
+              autoComplete='off'
+              required
+            />
+          </FormControl>
+
           <VideoGallery
             videos={videos}
             isMobile={isMobile}

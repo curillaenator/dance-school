@@ -16,7 +16,6 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Tooltip from '@mui/material/Tooltip';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-// import ChangeCircle from '@mui/icons-material/ChangeCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
@@ -138,7 +137,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              WebkitLineClamp: '11',
+              WebkitLineClamp: '16',
               WebkitBoxOrient: 'vertical',
             }}
           >

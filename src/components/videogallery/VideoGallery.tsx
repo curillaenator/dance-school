@@ -27,8 +27,7 @@ export const VideoGallery: FC<VideoGalleryProps> = (props) => {
           paddingX: 4,
         }}
         cols={1}
-        rowHeight={isMobile ? 720 : 600}
-        // rowHeight={600}
+        rowHeight={isMobile ? 1024 : 600}
         gap={0}
       >
         {videos.map((video, i) => (

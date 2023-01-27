@@ -6,12 +6,12 @@ import { ref, set, push, child, update } from 'firebase/database';
 import { ref as refST, uploadBytes, uploadBytesResumable, deleteObject, getDownloadURL } from 'firebase/storage';
 import { DB, ST } from '@src/config';
 
-import { resizeFile } from '@src/utils';
+import { debouncedWriteDB, inputToHtml, resizeFile } from '@src/utils';
 
 import { Context } from '@src/context';
 
 import { SCROLL_SPEED } from '@src/shared/constants';
-import { VideoType } from '@src/types';
+import { VideoType, StaticSectionType } from '@src/types';
 
 interface EditableVideoData {
   thumbPath: File | string | null;
@@ -31,13 +31,12 @@ const INITIAL_VIDEO: NewVideoType = {
 const INITIAL_PREV_VIDEO_DATA = { thumbPath: '', videoPath: '' };
 
 export const useVideosControl = () => {
-  const { videos, setLoading } = useContext(Context);
+  const { videos, setLoading, staticContent, updateStaticContent } = useContext(Context);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [videoForm, setVideoForm] = useState<NewVideoType>(INITIAL_VIDEO);
-
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [prevVideoData, setPrevVideoData] = useState<EditableVideoData>(INITIAL_PREV_VIDEO_DATA);
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -62,6 +61,23 @@ export const useVideosControl = () => {
 
     resolveCoverImage();
   }, [videoForm]);
+
+  const handleVideosStatic = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, key: keyof StaticSectionType) => {
+      updateStaticContent('programs', { [key]: inputToHtml(e.target.value) } as Partial<StaticSectionType>);
+
+      if (!e.target.value) return;
+
+      setLoading(true);
+
+      debouncedWriteDB({
+        path: `static/programs/${key}`,
+        value: inputToHtml(e.target.value),
+        onWriteEnd: () => setLoading(false),
+      });
+    },
+    [setLoading, updateStaticContent],
+  );
 
   const handleNewVideo = useCallback((e: ChangeEvent<HTMLInputElement>, key: keyof NewVideoType) => {
     if ((key === 'thumbPath' || key === 'videoPath') && e.target.files !== null) {
@@ -234,6 +250,7 @@ export const useVideosControl = () => {
   }, [setLoading, prevVideoData, videoForm, enqueueSnackbar]);
 
   return {
+    videosStatic: staticContent.programs,
     videos,
     newVideo: videoForm,
     isVideoReadyToUpload:
@@ -241,6 +258,7 @@ export const useVideosControl = () => {
     uploadProgress,
     isEdit,
     coverPreview,
+    handleVideosStatic,
     handleNewVideo,
     addVideo,
     removeVideo,

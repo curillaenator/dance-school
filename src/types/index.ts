@@ -2,7 +2,7 @@ export type ThemeType = 'light' | 'dark';
 
 // Landind and navigation
 
-export type LandingSectionsType = 'main' | 'coaches' | 'prices' | 'aboutus' | 'contacts';
+export type LandingSectionsType = 'main' | 'coaches' | 'prices' | 'aboutus' | 'contacts' | 'programs' | 'photogallery';
 
 export type ToolbarItemType = {
   title: string;
@@ -16,13 +16,11 @@ export interface LandingSectionCommonProps {
 
 // Static landing content
 
-export type StaticKeysType = 'coaches' | 'prices' | 'aboutus';
+export type StaticKeysType = 'coaches' | 'prices' | 'aboutus' | 'programs' | 'photogallery';
 
 export interface StaticSectionType {
   title: string;
-  info?: string;
   subtitle?: string;
-  // subtitles?: Record<string, string>;
 }
 
 export type LandingStaticContentType = Record<StaticKeysType, StaticSectionType>;

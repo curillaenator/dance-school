@@ -7,6 +7,8 @@ export const SCROLL_SPEED = 300;
 export const TOOLBAR_ITEMS: ToolbarItemType = [
   { title: 'ГЛАВНАЯ', to: 'main' },
   { title: 'О НАС', to: 'aboutus' },
+  { title: 'ПРОГРАММЫ', to: 'programs' },
+  { title: 'ФОТО', to: 'photogallery' },
   { title: 'ТРЕНЕРЫ', to: 'coaches' },
   { title: 'ЦЕНЫ', to: 'prices' },
   { title: 'КОНТАКТЫ', to: 'contacts' },
@@ -16,14 +18,22 @@ const DUMMY = JSON.stringify('');
 
 export const INITIAL_STATIC_CONTENT: LandingStaticContentType = {
   coaches: {
-    title: 'Тренеры',
-    subtitle: '',
+    title: DUMMY,
+    subtitle: DUMMY,
   },
   prices: {
-    title: 'Цены',
-    subtitle: '',
+    title: DUMMY,
+    subtitle: DUMMY,
   },
   aboutus: {
+    title: DUMMY,
+    subtitle: DUMMY,
+  },
+  programs: {
+    title: DUMMY,
+    subtitle: DUMMY,
+  },
+  photogallery: {
     title: DUMMY,
     subtitle: DUMMY,
   },

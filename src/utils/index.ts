@@ -1,4 +1,5 @@
 import Resizer from 'react-image-file-resizer';
+import parse from 'html-react-parser';
 import { ref as refST, getDownloadURL, listAll } from 'firebase/storage';
 import { ref as refDB, set } from 'firebase/database';
 import { ST, DB } from '@src/config';
@@ -24,6 +25,7 @@ export const debounced = <T>(cb: (...args: T[]) => void, delay = 2000) => {
   };
 };
 
+export const jsonToHtml = (value: string) => parse(JSON.parse(value));
 export const htmlToInput = (value: string) => JSON.parse(value.replace(/<br \/>/g, '\\n')) as string;
 export const inputToHtml = (value: string) => JSON.stringify(value).replace(/\\n/g, '<br />');
 
