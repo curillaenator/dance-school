@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useCallback, useContext, useState, useEffect, ChangeEvent } from 'react';
 import { scroller } from 'react-scroll';
 import { useSnackbar } from 'notistack';
@@ -160,7 +161,6 @@ export const useVideosControl = () => {
       'state_changed',
       (snap) => {
         const progress = (snap.bytesTransferred / snap.totalBytes) * 100;
-        // console.log(progress);
         setUploadProgress(Math.floor(progress));
       },
       (err) => {

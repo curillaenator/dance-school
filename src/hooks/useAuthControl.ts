@@ -65,14 +65,9 @@ export const useAuthControl = () => {
   const signUpWithLogin: SignWithLoginType = useCallback((email, pass, opts = DEFAULT_LOGIN_OPTS) => {
     const { errCb = () => {}, scCb = () => {} } = opts;
 
-    console.log(email, pass);
-
     createUserWithEmailAndPassword(auth, email, pass)
       .then(() => scCb())
-      .catch((err) => {
-        console.log(err);
-        errCb(err.message);
-      });
+      .catch((err) => errCb(err.message));
   }, []);
 
   return {
