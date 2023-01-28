@@ -21,5 +21,5 @@
 ## Local start:
 
 - ask me for .env file
-- npm install
-- npm start
+- yarn
+- yarn start
