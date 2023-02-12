@@ -75,7 +75,17 @@ export const Settings: FC = () => {
 
   const { aboutusStatic, handleAboutusStatic } = useAboutusControl();
 
-  const { prices, newPrice, isNewPriceFilled, handleNewPrice, addPrice, removePrice } = usePricesControl();
+  const {
+    prices,
+    newPrice,
+    isNewPriceFilled,
+    isPriceEdit,
+    handleNewPrice,
+    addPrice,
+    removePrice,
+    onUpdatePriceCancel,
+    onUpdatePrice,
+  } = usePricesControl();
 
   const {
     videos,
@@ -454,7 +464,7 @@ export const Settings: FC = () => {
               }}
             >
               {prices.map((price) => (
-                <Price key={price.id} {...price} editable removePrice={removePrice} />
+                <Price key={price.id} {...price} editable removePrice={removePrice} updatePrice={onUpdatePrice} />
               ))}
             </Grid>
           </Box>
@@ -496,17 +506,33 @@ export const Settings: FC = () => {
             </FormControl>
           </Box>
 
-          <Button
-            variant='contained'
-            component='label'
-            onClick={addPrice}
-            disabled={!isNewPriceFilled}
-            sx={{
-              height: '56px',
-            }}
-          >
-            Добавить новый тариф
-          </Button>
+          <ButtonGroup>
+            <Button
+              variant='contained'
+              // component='label'
+              onClick={addPrice}
+              disabled={!isNewPriceFilled}
+              sx={{
+                height: '56px',
+              }}
+            >
+              {isPriceEdit ? 'Обновить тариф' : 'Добавить тариф'}
+            </Button>
+
+            {isPriceEdit && (
+              <Button
+                variant='outlined'
+                // component='label'
+                onClick={onUpdatePriceCancel}
+                // disabled={!isNewPriceFilled}
+                sx={{
+                  height: '56px',
+                }}
+              >
+                Отмена
+              </Button>
+            )}
+          </ButtonGroup>
         </AccordionDetails>
       </Accordion>
 

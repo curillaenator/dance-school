@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useCallback, useState } from 'react';
 import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
@@ -19,6 +19,17 @@ interface PricesProps extends LandingSectionCommonProps {
 export const Prices: FC<PricesProps> = (props) => {
   const { name, handleOpen, maxWidth } = props;
   const { isMobile, prices } = useContext(Context);
+
+  const [nameHeights, setNameHeights] = useState<number[]>([]);
+
+  const getNameHeight = useCallback(
+    (nameHeight: number) => {
+      setNameHeights((prev) => [...prev, nameHeight]);
+    },
+    [nameHeights],
+  );
+
+  const maxNameHeight = nameHeights.length ? Math.max(...nameHeights) : undefined;
 
   return (
     <Element name={name}>
@@ -47,7 +58,7 @@ export const Prices: FC<PricesProps> = (props) => {
           }}
         >
           {prices.map((price) => (
-            <Price key={price.id} {...price} />
+            <Price key={price.id} {...price} getNameHeight={getNameHeight} nameHeight={maxNameHeight} />
           ))}
         </Grid>
 
