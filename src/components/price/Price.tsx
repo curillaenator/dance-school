@@ -71,7 +71,14 @@ export const Price: FC<PriceProps> = (props) => {
           </>
         )}
 
-        <Box display='flex' alignItems='center' justifyContent='center' ref={ref} height={nameHeight} mb={2}>
+        <Box
+          // display='flex'
+          // alignItems='center'
+          // justifyContent='center'
+          ref={ref}
+          height={nameHeight}
+          mb={2}
+        >
           <Typography variant='h3' fontWeight={700} color={(theme) => theme.palette.text.primary} fontSize={32}>
             {name}
           </Typography>
