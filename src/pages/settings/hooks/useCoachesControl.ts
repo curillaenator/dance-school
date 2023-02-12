@@ -113,7 +113,7 @@ export const useCoachesControl = () => {
       id,
       name: htmlToInput(name),
       description: htmlToInput(description),
-      //@ts-expect-error set string instead of file or null
+      // @ts-expect-error set string instead of file or null
       photoURL,
     });
 
