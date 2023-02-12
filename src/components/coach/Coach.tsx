@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import EditIcon from '@mui/icons-material/Edit';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 import { styled } from '@mui/material/styles';
@@ -31,6 +32,7 @@ const Card = styled(Paper)({
 interface CoachInterface extends CoachType {
   isMobile: boolean;
   isEditable?: boolean;
+  onUpdate?: (coach: CoachType) => void;
   onDelete?: (coach: CoachType) => void;
   handleOpen?: (coach: CoachType) => void;
 }
@@ -44,6 +46,7 @@ export const Coach: FC<CoachInterface> = (props) => {
     isEditable,
     isMobile,
 
+    onUpdate = () => {},
     onDelete = () => {},
     handleOpen = () => {},
   } = props;
@@ -54,24 +57,38 @@ export const Coach: FC<CoachInterface> = (props) => {
   }, [photoURL]);
 
   return (
-    <Grid xs={12} md={6} lg={4}>
+    <Grid xs={12} md={6} lg={6}>
       <Card
         sx={{
           position: 'relative',
         }}
       >
         {isEditable && (
-          <IconButton
-            color='error'
-            onClick={() => onDelete({ id, name, description, photoURL })}
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-            }}
-          >
-            <DeleteRoundedIcon />
-          </IconButton>
+          <>
+            <IconButton
+              color='error'
+              onClick={() => onDelete({ id, name, description, photoURL })}
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+              }}
+            >
+              <DeleteRoundedIcon />
+            </IconButton>
+
+            <IconButton
+              color='error'
+              onClick={() => onUpdate({ id, name, description, photoURL })}
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: '48px',
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
         )}
 
         <Avatar

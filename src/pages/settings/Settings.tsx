@@ -62,11 +62,15 @@ export const Settings: FC = () => {
     handleCoachesStatic,
 
     coaches,
+    isCoachEdit,
     newCoach,
     isNewCoachFilled,
+    coachFormPhoto,
     handleNewCoach,
     addCoach,
     removeCoach,
+    onUpdateCoach,
+    onUpdateCoachCancel,
   } = useCoachesControl();
 
   const { aboutusStatic, handleAboutusStatic } = useAboutusControl();
@@ -355,65 +359,83 @@ export const Settings: FC = () => {
           <Box width='100%' paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
             <Grid container marginX={0} spacing={8} width='100%'>
               {coaches.map((coach) => (
-                <Coach key={coach.id} {...coach} isMobile isEditable onDelete={removeCoach} />
+                <Coach key={coach.id} {...coach} isMobile isEditable onDelete={removeCoach} onUpdate={onUpdateCoach} />
               ))}
             </Grid>
           </Box>
 
-          <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
-            <FormControl variant='outlined' fullWidth>
-              <TextField
-                id='coach-name'
-                label='Имя нового тренера'
-                sx={{ marginBottom: 2 }}
-                value={newCoach.name}
-                onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'name')}
-                autoComplete='off'
-                required
+          <Element name='coach-edit-form'>
+            <Box mb={4} p={2} borderRadius={1} border={(theme) => `1px solid ${theme.palette.secondary.main}`}>
+              <FormControl variant='outlined' fullWidth>
+                <TextField
+                  id='coach-name'
+                  label='Имя нового тренера'
+                  sx={{ marginBottom: 2 }}
+                  value={newCoach.name}
+                  onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'name')}
+                  autoComplete='off'
+                  required
+                />
+
+                <TextField
+                  id='comment'
+                  label={'Красивое описание тренера'}
+                  sx={{ marginBottom: 2 }}
+                  value={newCoach.description}
+                  autoComplete='off'
+                  onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'description')}
+                  multiline
+                  minRows={2}
+                  maxRows={8}
+                  required
+                />
+              </FormControl>
+
+              <Avatar
+                src={coachFormPhoto || undefined}
+                sx={{
+                  width: 236,
+                  height: 236,
+                  marginBottom: 2,
+                }}
               />
 
-              <TextField
-                id='comment'
-                label={'Красивое описание тренера'}
-                sx={{ marginBottom: 2 }}
-                value={newCoach.description}
-                autoComplete='off'
-                onChange={(e) => handleNewCoach(e as ChangeEvent<HTMLInputElement>, 'description')}
-                multiline
-                minRows={2}
-                maxRows={4}
-                required
-              />
-            </FormControl>
-
-            <Avatar
-              src={newCoach.photoURL ? URL.createObjectURL(newCoach.photoURL as File) : undefined}
-              sx={{
-                width: 236,
-                height: 236,
-                marginBottom: 2,
-              }}
-            />
-
-            <Box>
-              <Button startIcon={<AddAPhotoIcon />} variant='outlined' component='label'>
-                Выбрать фото тренера
-                <input hidden accept='image/*' type='file' onChange={(e) => handleNewCoach(e, 'photoURL')} />
-              </Button>
+              <Box>
+                <Button startIcon={<AddAPhotoIcon />} variant='outlined' component='label'>
+                  Выбрать фото тренера
+                  <input hidden accept='image/*' type='file' onChange={(e) => handleNewCoach(e, 'photoURL')} />
+                </Button>
+              </Box>
             </Box>
-          </Box>
+          </Element>
 
-          <Button
-            variant='contained'
-            component='label'
-            onClick={addCoach}
-            disabled={!isNewCoachFilled}
-            sx={{
-              height: '56px',
-            }}
-          >
-            Добавить нового тренера
-          </Button>
+          <ButtonGroup>
+            <Button
+              variant='contained'
+              // component='label'
+              onClick={addCoach}
+              disabled={!isNewCoachFilled}
+              sx={{
+                height: '56px',
+              }}
+            >
+              {isCoachEdit ? 'Изменить тренера' : 'Добавить нового тренера'}
+            </Button>
+
+            {isCoachEdit && (
+              <Button
+                variant='outlined'
+                // component='label'
+                onClick={onUpdateCoachCancel}
+                // disabled={!isNewCoachFilled}
+                sx={{
+                  height: '56px',
+                }}
+              >
+                Отмена
+              </Button>
+            )}
+          </ButtonGroup>
         </AccordionDetails>
       </Accordion>
 
