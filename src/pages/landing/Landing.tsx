@@ -10,6 +10,7 @@ import { Aboutus } from './sections/aboutus';
 import { Programs } from './sections/programs';
 import { Photogallery } from './sections/photogallery';
 import { Contacts } from './sections/contacts';
+import { Reviews } from './sections/reviews';
 
 import { useModalControl } from '@src/hooks/useModalControl';
 
@@ -34,6 +35,7 @@ export const Landing: FC = () => {
       <Photogallery name='photogallery' maxWidth={MAX_WIDTH} />
       <Coaches name='coaches' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Prices name='prices' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
+      <Reviews name='reviews' maxWidth={MAX_WIDTH} />
       <Contacts name='contacts' maxWidth={MAX_WIDTH} />
 
       <Dialog onClose={handleApplicationFormClose} open={open}>
