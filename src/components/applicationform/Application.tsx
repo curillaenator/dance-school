@@ -12,11 +12,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import CheckIcon from '@mui/icons-material/Check';
+// import CheckIcon from '@mui/icons-material/Check';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
 
 import { ReviewForm } from './ReviewForm';
+import { SuccessForm } from './SuccessForm';
 
 import { MaskedTelephone } from './MaskedTelephone';
 
@@ -29,6 +30,7 @@ export const Application: FC<ApplicationProps> = (props) => {
   const {
     step,
     formState,
+    successContent,
     signIn,
     handleApplicationForm,
     submit,
@@ -118,43 +120,10 @@ export const Application: FC<ApplicationProps> = (props) => {
       )}
 
       {step === 'review' && (
-        <ReviewForm
-          author={formState.author}
-          review={formState.review}
-          rating={formState.rating}
-          handleReviewForm={handleReviewForm}
-          handleReviewApply={handleReviewApply}
-        />
+        <ReviewForm {...formState} handleReviewForm={handleReviewForm} handleReviewApply={handleReviewApply} />
       )}
 
-      {step === 'success' && (
-        <Box
-          sx={{
-            width: '100%',
-          }}
-        >
-          <Typography variant='h3' align='left' sx={{ color: 'white' }} fontWeight={500} mb={4}>
-            {labels.titleSuccess}
-          </Typography>
-
-          <Typography variant='subtitle1' align='left' sx={{ color: 'white' }} mb={4}>
-            {labels.subtitleSuccess}
-          </Typography>
-
-          <Button
-            variant='contained'
-            color='success'
-            onClick={handleClose}
-            fullWidth
-            startIcon={<CheckIcon />}
-            sx={{
-              height: 64,
-            }}
-          >
-            Готово
-          </Button>
-        </Box>
-      )}
+      {step === 'success' && <SuccessForm {...successContent} handleClose={handleClose} />}
 
       {step === 'loading' && <CircularProgress color='inherit' />}
 

@@ -74,7 +74,7 @@ export const ReviewForm: FC<ReviewForm> = (props) => {
         startIcon={<ReviewsIcon />}
         variant='contained'
         sx={{ px: '96px', height: '56px' }}
-        disabled={author.length < 3 || review.length < 10}
+        disabled={author.length < 3 || review.length < 10 || rating.length < 1 || rating === 'null'}
       >
         Оставить отзыв
       </Button>

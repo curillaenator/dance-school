@@ -78,6 +78,13 @@ export interface VideoType {
   videoPath: string;
 }
 
+export interface ReviewType {
+  id: string;
+  author: string;
+  review: string;
+  rating: string;
+}
+
 // Storage
 
 export type StoragePathsType = 'mainSlider' | 'gallery';

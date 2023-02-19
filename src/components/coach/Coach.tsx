@@ -72,6 +72,7 @@ export const Coach: FC<CoachInterface> = (props) => {
                 position: 'absolute',
                 top: 0,
                 right: 0,
+                zIndex: 10,
               }}
             >
               <DeleteRoundedIcon />
@@ -84,6 +85,7 @@ export const Coach: FC<CoachInterface> = (props) => {
                 position: 'absolute',
                 top: 0,
                 right: '48px',
+                zIndex: 10,
               }}
             >
               <EditIcon />

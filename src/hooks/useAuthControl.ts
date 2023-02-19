@@ -32,8 +32,6 @@ export const useAuthControl = () => {
 
   const signInAnon = useCallback(
     (callback?: () => void) => {
-      console.log(uid);
-
       if (!!uid?.uid) {
         if (!!callback) callback();
         return;

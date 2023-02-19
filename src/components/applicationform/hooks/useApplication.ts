@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useCallback, ChangeEvent, useContext, useReducer, useEffect } from 'react';
+import { useCallback, useState, ChangeEvent, useContext, useReducer, useEffect } from 'react';
 import { ref, set, push, child } from 'firebase/database';
 
 import { DB } from '@src/config';
@@ -16,7 +16,7 @@ import {
 } from './formReducer';
 
 import { jsonToHtml, inputToHtml } from '@src/utils';
-import { NUMS, MIN_NAME_LENGTH } from '../constants';
+import { NUMS, MIN_NAME_LENGTH, labels } from '../constants';
 import { ApplicationType } from '@src/types';
 import { ApplicationProps } from '../interfaces';
 
@@ -41,6 +41,27 @@ export const useApplication = (props: ApplicationProps) => {
     // logOut,
     signInAnon,
   } = useContext(Context);
+
+  const [successContent, setSuccessContent] = useState({
+    title: 'Супер!',
+    subtitle: labels.subtitleSuccess,
+  });
+
+  useEffect(() => {
+    if (step === 'new') {
+      setSuccessContent({
+        title: 'Супер!',
+        subtitle: 'Мы получили вашу заявку и свяжемся с Вами в самое ближайшее время!!!',
+      });
+    }
+
+    if (step === 'review') {
+      setSuccessContent({
+        title: 'Супер!',
+        subtitle: 'Спасибо за ваш отзыв!!!',
+      });
+    }
+  }, [step]);
 
   const [formState, dispatch] = useReducer(formReducer, INITIAL_FORM_STATE);
   const { name, tel, comment, errors } = formState;
@@ -186,6 +207,7 @@ export const useApplication = (props: ApplicationProps) => {
   return {
     step,
     formState,
+    successContent,
     signIn,
     handleApplicationForm,
     submit,

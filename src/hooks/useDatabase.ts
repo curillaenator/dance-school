@@ -10,6 +10,7 @@ import {
   StaticKeysType,
   VideoType,
   PriceType,
+  ReviewType,
 } from '@src/types';
 
 import { INITIAL_STATIC_CONTENT } from '@src/shared/constants';
@@ -21,16 +22,25 @@ export const useDatabase = () => {
   const [coaches, setCoaches] = useState<CoachType[]>([]);
   const [videos, setVideos] = useState<VideoType[]>([]);
   const [prices, setPrices] = useState<PriceType[]>([]);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
 
   useEffect(() => {
     const coachesRef = ref(DB, 'coaches');
     const videosRef = ref(DB, 'videos');
     const pricesRef = ref(DB, 'prices');
+    const reviewsRef = ref(DB, 'reviews');
 
     get(ref(DB, 'static')).then((snap) => {
       if (snap.exists()) {
         const data = snap.val();
         setStaticContent(data);
+      }
+    });
+
+    onValue(reviewsRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.val() as Record<string, ReviewType>;
+        setReviews(Object.values(data).reverse());
       }
     });
 
@@ -59,6 +69,7 @@ export const useDatabase = () => {
       off(coachesRef);
       off(videosRef);
       off(pricesRef);
+      off(reviewsRef);
     };
   }, []);
 
@@ -76,6 +87,7 @@ export const useDatabase = () => {
     coaches,
     videos,
     prices,
+    reviews,
     staticContent,
     updateStaticContent,
   };

@@ -35,6 +35,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import { Coach } from '@src/components/coach';
+import { Review } from '@src/components/review';
 import { Gallery } from '@src/components/photogallery';
 import { VideoGallery } from '@src/components/videogallery';
 import { Price } from '@src/components/price';
@@ -45,6 +46,7 @@ import { useCoachesControl } from './hooks/useCoachesControl';
 import { useAboutusControl } from './hooks/useAboutusControl';
 import { usePricesControl } from './hooks/usePricesControl';
 import { useVideosControl } from './hooks/useVideosControl';
+import { useReviewsControls } from './hooks/useReviewsControls';
 import { useContactsControl } from './hooks/useContactsControl';
 
 import { GALLERY_CONFIG } from '@src/shared/constants';
@@ -104,6 +106,8 @@ export const Settings: FC = () => {
     updateVideo,
     cancelEdit,
   } = useVideosControl();
+
+  const { reviews, removeReview } = useReviewsControls();
 
   const { staticContacts, handleContactsStatic } = useContactsControl();
 
@@ -533,6 +537,28 @@ export const Settings: FC = () => {
               </Button>
             )}
           </ButtonGroup>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion sx={{ marginBottom: 2 }}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel6a-content' id='panel6a-header'>
+          <Typography>Отзывы</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Box width='100%' bgcolor={(theme) => theme.palette.primary.main}>
+            <Grid
+              container
+              spacing={8}
+              sx={{
+                margin: '0 auto 64px',
+              }}
+            >
+              {reviews.map((review) => (
+                <Review key={review.id} {...review} isMobile={isMobile} editable onRemove={removeReview} />
+              ))}
+            </Grid>
+          </Box>
         </AccordionDetails>
       </Accordion>
 

@@ -1,5 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
-import { Swiper } from 'swiper';
+import React, { FC } from 'react';
 import { useSwiper } from 'swiper/react';
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -9,33 +8,34 @@ import Button from '@mui/material/Button';
 
 interface SwiperButtonProps {
   isNext?: boolean;
+  slides?: number;
 }
 
 export const SwiperButton: FC<SwiperButtonProps> = (props) => {
   const { isNext } = props;
   const swiper = useSwiper();
 
-  const [disabled, setDisabled] = useState<boolean>(false);
+  // const [disabled, setDisabled] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isNext) {
-      setDisabled(swiper.isEnd);
-    } else {
-      setDisabled(swiper.isBeginning);
-    }
+  // useEffect(() => {
+  //   if (isNext) {
+  //     setDisabled(swiper.isEnd);
+  //   } else {
+  //     setDisabled(swiper.isBeginning);
+  //   }
 
-    const watch = (instance: Swiper) => {
-      if (isNext) {
-        setDisabled(instance.isEnd);
-      } else {
-        setDisabled(instance.isBeginning);
-      }
-    };
+  //   const watch = (instance: Swiper) => {
+  //     if (isNext) {
+  //       setDisabled(instance.isEnd);
+  //     } else {
+  //       setDisabled(instance.isBeginning);
+  //     }
+  //   };
 
-    swiper.on('slideChange', watch);
+  //   swiper.on('slideChange', watch);
 
-    return () => swiper.off('slideChange', watch);
-  }, [isNext, swiper]);
+  //   return () => swiper.off('slideChange', watch);
+  // }, [isNext, swiper, slides]);
 
   return (
     <Button
@@ -43,7 +43,7 @@ export const SwiperButton: FC<SwiperButtonProps> = (props) => {
       variant='text'
       onClick={() => (isNext ? swiper.slideNext() : swiper.slidePrev())}
       color='error'
-      disabled={disabled}
+      // disabled={disabled}
       endIcon={isNext ? <ArrowRightIcon /> : undefined}
       startIcon={!isNext ? <ArrowLeftIcon /> : undefined}
     >
