@@ -2,7 +2,7 @@ import { ToolbarItemType } from '@src/types';
 
 export const MAIN_SLIDER_DELAY = 3000;
 export const MAIN_SLIDER_SPEED = 800;
-export const SCROLL_SPEED = 300;
+export const SCROLL_SPEED = 500;
 
 export const TOOLBAR_ITEMS: ToolbarItemType = [
   { title: 'ГЛАВНАЯ', to: 'main' },

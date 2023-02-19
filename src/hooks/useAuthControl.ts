@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from 'firebase/auth';
 import { UserType } from '@src/types';
 
@@ -28,6 +29,28 @@ const auth = getAuth();
 
 export const useAuthControl = () => {
   const [uid, setUid] = useState<UserType | null>(null);
+
+  const signInAnon = useCallback(
+    (callback?: () => void) => {
+      console.log(uid);
+
+      if (!!uid?.uid) {
+        if (!!callback) callback();
+        return;
+      }
+
+      signInAnonymously(auth)
+        .then(() => {
+          if (!!callback) callback();
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(`Что то не так! Код - ${errorCode} ОШИБКА: ${errorMessage}`);
+        });
+    },
+    [uid],
+  );
 
   const signIn = useCallback(() => {
     signInWithPopup(auth, PROVIDER);
@@ -76,5 +99,6 @@ export const useAuthControl = () => {
     logOut,
     signInWithLogin,
     signUpWithLogin,
+    signInAnon,
   };
 };

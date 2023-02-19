@@ -1,13 +1,21 @@
 /* eslint-disable no-console */
-import { useState, useCallback, ChangeEvent, useContext, useReducer, useEffect } from 'react';
+import { useCallback, ChangeEvent, useContext, useReducer, useEffect } from 'react';
 import { ref, set, push, child } from 'firebase/database';
 
 import { DB } from '@src/config';
 import { Context } from '@src/context';
 
-import { formReducer, INITIAL_FORM_STATE, actions, errActions, ApplicationKind, ACTIONS_ASSOC } from './formReducer';
+import {
+  formReducer,
+  INITIAL_FORM_STATE,
+  actions,
+  errActions,
+  ApplicationKind,
+  ACTIONS_ASSOC,
+  ActionsType,
+} from './formReducer';
 
-import { jsonToHtml } from '@src/utils';
+import { jsonToHtml, inputToHtml } from '@src/utils';
 import { NUMS, MIN_NAME_LENGTH } from '../constants';
 import { ApplicationType } from '@src/types';
 import { ApplicationProps } from '../interfaces';
@@ -23,12 +31,19 @@ const checkTel = (tel: string) => {
 
 export const useApplication = (props: ApplicationProps) => {
   const { handleClose } = props;
-  const { desiredCoach, signIn, signInWithLogin, signUpWithLogin } = useContext(Context);
+  const {
+    desiredCoach,
+    applicationFormStep: step,
+    setApplicationFormStep: setStep,
+    signIn,
+    signInWithLogin,
+    signUpWithLogin,
+    // logOut,
+    signInAnon,
+  } = useContext(Context);
 
   const [formState, dispatch] = useReducer(formReducer, INITIAL_FORM_STATE);
   const { name, tel, comment, errors } = formState;
-
-  const [step, setStep] = useState<'new' | 'loading' | 'success' | 'error' | 'login'>('new');
 
   const submit = useCallback(() => {
     if (name === keyWords.name && tel === keyWords.tel) {
@@ -68,7 +83,7 @@ export const useApplication = (props: ApplicationProps) => {
         console.log(err);
         setStep('error');
       });
-  }, [name, tel, comment, dispatch]);
+  }, [name, tel, comment, setStep, dispatch]);
 
   const cancel = useCallback(() => {
     dispatch(actions.resetForm(''));
@@ -83,8 +98,43 @@ export const useApplication = (props: ApplicationProps) => {
     [errors, dispatch],
   );
 
+  const handleReviewForm = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, field: ActionsType) => {
+      const action = actions[field];
+      dispatch(action(e.target.value));
+    },
+    [dispatch],
+  );
+
+  const handleReviewApply = useCallback(() => {
+    const writeReview = () => {
+      const { author, review, rating } = formState;
+      const newReviewId = push(child(ref(DB), 'reviews')).key as string;
+
+      const data = {
+        id: newReviewId,
+        author,
+        review: inputToHtml(review),
+        rating,
+      };
+
+      set(ref(DB, `reviews/${newReviewId}`), data)
+        .then(() => {
+          dispatch(actions.resetForm(''));
+          setStep('success');
+        })
+        .catch((err) => {
+          console.log(err);
+          setStep('error');
+        });
+    };
+
+    setStep('loading');
+    signInAnon(writeReview);
+  }, [formState, signInAnon, setStep, dispatch]);
+
   const handleLoginForm = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, field: keyof typeof actions) => {
+    (e: ChangeEvent<HTMLInputElement>, field: ActionsType) => {
       if (errors.login) {
         dispatch(errActions.setErrors({ key: 'login', value: '' }));
       }
@@ -145,5 +195,7 @@ export const useApplication = (props: ApplicationProps) => {
     handleEmailLogin,
     handleEmailSignUp,
     handleIsNewUser,
+    handleReviewForm,
+    handleReviewApply,
   };
 };

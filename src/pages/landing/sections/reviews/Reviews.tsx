@@ -46,7 +46,7 @@ interface ReviewsProps extends LandingSectionCommonProps {
 }
 
 export const Reviews: FC<ReviewsProps> = (props) => {
-  const { name, maxWidth } = props;
+  const { name, maxWidth, handleOpen = () => {} } = props;
 
   const { isMobile } = useContext(Context);
 
@@ -87,7 +87,7 @@ export const Reviews: FC<ReviewsProps> = (props) => {
             variant='contained'
             size='large'
             color='success'
-            // onClick={handleOpen}
+            onClick={handleOpen}
             sx={{
               height: 64,
               padding: '0 64px',

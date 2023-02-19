@@ -1,3 +1,5 @@
+export type ApplicationStepType = 'new' | 'loading' | 'success' | 'error' | 'login' | 'review';
+
 export type ThemeType = 'light' | 'dark';
 
 // Landind and navigation

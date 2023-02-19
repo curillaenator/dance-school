@@ -16,6 +16,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
 
+import { ReviewForm } from './ReviewForm';
+
 import { MaskedTelephone } from './MaskedTelephone';
 
 import { useApplication } from './hooks/useApplication';
@@ -36,6 +38,8 @@ export const Application: FC<ApplicationProps> = (props) => {
     handleEmailLogin,
     handleEmailSignUp,
     handleIsNewUser,
+    handleReviewForm,
+    handleReviewApply,
   } = useApplication(props);
 
   return (
@@ -111,6 +115,16 @@ export const Application: FC<ApplicationProps> = (props) => {
             />
           </IconButton>
         </Box>
+      )}
+
+      {step === 'review' && (
+        <ReviewForm
+          author={formState.author}
+          review={formState.review}
+          rating={formState.rating}
+          handleReviewForm={handleReviewForm}
+          handleReviewApply={handleReviewApply}
+        />
       )}
 
       {step === 'success' && (

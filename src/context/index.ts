@@ -9,6 +9,7 @@ import {
   StaticKeysType,
   VideoType,
   PriceType,
+  ApplicationStepType,
 } from '@src/types';
 
 interface ContextType {
@@ -21,6 +22,7 @@ interface ContextType {
   uid: UserType | null;
   signIn: () => void;
   logOut: () => void;
+  signInAnon: (callback?: () => void) => void;
   signInWithLogin: (
     email: string,
     pass: string,
@@ -55,6 +57,9 @@ interface ContextType {
 
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
+
+  applicationFormStep: ApplicationStepType;
+  setApplicationFormStep: (step: ApplicationStepType) => void;
 }
 
 export const Context = createContext<ContextType>({
@@ -67,6 +72,7 @@ export const Context = createContext<ContextType>({
   uid: null,
   signIn: () => {},
   logOut: () => {},
+  signInAnon: () => {},
   signInWithLogin: () => {},
   signUpWithLogin: () => {},
 
@@ -75,6 +81,7 @@ export const Context = createContext<ContextType>({
   updateMainSlider: () => {},
   updateGallery: () => {},
 
+  // @ts-expect-error типы не совсем совпадают
   staticContent: INITIAL_STATIC_CONTENT,
   updateStaticContent: () => {},
 
@@ -87,4 +94,7 @@ export const Context = createContext<ContextType>({
 
   loading: false,
   setLoading: () => {},
+
+  applicationFormStep: 'new',
+  setApplicationFormStep: () => {},
 });

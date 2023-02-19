@@ -20,12 +20,18 @@ const MAX_WIDTH = '1280px';
 
 export const Landing: FC = () => {
   const { open, handleClose, handleOpen } = useModalControl();
-  const { setDesiredCoach } = useContext(Context);
+  const { setDesiredCoach, setApplicationFormStep } = useContext(Context);
 
   const handleApplicationFormClose = useCallback(() => {
     setDesiredCoach(null);
     handleClose();
-  }, [handleClose, setDesiredCoach]);
+    setTimeout(() => setApplicationFormStep('new'), 300);
+  }, [handleClose, setDesiredCoach, setApplicationFormStep]);
+
+  const handleOpenReviewForm = useCallback(() => {
+    setApplicationFormStep('review');
+    handleOpen();
+  }, [handleOpen, setApplicationFormStep]);
 
   return (
     <>
@@ -35,7 +41,7 @@ export const Landing: FC = () => {
       <Photogallery name='photogallery' maxWidth={MAX_WIDTH} />
       <Coaches name='coaches' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
       <Prices name='prices' handleOpen={handleOpen} maxWidth={MAX_WIDTH} />
-      <Reviews name='reviews' maxWidth={MAX_WIDTH} />
+      <Reviews name='reviews' handleOpen={handleOpenReviewForm} maxWidth={MAX_WIDTH} />
       <Contacts name='contacts' maxWidth={MAX_WIDTH} />
 
       <Dialog onClose={handleApplicationFormClose} open={open}>

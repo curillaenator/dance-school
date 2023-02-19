@@ -20,6 +20,7 @@ import { useDrawer } from '@src/hooks/useDrawer';
 import { useTheme } from '@src/hooks/useTheme';
 import { useLoading } from '@src/hooks/useLoading';
 import { useDesiredCoach } from '@src/hooks/useDesiredCoach';
+import { useApplicationStep } from '@src/hooks/useApplicationStep';
 
 import { FB_APP } from '@src/config';
 
@@ -28,6 +29,7 @@ getAnalytics(FB_APP);
 export const App: FC = () => {
   const location = useLocation();
   const authData = useAuthControl();
+  const stepData = useApplicationStep();
   const appDrawer = useDrawer();
   const databaseData = useDatabase();
   const storageData = usePhotos();
@@ -39,6 +41,7 @@ export const App: FC = () => {
     <Context.Provider
       value={{
         ...authData,
+        ...stepData,
         ...storageData,
         ...databaseData,
         ...appDrawer,
