@@ -22,12 +22,9 @@ export const Prices: FC<PricesProps> = (props) => {
 
   const [nameHeights, setNameHeights] = useState<number[]>([]);
 
-  const getNameHeight = useCallback(
-    (nameHeight: number) => {
-      setNameHeights((prev) => [...prev, nameHeight]);
-    },
-    [nameHeights],
-  );
+  const getNameHeight = useCallback((nameHeight: number) => {
+    setNameHeights((prev) => [...prev, nameHeight]);
+  }, []);
 
   const maxNameHeight = nameHeights.length ? Math.max(...nameHeights) : undefined;
 

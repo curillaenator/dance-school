@@ -46,7 +46,7 @@ export const Price: FC<PriceProps> = (props) => {
 
   useEffect(() => {
     if (!nameHeight && ref.current?.clientHeight) getNameHeight(ref.current?.clientHeight);
-  }, []);
+  }, [nameHeight, getNameHeight]);
 
   return (
     <Grid xs={12} md={6} lg={4}>
