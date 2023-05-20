@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 const ImageStyled = styled.img({
   width: '100%',
   height: '100%',
-  objectFit: 'cover',
+  objectFit: 'contain',
 });
 
 const SwiperStyled = styled(Swiper)({

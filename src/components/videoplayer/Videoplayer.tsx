@@ -44,7 +44,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = (props) => {
       </IconButton>
 
       {src && (
-        <video controls width='100%'>
+        <video controls width='100%' style={{ maxHeight: '90vh' }}>
           <source src={src} />
         </video>
       )}
