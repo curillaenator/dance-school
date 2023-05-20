@@ -35,6 +35,7 @@ interface CoachInterface extends CoachType {
   onUpdate?: (coach: CoachType) => void;
   onDelete?: (coach: CoachType) => void;
   handleOpen?: (coach: CoachType) => void;
+  coachAvatarOnClick?: (coachPhotoUrl: string | null) => void;
 }
 
 export const Coach: FC<CoachInterface> = (props) => {
@@ -49,6 +50,7 @@ export const Coach: FC<CoachInterface> = (props) => {
     onUpdate = () => {},
     onDelete = () => {},
     handleOpen = () => {},
+    coachAvatarOnClick = () => {},
   } = props;
 
   const [photo, setPhoto] = useState<string | null>(null);
@@ -93,14 +95,30 @@ export const Coach: FC<CoachInterface> = (props) => {
           </>
         )}
 
-        <Avatar
-          src={photo ? photo : undefined}
-          sx={{
-            width: isMobile ? 236 : 256,
-            height: isMobile ? 236 : 256,
-            marginBottom: 2,
-          }}
-        />
+        {isEditable ? (
+          <Avatar
+            src={photo ? photo : undefined}
+            sx={{
+              width: isMobile ? 236 : 256,
+              height: isMobile ? 236 : 256,
+            }}
+          />
+        ) : (
+          <IconButton
+            onClick={() => coachAvatarOnClick(photo)}
+            sx={{
+              marginBottom: 2,
+            }}
+          >
+            <Avatar
+              src={photo ? photo : undefined}
+              sx={{
+                width: isMobile ? 236 : 256,
+                height: isMobile ? 236 : 256,
+              }}
+            />
+          </IconButton>
+        )}
 
         <Typography
           variant='h4'
