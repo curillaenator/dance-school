@@ -89,6 +89,7 @@ export const useApplication = (props: ApplicationProps) => {
 
       const data: ApplicationType = {
         id: newApplicationId,
+        uid: uid?.uid || null,
         name,
         tel,
         comment,
@@ -139,6 +140,7 @@ export const useApplication = (props: ApplicationProps) => {
 
       const data = {
         id: newReviewId,
+        authorUID: uid?.uid || null,
         author,
         review: inputToHtml(review),
         rating,
@@ -157,7 +159,7 @@ export const useApplication = (props: ApplicationProps) => {
 
     setStep('loading');
     signInAnon(writeReview);
-  }, [formState, signInAnon, setStep, dispatch]);
+  }, [uid, formState, signInAnon, setStep, dispatch]);
 
   const handleLoginForm = useCallback(
     (e: ChangeEvent<HTMLInputElement>, field: ActionsType) => {

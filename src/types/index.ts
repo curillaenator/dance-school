@@ -48,6 +48,7 @@ export interface UserType {
 
 export interface ApplicationType {
   id: string;
+  uid?: null | string;
   name: string;
   tel: string;
   comment: string;
