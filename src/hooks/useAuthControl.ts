@@ -31,15 +31,21 @@ export const useAuthControl = () => {
   const [uid, setUid] = useState<UserType | null>(null);
 
   const signInAnon = useCallback(
-    (callback?: () => void) => {
+    (callback: () => void = () => {}) => {
       if (!!uid?.uid) {
-        if (!!callback) callback();
+        callback();
         return;
       }
 
       signInAnonymously(auth)
-        .then(() => {
-          if (!!callback) callback();
+        .then((res) => {
+          callback();
+
+          setUid({
+            uid: res.user.uid,
+            photoURL: res.user.photoURL,
+            isAdmin: ADMINS.includes(res.user.uid),
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -49,6 +55,24 @@ export const useAuthControl = () => {
     },
     [uid],
   );
+
+  // useEffect(() => {
+  //   signInAnonymously(auth)
+  //     .then((res) => {
+  //       const { uid, photoURL } = res.user;
+
+  //       setUid({
+  //         uid,
+  //         photoURL,
+  //         isAdmin: ADMINS.includes(uid),
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       alert(`Что то не так! Код - ${errorCode} ОШИБКА: ${errorMessage}`);
+  //     });
+  // }, []);
 
   const signIn = useCallback(() => {
     signInWithPopup(auth, PROVIDER);

@@ -32,6 +32,7 @@ const checkTel = (tel: string) => {
 export const useApplication = (props: ApplicationProps) => {
   const { handleClose } = props;
   const {
+    uid,
     desiredCoach,
     applicationFormStep: step,
     setApplicationFormStep: setStep,
@@ -72,39 +73,43 @@ export const useApplication = (props: ApplicationProps) => {
       return;
     }
 
-    const isTelValid = checkTel(tel);
-    const isNameValid = name.length > MIN_NAME_LENGTH;
+    const submitAfterSignAnon = () => {
+      const isTelValid = checkTel(tel);
+      const isNameValid = name.length > MIN_NAME_LENGTH;
 
-    if (!isNameValid || !isTelValid) {
-      if (!isNameValid) dispatch(errActions.setErrors({ key: 'name', value: true }));
-      if (!isTelValid) dispatch(errActions.setErrors({ key: 'tel', value: true }));
-      return;
-    }
+      if (!isNameValid || !isTelValid) {
+        if (!isNameValid) dispatch(errActions.setErrors({ key: 'name', value: true }));
+        if (!isTelValid) dispatch(errActions.setErrors({ key: 'tel', value: true }));
+        return;
+      }
 
-    setStep('loading');
+      setStep('loading');
 
-    const newApplicationId = push(child(ref(DB), 'applications')).key as string;
+      const newApplicationId = push(child(ref(DB), 'applications')).key as string;
 
-    const data: ApplicationType = {
-      id: newApplicationId,
-      name,
-      tel,
-      comment,
-      created: String(+new Date()),
-      called: false,
-      completed: false,
+      const data: ApplicationType = {
+        id: newApplicationId,
+        name,
+        tel,
+        comment,
+        created: String(+new Date()),
+        called: false,
+        completed: false,
+      };
+
+      set(ref(DB, `applications/${newApplicationId}`), data)
+        .then(() => {
+          dispatch(actions.resetForm(''));
+          setStep('success');
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setStep('error');
+        });
     };
 
-    set(ref(DB, `applications/${newApplicationId}`), data)
-      .then(() => {
-        dispatch(actions.resetForm(''));
-        setStep('success');
-      })
-      .catch((err) => {
-        console.log(err);
-        setStep('error');
-      });
-  }, [name, tel, comment, setStep, dispatch]);
+    signInAnon(submitAfterSignAnon);
+  }, [uid, name, tel, comment, setStep, dispatch, signInAnon]);
 
   const cancel = useCallback(() => {
     dispatch(actions.resetForm(''));
