@@ -44,8 +44,14 @@ export const VideoPlayer: FC<VideoPlayerProps> = (props) => {
       </IconButton>
 
       {src && (
-        <video controls width='100%' style={{ maxHeight: '90vh' }}>
-          <source src={src} />
+        <video
+          controls
+          autoPlay
+          width='100%'
+          style={{ maxHeight: '90vh' }}
+          // crossOrigin='anonymous'
+        >
+          <source src={src} type='video/mp4' />
         </video>
       )}
     </Box>
