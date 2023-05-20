@@ -101,6 +101,7 @@ export const Coach: FC<CoachInterface> = (props) => {
             sx={{
               width: isMobile ? 236 : 256,
               height: isMobile ? 236 : 256,
+              marginBottom: 2,
             }}
           />
         ) : (
