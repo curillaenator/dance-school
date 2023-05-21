@@ -1,1 +1,2 @@
-export { Applications } from './Applications';
+import { Applications } from './Applications';
+export default Applications;
