@@ -1,15 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense, lazy } from 'react';
 import { getAnalytics } from 'firebase/analytics';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Layout } from '@src/layout';
-
 import { Landing } from '@src/pages/landing';
-import { Settings } from '@src/pages/settings';
-import { Applications } from '@src/pages/applications';
-
-import { AppDrawer } from './components/appdrawer';
 
 import { Context } from '@src/context';
 
@@ -23,6 +18,10 @@ import { useDesiredCoach } from '@src/hooks/useDesiredCoach';
 import { useApplicationStep } from '@src/hooks/useApplicationStep';
 
 import { FB_APP } from '@src/config';
+
+const AppDrawer = lazy(() => import('./components/appdrawer'));
+const Applications = lazy(() => import('@src/pages/applications'));
+const Settings = lazy(() => import('@src/pages/settings'));
 
 getAnalytics(FB_APP);
 
@@ -62,12 +61,15 @@ export const App: FC = () => {
               </>
             )}
 
-            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
             <Route path='*' element={<Landing />} />
           </Route>
         </Routes>
 
-        {appTheme.isMobile && location.pathname === '/' && <AppDrawer {...appDrawer} />}
+        {appTheme.isMobile && location.pathname === '/' && (
+          <Suspense fallback={<div />}>
+            <AppDrawer {...appDrawer} />
+          </Suspense>
+        )}
       </ThemeProvider>
     </Context.Provider>
   );
