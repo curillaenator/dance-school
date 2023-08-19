@@ -66,5 +66,6 @@
     "react-router-dom": "^6.6.1",
     "react-scroll": "^1.8.9",
     "swiper": "^8.4.5"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }

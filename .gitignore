@@ -1,4 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# yarn
+.yarn/cache
+.yarn/install-state.gz
+
 # dependencies
 /node_modules
 
