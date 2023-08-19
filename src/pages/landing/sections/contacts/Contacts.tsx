@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useCallback } from 'react';
+import React, { FC, useEffect, useState, useCallback, useRef } from 'react';
 import { Element } from 'react-scroll';
 import styled from '@emotion/styled';
 
@@ -31,9 +31,16 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
 
   const [mapWidth, setMapWidth] = useState<number>(getMapWidth(window.innerWidth));
 
+  const ref = useRef<HTMLDivElement | null>(null);
+
   // eslint-disable-next-line
   const debouncedSetWidth = useCallback(
-    debounced((e: Event) => setMapWidth(getMapWidth((e.target as Window).innerWidth)), 100),
+    debounced((e: Event) => {
+      if (!ref.current) return;
+      console.log(e);
+
+      setMapWidth(ref.current.clientWidth - 64);
+    }, 100),
     [],
   );
 
@@ -42,7 +49,10 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
     return () => window.removeEventListener('resize', debouncedSetWidth);
   }, [debouncedSetWidth]);
 
-  console.log(mapWidth);
+  useEffect(() => {
+    if (!ref.current) return;
+    setMapWidth(ref.current.clientWidth - 64);
+  }, []);
 
   return (
     <Element name={name}>
@@ -61,7 +71,7 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
         Контакты
       </Typography>
 
-      <Box maxWidth={maxWidth} mx='auto' px={4}>
+      <Box maxWidth={maxWidth} mx='auto' px={4} ref={ref}>
         <Typography color={(theme) => theme.palette.text.secondary} variant='subtitle1' textAlign={'left'} mb={2}>
           Где мы находимся:
         </Typography>

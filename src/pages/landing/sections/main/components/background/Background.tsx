@@ -9,7 +9,7 @@ import { Context } from '@src/context';
 import { MAIN_SLIDER_SPEED, MAIN_SLIDER_DELAY } from '@src/shared/constants';
 import { ImageStyled, SwiperStyled } from './styled';
 
-export const Background: FC = () => {
+export const Background: FC<{ isMobile?: boolean }> = ({ isMobile }) => {
   const { mainSlider } = useContext(Context);
   const theme = useTheme();
 
@@ -30,6 +30,7 @@ export const Background: FC = () => {
         navigation={false}
         modules={[Autoplay, EffectFade]}
         effect={'fade'}
+        isMobile={isMobile}
       >
         {mainSlider.map((photo, i) => (
           <SwiperSlide key={`photo${i}`}>

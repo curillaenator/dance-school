@@ -65,7 +65,7 @@ export const Coaches: FC<CoachesProps> = (props) => {
           <Typography
             variant='subtitle1'
             align='center'
-            color={(theme) => theme.palette.background.default}
+            color={(theme) => theme.palette.secondary.main}
             px={4}
             mb={16}
             mx='auto'

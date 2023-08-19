@@ -33,7 +33,7 @@ export const Main: FC<MainProps> = (props) => {
   return (
     <Element name={name}>
       <Box position='relative' height='100vh' width='100%'>
-        <Background />
+        <Background isMobile={isMobile} />
 
         <Box
           width='100%'

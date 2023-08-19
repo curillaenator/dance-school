@@ -68,7 +68,7 @@ export const Header: FC = () => {
           justifyContent: 'center',
           flexWrap: 'wrap',
           position: 'relative',
-          minHeight: 120,
+          minHeight: isMobile ? 80 : 120,
         }}
       >
         {isMobile && isLanding && (

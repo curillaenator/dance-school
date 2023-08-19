@@ -7,11 +7,13 @@ export const ImageStyled = styled.img({
   objectFit: 'cover',
 });
 
-export const SwiperStyled = styled(Swiper)({
-  position: 'absolute',
-  top: '120px',
-  left: 0,
-  width: '100%',
-  height: 'calc(100% - 120px)',
-  zIndex: 0,
+export const SwiperStyled = styled(Swiper)<{ isMobile?: boolean }>(({ isMobile }) => {
+  return {
+    position: 'absolute',
+    top: `${isMobile ? '80px' : '120px'}`,
+    left: 0,
+    width: '100%',
+    height: `calc(100% - ${isMobile ? '80px' : '120px'})`,
+    zIndex: 0,
+  };
 });
