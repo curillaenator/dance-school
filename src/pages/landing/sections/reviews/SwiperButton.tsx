@@ -42,7 +42,7 @@ export const SwiperButton: FC<SwiperButtonProps> = (props) => {
       size='small'
       variant='text'
       onClick={() => (isNext ? swiper.slideNext() : swiper.slidePrev())}
-      color='error'
+      // color='error'
       // disabled={disabled}
       endIcon={isNext ? <ArrowRightIcon /> : undefined}
       startIcon={!isNext ? <ArrowLeftIcon /> : undefined}

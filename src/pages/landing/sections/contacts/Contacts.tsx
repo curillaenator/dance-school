@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import { Element } from 'react-scroll';
 import styled from '@emotion/styled';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+
+import { debounced } from '@src/utils';
 
 import { SOCIAL_ICONS_ASSOC, NON_SOCIAL_ICONS_ASSOC } from './constants';
 
@@ -22,8 +24,61 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
   const { name, maxWidth } = props;
   const { isMobile, socialsMap, parsedContacts } = useContacts();
 
+  const getMapWidth = (innerWidth: number) => {
+    if (innerWidth > 1280) return 1280 - 64;
+    return innerWidth - 64 - (isMobile ? 0 : 12);
+  };
+
+  const [mapWidth, setMapWidth] = useState<number>(getMapWidth(window.innerWidth));
+
+  // eslint-disable-next-line
+  const debouncedSetWidth = useCallback(
+    debounced((e: Event) => setMapWidth(getMapWidth((e.target as Window).innerWidth)), 100),
+    [],
+  );
+
+  useEffect(() => {
+    window.addEventListener('resize', debouncedSetWidth);
+    return () => window.removeEventListener('resize', debouncedSetWidth);
+  }, [debouncedSetWidth]);
+
+  console.log(mapWidth);
+
   return (
     <Element name={name}>
+      <Typography
+        variant={isMobile ? 'h5' : 'h3'}
+        fontWeight={isMobile ? 600 : 500}
+        align='center'
+        color={(theme) => theme.palette.text.primary}
+        px={4}
+        mb={4}
+        mt={16}
+        mx='auto'
+        maxWidth={maxWidth}
+        zIndex={0}
+      >
+        Контакты
+      </Typography>
+
+      <Box maxWidth={maxWidth} mx='auto' px={4}>
+        <Typography color={(theme) => theme.palette.text.secondary} variant='subtitle1' textAlign={'left'} mb={2}>
+          Где мы находимся:
+        </Typography>
+
+        <iframe
+          src='https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=45642266991'
+          width={mapWidth}
+          height={384}
+          // frameBorder='0'
+          style={{
+            border: 'none',
+            outline: 'none',
+            borderRadius: '8px',
+          }}
+        ></iframe>
+      </Box>
+
       <Box
         display='flex'
         flexDirection={isMobile ? 'column' : 'row'}
@@ -31,6 +86,7 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
         mx='auto'
         gap={isMobile ? 4 : 2}
         p={4}
+        marginBottom={16}
         justifyContent='space-between'
         alignItems='center'
       >
@@ -44,14 +100,20 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
           {parsedContacts.map((contact) => (
             <Box display='flex' gap={1} key={contact[0]}>
               {NON_SOCIAL_ICONS_ASSOC[contact[0]]}
-              <Typography color='secondary'>{contact[1]}</Typography>
+              <Typography color={(theme) => theme.palette.text.secondary} variant='subtitle1'>
+                {contact[1]}
+              </Typography>
             </Box>
           ))}
         </Box>
 
         <Box maxWidth={300} display='flex' alignItems='center' gap={2} flexDirection={isMobile ? 'column' : 'row'}>
           <LogoStyled src='images/logo.png' />
-          <Typography color='secondary' variant='body1' textAlign={isMobile ? 'center' : 'left'}>
+          <Typography
+            color={(theme) => theme.palette.text.secondary}
+            variant='subtitle1'
+            textAlign={isMobile ? 'center' : 'left'}
+          >
             Профессиональная студия спортивно-бальных танцев «БАСТИОН»
           </Typography>
         </Box>

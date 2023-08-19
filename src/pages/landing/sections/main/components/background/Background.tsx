@@ -38,7 +38,7 @@ export const Background: FC = () => {
         ))}
       </SwiperStyled>
 
-      <Box
+      {/* <Box
         sx={{
           position: 'absolute',
           top: 0,
@@ -47,7 +47,7 @@ export const Background: FC = () => {
           height: '100%',
           background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 23%, transparent 100%)`,
         }}
-      />
+      /> */}
 
       <Box
         sx={{
@@ -56,7 +56,7 @@ export const Background: FC = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: `linear-gradient(to bottom, transparent 0%, transparent 17%, ${theme.palette.background.default} 100%)`,
+          background: `linear-gradient(to bottom, transparent 0%, ${theme.palette.background.default} 100%)`,
         }}
       />
     </>

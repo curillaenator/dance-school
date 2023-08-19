@@ -79,7 +79,7 @@ export const Price: FC<PriceProps> = (props) => {
           height={nameHeight}
           mb={2}
         >
-          <Typography variant='h3' fontWeight={700} color={(theme) => theme.palette.text.primary} fontSize={32}>
+          <Typography variant='h4' fontWeight={500} color={(theme) => theme.palette.text.primary} fontSize={24}>
             {name}
           </Typography>
         </Box>
@@ -95,7 +95,7 @@ export const Price: FC<PriceProps> = (props) => {
           {price}
         </Typography>
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary}>
+        <Typography variant='subtitle2' color={(theme) => theme.palette.text.secondary}>
           {jsonToHtml(description)}
         </Typography>
       </Card>

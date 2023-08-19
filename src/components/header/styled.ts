@@ -4,8 +4,10 @@ import { styled } from '@mui/material/styles';
 
 export const AppBarStyled = styled(AppBar)(({ theme }) => ({
   backgroundColor: 'transparent',
-  background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 100%)`,
+  // background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 100%)`,
+  background: theme.palette.background.default,
   boxShadow: 'none',
+  borderBottom: `1px solid ${theme.palette.secondary.dark}`,
 }));
 
 export const LogoStyled = st.img({

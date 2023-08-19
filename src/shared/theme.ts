@@ -10,7 +10,36 @@ const common: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '999px',
+          borderRadius: '8px',
+        },
+        sizeLarge: {
+          height: '56px',
+        },
+      },
+    },
+
+    MuiAvatar: {
+      styleOverrides: {
+        rounded: {
+          borderRadius: '8px',
+          boxShadow: 'inset 0 0 0 2px var(--color-primary)',
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+          backgroundImage: 'none',
+        },
+      },
+    },
+
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          borderRadius: '0px',
         },
       },
     },
@@ -48,8 +77,10 @@ export const DARK: ThemeOptions = {
     },
 
     background: {
-      default: '#363636',
-      paper: '#363636',
+      // default: '#363636',
+      // paper: '#363636',
+      default: grey[900],
+      paper: grey[900],
     },
   },
 };

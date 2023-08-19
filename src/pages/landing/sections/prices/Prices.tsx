@@ -10,7 +10,9 @@ import { Price } from '@src/components/price';
 
 import { Context } from '@src/context';
 
-import { LandingSectionCommonProps } from '@src/types';
+import PhoneCallbackRoundedIcon from '@mui/icons-material/PhoneCallbackRounded';
+
+import type { LandingSectionCommonProps } from '@src/types';
 
 interface PricesProps extends LandingSectionCommonProps {
   handleOpen: () => void;
@@ -30,12 +32,12 @@ export const Prices: FC<PricesProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.error.dark}>
+      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.background.default}>
         <Typography
-          variant={isMobile ? 'h4' : 'h3'}
+          variant={isMobile ? 'h5' : 'h3'}
+          fontWeight={isMobile ? 600 : 500}
           align='center'
           color={(theme) => theme.palette.text.primary}
-          fontWeight={500}
           paddingX={4}
           sx={{
             zIndex: 0,
@@ -64,11 +66,8 @@ export const Prices: FC<PricesProps> = (props) => {
             variant='contained'
             size='large'
             onClick={handleOpen}
-            sx={{
-              height: 64,
-              padding: '0 64px',
-              margin: '0 auto',
-            }}
+            startIcon={<PhoneCallbackRoundedIcon />}
+            sx={{ margin: '0 auto' }}
           >
             Позвоните мне
           </Button>

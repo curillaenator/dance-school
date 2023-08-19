@@ -13,7 +13,9 @@ import Typography from '@mui/material/Typography';
 
 // import TelegramIcon from '@mui/icons-material/Telegram';
 
-import { LandingSectionCommonProps } from '@src/types';
+import type { LandingSectionCommonProps } from '@src/types';
+
+import RateReviewRoundedIcon from '@mui/icons-material/RateReviewRounded';
 
 import { Context } from '@src/context';
 
@@ -35,15 +37,15 @@ export const Reviews: FC<ReviewsProps> = (props) => {
 
   return (
     <Element name={name}>
-      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
+      <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
         <Typography
-          variant={isMobile ? 'h4' : 'h3'}
+          variant={isMobile ? 'h5' : 'h3'}
+          fontWeight={isMobile ? 600 : 500}
           align='center'
           color={(theme) => theme.palette.background.default}
           px={4}
           mb={4}
           mx='auto'
-          fontWeight={500}
           maxWidth={maxWidth}
           zIndex={0}
         >
@@ -77,16 +79,7 @@ export const Reviews: FC<ReviewsProps> = (props) => {
         </Box>
 
         <Box maxWidth={maxWidth} mx='auto' display='flex' justifyContent='center'>
-          <Button
-            variant='contained'
-            size='large'
-            color='success'
-            onClick={handleOpen}
-            sx={{
-              height: 64,
-              padding: '0 64px',
-            }}
-          >
+          <Button variant='contained' size='large' startIcon={<RateReviewRoundedIcon />} onClick={handleOpen}>
             Оставить отзыв
           </Button>
         </Box>

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditIcon from '@mui/icons-material/Edit';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import AnnouncementRoundedIcon from '@mui/icons-material/AnnouncementRounded';
 
 import { styled } from '@mui/material/styles';
 
@@ -112,6 +112,7 @@ export const Coach: FC<CoachInterface> = (props) => {
             }}
           >
             <Avatar
+              variant='circular'
               src={photo ? photo : undefined}
               sx={{
                 width: isMobile ? 236 : 256,
@@ -123,10 +124,10 @@ export const Coach: FC<CoachInterface> = (props) => {
 
         <Typography
           variant='h4'
-          fontSize={24}
-          fontWeight={500}
+          fontSize={isMobile ? 20 : 24}
+          fontWeight={isMobile ? 600 : 500}
           color={(theme) => theme.palette.background.default}
-          mb={1}
+          mb={2}
         >
           {jsonToHtml(name)}
         </Typography>
@@ -138,12 +139,15 @@ export const Coach: FC<CoachInterface> = (props) => {
         {!isEditable && (
           <Box display='flex' justifyContent='center'>
             <Button
-              startIcon={<ThumbUpIcon />}
+              startIcon={<AnnouncementRoundedIcon />}
               variant='text'
-              color='error'
+              // color='error'
               size='medium'
               onClick={() => handleOpen({ id, name, description, photoURL })}
-              sx={{ margin: '0 auto 12px' }}
+              sx={{
+                margin: '0 auto 12px',
+                borderRadius: '8px',
+              }}
             >
               Хочу к тренеру
             </Button>

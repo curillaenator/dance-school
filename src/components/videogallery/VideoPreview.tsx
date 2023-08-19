@@ -18,6 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import SmartDisplayRoundedIcon from '@mui/icons-material/SmartDisplayRounded';
 
 import { VideoPreviewProps } from './interfaces';
 
@@ -25,8 +26,10 @@ const ImgStyled = styled.img({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-  borderRadius: '4px',
+  borderRadius: '8px',
 });
+
+const IMAGE_BORDERS = '32px';
 
 const handleDirection = (isModile?: boolean, isEven?: boolean) => {
   if (isModile) {
@@ -57,10 +60,18 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
     getDownloadURL(ref(ST, `videos/${id}/${thumbPath}`)).then((url) => setImg(url));
   }, [id, thumbPath]);
 
+  const imsgeBoxStyle = !isMobile ? { padding: IMAGE_BORDERS } : {};
+
   return (
     <ImageListItem cols={1} rows={1} sx={{ overflow: 'hidden' }}>
       <Stack direction={handleDirection(isMobile, isEven)} height='100%'>
-        <Box position='relative' width={isMobile ? '100%' : '50%'} height={isMobile ? '33%' : '100%'} flexShrink={0}>
+        <Box
+          position='relative'
+          width={isMobile ? '100%' : '50%'}
+          height={isMobile ? '33%' : '100%'}
+          flexShrink={0}
+          {...imsgeBoxStyle}
+        >
           <ImgStyled src={img} alt={title} loading='lazy' />
 
           {!editable && (
@@ -124,8 +135,17 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
           alignItems='center'
           justifyContent='center'
           flexDirection='column'
+          // sx={{
+          //   backgroundColor: 'var(--color-primary)',
+          // }}
         >
-          <Typography align='center' variant='h4' fontSize={24} fontWeight={500} mb={2}>
+          <Typography
+            align='center'
+            variant={isMobile ? 'h5' : 'h4'}
+            fontSize={isMobile ? 20 : 24}
+            fontWeight={isMobile ? 600 : 500}
+            mb={2}
+          >
             {title}
           </Typography>
 
@@ -145,7 +165,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
           </Typography>
 
           {!editable && (
-            <Button onClick={handleOpen} startIcon={<PlayCircleIcon />} variant='text' color='error'>
+            <Button onClick={handleOpen} startIcon={<SmartDisplayRoundedIcon />} variant='text'>
               Смотреть
             </Button>
           )}

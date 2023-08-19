@@ -26,10 +26,10 @@ export const Photogallery: FC<LandingSectionCommonProps> = (props) => {
       <Element name={name}>
         <Box paddingY={16}>
           <Typography
-            variant={isMobile ? 'h4' : 'h3'}
+            variant={isMobile ? 'h5' : 'h3'}
+            fontWeight={isMobile ? 600 : 500}
             align='center'
             color={(theme) => theme.palette.text.primary}
-            fontWeight={500}
             paddingX={4}
             marginX='auto'
             mb={8}

@@ -106,7 +106,11 @@ export const Header: FC = () => {
         {!isMobile && isLanding && (
           <ButtonGroup variant='text'>
             {TOOLBAR_ITEMS.map((item) => (
-              <Button key={item.title} sx={{ width: 120, minHeight: 56 }} onClick={() => handleScroll(item.to)}>
+              <Button
+                key={item.title}
+                sx={{ width: 120, minHeight: 56, color: 'var(--color-white)' }}
+                onClick={() => handleScroll(item.to)}
+              >
                 {item.title}
               </Button>
             ))}

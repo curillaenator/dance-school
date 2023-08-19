@@ -15,7 +15,9 @@ import { useVideoGallery } from './hooks/useVideoGallery';
 import { Context } from '@src/context';
 import { jsonToHtml } from '@src/utils';
 
-import { LandingSectionCommonProps, VideoType } from '@src/types';
+import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
+
+import type { LandingSectionCommonProps, VideoType } from '@src/types';
 
 interface ProgramsProps extends LandingSectionCommonProps {
   handleOpen: () => void;
@@ -30,12 +32,12 @@ export const Programs: FC<ProgramsProps> = (props) => {
   return (
     <>
       <Element name={name}>
-        <Box paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
+        <Box paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
-            variant={isMobile ? 'h4' : 'h3'}
+            variant={isMobile ? 'h5' : 'h3'}
+            fontWeight={isMobile ? 600 : 500}
             align='center'
             color={(theme) => theme.palette.background.default}
-            fontWeight={500}
             paddingX={4}
             marginX='auto'
             mb={8}
@@ -60,14 +62,10 @@ export const Programs: FC<ProgramsProps> = (props) => {
           <Box display='flex' mt={8} justifyContent='center'>
             <Button
               variant='contained'
-              color='error'
               size='large'
               onClick={handleOpenApplication}
-              sx={{
-                height: 64,
-                padding: '0 64px',
-                margin: '0 auto',
-              }}
+              startIcon={<DashboardCustomizeRoundedIcon />}
+              sx={{ margin: '0 auto' }}
             >
               Оставить заявку
             </Button>

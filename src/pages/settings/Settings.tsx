@@ -370,7 +370,7 @@ export const Settings: FC = () => {
             />
           </FormControl>
 
-          <Box width='100%' paddingY={8} bgcolor={(theme) => theme.palette.primary.main} mb={2}>
+          <Box width='100%' paddingY={8} bgcolor={(theme) => theme.palette.common.white} mb={2}>
             <Grid container marginX={0} spacing={8} width='100%'>
               {coaches.map((coach) => (
                 <Coach key={coach.id} {...coach} isMobile isEditable onDelete={removeCoach} onUpdate={onUpdateCoach} />
@@ -459,7 +459,7 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Box width='100%' bgcolor={(theme) => theme.palette.error.dark}>
+          <Box width='100%' bgcolor={(theme) => theme.palette.background.default}>
             <Grid
               container
               spacing={8}
@@ -546,7 +546,7 @@ export const Settings: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Box width='100%' bgcolor={(theme) => theme.palette.primary.main}>
+          <Box width='100%' bgcolor={(theme) => theme.palette.common.white}>
             <Grid
               container
               spacing={8}

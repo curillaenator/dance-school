@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { Element } from 'react-scroll';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { Context } from '@src/context';
@@ -14,7 +14,10 @@ interface AboutusProps extends LandingSectionCommonProps {
 }
 
 export const Aboutus: FC<AboutusProps> = (props) => {
-  const { maxWidth, handleOpen: handleOpenApplication } = props;
+  const {
+    maxWidth,
+    // handleOpen: handleOpenApplication
+  } = props;
 
   const { isMobile, staticContent } = useContext(Context);
 
@@ -22,10 +25,10 @@ export const Aboutus: FC<AboutusProps> = (props) => {
     <Element name='aboutus'>
       <Box py={16}>
         <Typography
-          variant={isMobile ? 'h4' : 'h3'}
+          variant={isMobile ? 'h5' : 'h3'}
+          fontWeight={isMobile ? 600 : 500}
           align='center'
           color={(theme) => theme.palette.text.primary}
-          fontWeight={500}
           paddingX={4}
           marginX='auto'
           mb={4}
@@ -52,20 +55,22 @@ export const Aboutus: FC<AboutusProps> = (props) => {
           {jsonToHtml(staticContent.aboutus.subtitle || '')}
         </Typography>
 
-        <Box display='flex' justifyContent='center'>
+        {/* <Box display='flex' justifyContent='center'>
           <Button
             variant='contained'
             size='large'
+            // color='error'
             onClick={handleOpenApplication}
             sx={{
               height: 64,
               padding: '0 64px',
               margin: '0 auto',
+              // color: '#ffffff',
             }}
           >
             Оставить заявку
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Element>
   );

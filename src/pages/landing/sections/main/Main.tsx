@@ -7,6 +7,9 @@ import styled from '@emotion/styled';
 
 import { Background } from './components';
 
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
+
 import { Context } from '@src/context';
 import { LandingSectionCommonProps } from '@src/types';
 
@@ -60,9 +63,10 @@ export const Main: FC<MainProps> = (props) => {
             variant='contained'
             size='large'
             onClick={handleOpen}
+            startIcon={<DashboardCustomizeRoundedIcon />}
             sx={{
-              height: 64,
-              padding: '0 64px',
+              // height: 64,
+              // padding: '0 64px',
               marginX: 'auto',
             }}
           >

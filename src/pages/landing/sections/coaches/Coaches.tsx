@@ -47,15 +47,15 @@ export const Coaches: FC<CoachesProps> = (props) => {
   return (
     <>
       <Element name={name}>
-        <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.primary.main}>
+        <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
-            variant={isMobile ? 'h4' : 'h3'}
+            variant={isMobile ? 'h5' : 'h3'}
+            fontWeight={isMobile ? 600 : 500}
             align='center'
             color={(theme) => theme.palette.background.default}
             px={4}
             mb={4}
             mx='auto'
-            fontWeight={500}
             maxWidth={maxWidth}
             zIndex={0}
           >
