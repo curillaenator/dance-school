@@ -11,6 +11,7 @@ const common: ThemeOptions = {
       styleOverrides: {
         root: {
           borderRadius: '8px',
+          fontWeight: 600,
         },
         sizeLarge: {
           height: '56px',
@@ -25,7 +26,6 @@ const common: ThemeOptions = {
       styleOverrides: {
         rounded: {
           borderRadius: '8px',
-          boxShadow: 'inset 0 0 0 2px var(--color-primary)',
         },
       },
     },
@@ -43,6 +43,14 @@ const common: ThemeOptions = {
       styleOverrides: {
         root: {
           borderRadius: '0px',
+        },
+      },
+    },
+
+    MuiImageListItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
         },
       },
     },

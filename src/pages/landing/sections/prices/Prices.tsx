@@ -35,7 +35,7 @@ export const Prices: FC<PricesProps> = (props) => {
       <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.background.default}>
         <Typography
           variant={isMobile ? 'h5' : 'h3'}
-          fontWeight={isMobile ? 600 : 500}
+          fontWeight={600}
           align='center'
           color={(theme) => theme.palette.text.primary}
           paddingX={4}

@@ -36,9 +36,7 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
   // eslint-disable-next-line
   const debouncedSetWidth = useCallback(
     debounced((e: Event) => {
-      if (!ref.current) return;
-      console.log(e);
-
+      if (!ref.current || !e) return;
       setMapWidth(ref.current.clientWidth - 64);
     }, 100),
     [],
@@ -58,7 +56,7 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
     <Element name={name}>
       <Typography
         variant={isMobile ? 'h5' : 'h3'}
-        fontWeight={isMobile ? 600 : 500}
+        fontWeight={600}
         align='center'
         color={(theme) => theme.palette.text.primary}
         px={4}

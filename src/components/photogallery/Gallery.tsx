@@ -59,7 +59,6 @@ export const Gallery: FC<GalleryProps> = (props) => {
             cols={cols || 1}
             rows={rows || 1}
             sx={{
-              borderRadius: 1,
               overflow: 'hidden',
               cursor: 'pointer',
             }}

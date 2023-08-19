@@ -50,7 +50,7 @@ export const Coaches: FC<CoachesProps> = (props) => {
         <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
             variant={isMobile ? 'h5' : 'h3'}
-            fontWeight={isMobile ? 600 : 500}
+            fontWeight={600}
             align='center'
             color={(theme) => theme.palette.background.default}
             px={4}

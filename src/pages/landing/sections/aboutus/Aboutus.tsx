@@ -26,7 +26,7 @@ export const Aboutus: FC<AboutusProps> = (props) => {
       <Box py={16}>
         <Typography
           variant={isMobile ? 'h5' : 'h3'}
-          fontWeight={isMobile ? 600 : 500}
+          fontWeight={600}
           align='center'
           color={(theme) => theme.palette.text.primary}
           paddingX={4}

@@ -35,7 +35,7 @@ export const Programs: FC<ProgramsProps> = (props) => {
         <Box paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
             variant={isMobile ? 'h5' : 'h3'}
-            fontWeight={isMobile ? 600 : 500}
+            fontWeight={600}
             align='center'
             color={(theme) => theme.palette.background.default}
             paddingX={4}
