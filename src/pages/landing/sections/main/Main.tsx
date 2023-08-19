@@ -53,7 +53,7 @@ export const Main: FC<MainProps> = (props) => {
           <Typography
             variant='subtitle1'
             fontSize={isMobile ? 22 : 26}
-            color={(theme) => theme.palette.text.primary}
+            color={(theme) => theme.palette.text.secondary}
             mb={6}
           >
             Танцевальная Студия

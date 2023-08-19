@@ -150,7 +150,8 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
           </Typography>
 
           <Typography
-            variant='body1'
+            variant='subtitle1'
+            color={(theme) => theme.palette.secondary.main}
             align='center'
             mb={2}
             sx={{

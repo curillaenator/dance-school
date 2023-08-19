@@ -3,7 +3,7 @@ import { grey } from '@mui/material/colors';
 
 const common: ThemeOptions = {
   typography: {
-    fontFamily: ['Montserrat'].join(','),
+    fontFamily: ['Inter'].join(','),
   },
 
   components: {
@@ -14,6 +14,9 @@ const common: ThemeOptions = {
         },
         sizeLarge: {
           height: '56px',
+        },
+        sizeMedium: {
+          height: '48px',
         },
       },
     },

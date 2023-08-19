@@ -108,7 +108,8 @@ export const Header: FC = () => {
             {TOOLBAR_ITEMS.map((item) => (
               <Button
                 key={item.title}
-                sx={{ width: 120, minHeight: 56, color: 'var(--color-white)' }}
+                sx={{ width: 120, color: 'var(--color-white)' }}
+                size='medium'
                 onClick={() => handleScroll(item.to)}
               >
                 {item.title}

@@ -95,7 +95,7 @@ export const Price: FC<PriceProps> = (props) => {
           {price}
         </Typography>
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.text.secondary}>
+        <Typography variant='subtitle1' color={(theme) => theme.palette.secondary.main}>
           {jsonToHtml(description)}
         </Typography>
       </Card>

@@ -105,12 +105,7 @@ export const Coach: FC<CoachInterface> = (props) => {
             }}
           />
         ) : (
-          <IconButton
-            onClick={() => coachAvatarOnClick(photo)}
-            sx={{
-              marginBottom: 2,
-            }}
-          >
+          <IconButton onClick={() => coachAvatarOnClick(photo)} sx={{ marginBottom: 4 }}>
             <Avatar
               variant='circular'
               src={photo ? photo : undefined}
@@ -132,7 +127,7 @@ export const Coach: FC<CoachInterface> = (props) => {
           {jsonToHtml(name)}
         </Typography>
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.background.default} mb={isEditable ? 0 : 2}>
+        <Typography variant='subtitle1' color={(theme) => theme.palette.secondary.main} mb={isEditable ? 0 : 2}>
           {jsonToHtml(description)}
         </Typography>
 

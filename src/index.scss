@@ -1,6 +1,6 @@
 :root {
+  --scroll-size: 12px;
   // theme
-  // --color-primary: #d8c3ae;
   --color-primary: #d8c3ae;
   --color-secondary: #757575;
   // --color-background: #363636;
@@ -8,7 +8,6 @@
   --color-white: #ffffff;
 
   // swiper
-  // --swiper-theme-color: var(--color-primary);
   --swiper-theme-color: var(--color-white);
 }
 
@@ -21,8 +20,6 @@
 }
 
 html {
-  --scroll-size: 12px;
-
   background-color: var(--color-background);
 
   &::-webkit-scrollbar {
@@ -48,7 +45,6 @@ html {
     }
 
     &-track {
-      // background-color: var(--color-background);
       background-color: transparent;
       border-radius: 0;
 

@@ -51,7 +51,7 @@ export const Review: FC<ReviewProps> = (props) => {
         {author}
       </Typography>
 
-      <Typography variant='subtitle2' color={(theme) => theme.palette.background.default} mb={4} textAlign='center'>
+      <Typography variant='subtitle1' color={(theme) => theme.palette.secondary.main} mb={4} textAlign='center'>
         {jsonToHtml(review)}
       </Typography>
 

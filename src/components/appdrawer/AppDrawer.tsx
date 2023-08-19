@@ -58,7 +58,7 @@ export const AppDrawer: FC<DrawerContentProps> = (props) => {
         <ButtonGroup
           fullWidth
           orientation='vertical'
-          size='large'
+          size='medium'
           variant='contained'
           sx={{
             marginBottom: 8,
