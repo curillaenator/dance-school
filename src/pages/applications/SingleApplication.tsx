@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-import CloseIcon from '@mui/icons-material/Close';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -55,7 +55,7 @@ export const SingleApplication: FC<SingleApplicationProps> = (props) => {
               size='large'
               onClick={handleClose}
             >
-              <CloseIcon color='inherit' />
+              <CancelRoundedIcon color='inherit' fontSize='large' />
             </IconButton>
 
             <Typography

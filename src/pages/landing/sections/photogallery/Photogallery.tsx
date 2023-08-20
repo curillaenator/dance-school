@@ -13,7 +13,9 @@ import { useGallery } from './hooks/useGallery';
 
 import { Context } from '@src/context';
 import { jsonToHtml } from '@src/utils';
-import { LandingSectionCommonProps } from '@src/types';
+
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { LandingSectionCommonProps } from '@src/types';
 
 export const Photogallery: FC<LandingSectionCommonProps> = (props) => {
   const { maxWidth, name } = props;
@@ -27,7 +29,7 @@ export const Photogallery: FC<LandingSectionCommonProps> = (props) => {
         <Box paddingY={16}>
           <Typography
             variant={isMobile ? 'h5' : 'h3'}
-            fontWeight={600}
+            fontWeight={SECTION_TITLE_FONT_WEIGHT}
             align='center'
             color={(theme) => theme.palette.text.primary}
             paddingX={4}

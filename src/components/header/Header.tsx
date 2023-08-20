@@ -16,10 +16,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-import ListIcon from '@mui/icons-material/List';
-import LogoutIcon from '@mui/icons-material/Logout';
+import BallotRoundedIcon from '@mui/icons-material/BallotRounded';
+import MeetingRoomRoundedIcon from '@mui/icons-material/MeetingRoomRounded';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplicationsRounded';
 import SwipeRightIcon from '@mui/icons-material/SwipeRight';
 
 import { Context } from '@src/context';
@@ -108,12 +108,15 @@ export const Header: FC = () => {
             {TOOLBAR_ITEMS.map((item) => (
               <Button
                 key={item.title}
-                sx={{ width: 120, color: 'var(--color-white)' }}
+                sx={{
+                  // width: 160,
+                  color: 'var(--color-white)',
+                }}
                 size='medium'
                 onClick={() => handleScroll(item.to)}
-              >
-                {item.title}
-              </Button>
+                startIcon={item.icon}
+                children={item.title}
+              />
             ))}
           </ButtonGroup>
         )}
@@ -171,14 +174,14 @@ export const Header: FC = () => {
         <MenuList sx={{ minWidth: 200 }}>
           <MenuItem onClick={() => handleNavigate('/applications')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <ListIcon fontSize='medium' />
+              <BallotRoundedIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Заявки</ListItemText>
           </MenuItem>
 
           <MenuItem onClick={() => handleNavigate('/settings')} sx={{ height: 48 }}>
             <ListItemIcon>
-              <SettingsIcon fontSize='medium' />
+              <SettingsApplicationsRoundedIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Настройки</ListItemText>
           </MenuItem>
@@ -191,7 +194,7 @@ export const Header: FC = () => {
             sx={{ height: 48 }}
           >
             <ListItemIcon>
-              <LogoutIcon fontSize='medium' />
+              <MeetingRoomRoundedIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText>Выйти</ListItemText>
           </MenuItem>

@@ -15,9 +15,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import AnnouncementRoundedIcon from '@mui/icons-material/AnnouncementRounded';
 
 import { styled } from '@mui/material/styles';
-
 import { jsonToHtml } from '@src/utils';
-import { CoachType } from '@src/types';
+
+import { SECTION_ITEM_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { CoachType } from '@src/types';
 
 const Card = styled(Paper)({
   textAlign: 'center',
@@ -120,7 +121,7 @@ export const Coach: FC<CoachInterface> = (props) => {
         <Typography
           variant='h4'
           fontSize={isMobile ? 20 : 24}
-          fontWeight={isMobile ? 600 : 500}
+          fontWeight={SECTION_ITEM_TITLE_FONT_WEIGHT}
           color={(theme) => theme.palette.background.default}
           mb={2}
         >

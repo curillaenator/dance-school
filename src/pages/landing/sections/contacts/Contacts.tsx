@@ -12,7 +12,8 @@ import { SOCIAL_ICONS_ASSOC, NON_SOCIAL_ICONS_ASSOC } from './constants';
 
 import { useContacts } from './hooks/useContacts';
 
-import { LandingSectionCommonProps } from '@src/types';
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { LandingSectionCommonProps } from '@src/types';
 
 export const LogoStyled = styled.img({
   width: '48px',
@@ -56,7 +57,7 @@ export const Contacts: FC<LandingSectionCommonProps> = (props) => {
     <Element name={name}>
       <Typography
         variant={isMobile ? 'h5' : 'h3'}
-        fontWeight={600}
+        fontWeight={SECTION_TITLE_FONT_WEIGHT}
         align='center'
         color={(theme) => theme.palette.text.primary}
         px={4}

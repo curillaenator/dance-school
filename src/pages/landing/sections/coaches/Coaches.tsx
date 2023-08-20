@@ -13,7 +13,9 @@ import { useModalControl } from '@src/hooks/useModalControl';
 
 import { Context } from '@src/context';
 import { jsonToHtml } from '@src/utils';
-import { LandingSectionCommonProps, CoachType } from '@src/types';
+
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { LandingSectionCommonProps, CoachType } from '@src/types';
 
 interface CoachesProps extends LandingSectionCommonProps {
   handleOpen: () => void;
@@ -50,7 +52,7 @@ export const Coaches: FC<CoachesProps> = (props) => {
         <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
             variant={isMobile ? 'h5' : 'h3'}
-            fontWeight={600}
+            fontWeight={SECTION_TITLE_FONT_WEIGHT}
             align='center'
             color={(theme) => theme.palette.background.default}
             px={4}

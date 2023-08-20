@@ -45,7 +45,7 @@ html {
     }
 
     &-track {
-      background-color: transparent;
+      background-color: var(--color-background);
       border-radius: 0;
 
       &:hover {

@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export type ApplicationStepType = 'new' | 'loading' | 'success' | 'error' | 'login' | 'review';
 
 export type ThemeType = 'light' | 'dark';
@@ -15,8 +17,9 @@ export type LandingSectionsType =
   | 'photogallery';
 
 export type ToolbarItemType = {
-  title: string;
+  title?: string;
   to: LandingSectionsType;
+  icon?: ReactNode;
 }[];
 
 export interface LandingSectionCommonProps {

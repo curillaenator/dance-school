@@ -12,7 +12,9 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import { styled } from '@mui/material/styles';
 import { jsonToHtml } from '@src/utils';
-import { PriceType } from '@src/types';
+
+import { SECTION_ITEM_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { PriceType } from '@src/types';
 
 const Card = styled(Paper)({
   textAlign: 'center',
@@ -79,7 +81,12 @@ export const Price: FC<PriceProps> = (props) => {
           height={nameHeight}
           mb={2}
         >
-          <Typography variant='h4' fontWeight={500} color={(theme) => theme.palette.text.primary} fontSize={24}>
+          <Typography
+            variant='h5'
+            fontWeight={SECTION_ITEM_TITLE_FONT_WEIGHT}
+            color={(theme) => theme.palette.text.primary}
+            fontSize={20}
+          >
             {name}
           </Typography>
         </Box>
@@ -91,7 +98,12 @@ export const Price: FC<PriceProps> = (props) => {
           }}
         />
 
-        <Typography variant='subtitle2' color={(theme) => theme.palette.text.primary} mb={2}>
+        <Typography
+          variant='subtitle2'
+          fontWeight={SECTION_ITEM_TITLE_FONT_WEIGHT}
+          color={(theme) => theme.palette.text.primary}
+          mb={2}
+        >
           {price}
         </Typography>
 

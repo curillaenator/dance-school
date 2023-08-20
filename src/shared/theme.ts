@@ -11,13 +11,39 @@ const common: ThemeOptions = {
       styleOverrides: {
         root: {
           borderRadius: '8px',
-          fontWeight: 600,
+          fontWeight: 700,
         },
         sizeLarge: {
           height: '56px',
+          padding: '8px 20px',
         },
         sizeMedium: {
           height: '48px',
+          padding: '6px 16px',
+        },
+        startIcon: {
+          '*:nth-of-type(1)': {
+            fontSize: '28px',
+          },
+        },
+        endIcon: {
+          '*:nth-of-type(1)': {
+            fontSize: '28px',
+          },
+        },
+      },
+    },
+
+    MuiSvgIcon: {
+      styleOverrides: {
+        fontSizeSmall: {
+          fontSize: '24px',
+        },
+        fontSizeMedium: {
+          fontSize: '32px',
+        },
+        fontSizeLarge: {
+          fontSize: '40px',
         },
       },
     },

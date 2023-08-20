@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { Price } from '@src/components/price';
-
 import { Context } from '@src/context';
 
 import PhoneCallbackRoundedIcon from '@mui/icons-material/PhoneCallbackRounded';
 
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
 import type { LandingSectionCommonProps } from '@src/types';
 
 interface PricesProps extends LandingSectionCommonProps {
@@ -35,7 +35,7 @@ export const Prices: FC<PricesProps> = (props) => {
       <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.background.default}>
         <Typography
           variant={isMobile ? 'h5' : 'h3'}
-          fontWeight={600}
+          fontWeight={SECTION_TITLE_FONT_WEIGHT}
           align='center'
           color={(theme) => theme.palette.text.primary}
           paddingX={4}

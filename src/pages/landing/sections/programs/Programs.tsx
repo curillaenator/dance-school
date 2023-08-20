@@ -17,6 +17,7 @@ import { jsonToHtml } from '@src/utils';
 
 import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
 
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
 import type { LandingSectionCommonProps, VideoType } from '@src/types';
 
 interface ProgramsProps extends LandingSectionCommonProps {
@@ -35,7 +36,7 @@ export const Programs: FC<ProgramsProps> = (props) => {
         <Box paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
           <Typography
             variant={isMobile ? 'h5' : 'h3'}
-            fontWeight={600}
+            fontWeight={SECTION_TITLE_FONT_WEIGHT}
             align='center'
             color={(theme) => theme.palette.background.default}
             paddingX={4}

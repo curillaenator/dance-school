@@ -9,7 +9,9 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import { jsonToHtml } from '@src/utils';
 // import { Context } from '@src/context';
-import { ReviewType } from '@src/types';
+
+import { SECTION_ITEM_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { ReviewType } from '@src/types';
 
 interface ReviewProps extends ReviewType {
   editable?: boolean;
@@ -42,8 +44,8 @@ export const Review: FC<ReviewProps> = (props) => {
       )}
       <Typography
         variant='h4'
-        fontSize={24}
-        fontWeight={500}
+        fontSize={20}
+        fontWeight={SECTION_ITEM_TITLE_FONT_WEIGHT}
         color={(theme) => theme.palette.background.default}
         mb={4}
         textAlign='center'

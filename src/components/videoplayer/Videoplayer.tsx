@@ -4,7 +4,7 @@ import { ST } from '@src/config';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 interface VideoPlayerProps {
   id: string;
@@ -35,12 +35,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = (props) => {
         }}
         onClick={handleClose}
       >
-        <CloseIcon
-          sx={{
-            width: '48px',
-            height: '48px',
-          }}
-        />
+        <CancelRoundedIcon fontSize='large' />
       </IconButton>
 
       {src && (

@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import styled from '@emotion/styled';
 
-import Close from '@mui/icons-material/Close';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -51,12 +51,7 @@ export const PopupGallery: FC<PopupGalleryProps> = (props) => {
           borderRadius: 1,
         }}
       >
-        <Close
-          sx={{
-            width: '48px',
-            height: '48px',
-          }}
-        />
+        <CancelRoundedIcon fontSize='large' />
       </IconButton>
 
       <SwiperStyled

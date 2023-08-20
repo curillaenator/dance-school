@@ -7,7 +7,10 @@ import Typography from '@mui/material/Typography';
 
 import { Context } from '@src/context';
 import { jsonToHtml } from '@src/utils';
-import { LandingSectionCommonProps } from '@src/types';
+
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+
+import type { LandingSectionCommonProps } from '@src/types';
 
 interface AboutusProps extends LandingSectionCommonProps {
   handleOpen: () => void;
@@ -26,7 +29,7 @@ export const Aboutus: FC<AboutusProps> = (props) => {
       <Box py={16}>
         <Typography
           variant={isMobile ? 'h5' : 'h3'}
-          fontWeight={600}
+          fontWeight={SECTION_TITLE_FONT_WEIGHT}
           align='center'
           color={(theme) => theme.palette.text.primary}
           paddingX={4}

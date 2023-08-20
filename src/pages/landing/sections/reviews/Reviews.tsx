@@ -11,13 +11,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-// import TelegramIcon from '@mui/icons-material/Telegram';
-
-import type { LandingSectionCommonProps } from '@src/types';
-
 import RateReviewRoundedIcon from '@mui/icons-material/RateReviewRounded';
 
 import { Context } from '@src/context';
+
+import { SECTION_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { LandingSectionCommonProps } from '@src/types';
 
 import styles from './styles.module.css';
 
@@ -40,7 +39,7 @@ export const Reviews: FC<ReviewsProps> = (props) => {
       <Box width='100%' paddingY={16} bgcolor={(theme) => theme.palette.common.white}>
         <Typography
           variant={isMobile ? 'h5' : 'h3'}
-          fontWeight={600}
+          fontWeight={SECTION_TITLE_FONT_WEIGHT}
           align='center'
           color={(theme) => theme.palette.background.default}
           px={4}

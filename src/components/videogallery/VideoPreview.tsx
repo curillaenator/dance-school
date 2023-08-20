@@ -20,7 +20,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import SmartDisplayRoundedIcon from '@mui/icons-material/SmartDisplayRounded';
 
-import { VideoPreviewProps } from './interfaces';
+import { SECTION_ITEM_TITLE_FONT_WEIGHT } from '@src/shared/constants';
+import type { VideoPreviewProps } from './interfaces';
 
 const ImgStyled = styled.img({
   width: '100%',
@@ -89,13 +90,7 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
               })}
               onClick={handleOpen}
             >
-              <PlayCircleIcon
-                color='error'
-                sx={{
-                  width: '56px',
-                  height: '56px',
-                }}
-              />
+              <PlayCircleIcon color='error' fontSize='large' />
             </IconButton>
           )}
 
@@ -135,15 +130,12 @@ export const VideoPreview: FC<VideoPreviewProps> = (props) => {
           alignItems='center'
           justifyContent='center'
           flexDirection='column'
-          // sx={{
-          //   backgroundColor: 'var(--color-primary)',
-          // }}
         >
           <Typography
             align='center'
             variant={isMobile ? 'h5' : 'h4'}
             fontSize={isMobile ? 20 : 24}
-            fontWeight={isMobile ? 600 : 500}
+            fontWeight={SECTION_ITEM_TITLE_FONT_WEIGHT}
             mb={2}
           >
             {title}
