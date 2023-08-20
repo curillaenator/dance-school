@@ -8,7 +8,7 @@ import { StoragePathsType } from '@src/types';
 
 // process utils
 
-export const resizeFile = (file: File, toSize = 1440): Promise<File> => {
+export const resizeFile = (file: File, toSize = 2560): Promise<File> => {
   return new Promise((resolve) =>
     Resizer.imageFileResizer(file, toSize, toSize, 'JPEG', 85, 0, (resized) => resolve(resized as File), 'file'),
   );

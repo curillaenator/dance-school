@@ -8,11 +8,13 @@ export const usePhotos = () => {
 
   useEffect(() => {
     listAll(ref(ST, 'mainSlider'))
-      .then((res) => res.items.map((item) => getDownloadURL(item)))
+      .then((res) => res.items)
+      .then((items) => items.map((item) => getDownloadURL(item)))
       .then((promises) => Promise.all(promises).then((urls) => setMainSlider(urls)));
 
     listAll(ref(ST, 'gallery'))
-      .then((res) => res.items.map((item) => getDownloadURL(item)))
+      .then((res) => res.items)
+      .then((items) => items.map((item) => getDownloadURL(item)))
       .then((promises) => Promise.all(promises).then((urls) => setGallery(urls)));
   }, []);
 

@@ -56,7 +56,10 @@ export const usePhotoControl = () => {
 
       if (fileNameToReplace) {
         const resized = await resizeFile(files[0]);
-        await uploadBytes(ref(ST, `${storagePath}/${fileNameToReplace}`), resized);
+        await uploadBytes(ref(ST, `${storagePath}/${fileNameToReplace}`), resized, {
+          cacheControl: 'public,max-age=7200',
+          contentType: 'image/jpeg',
+        });
         refetchStorage(storagePath, photoUpdaters[storagePath]);
 
         enqueueSnackbar('Фото обновлено', { variant: 'success' });
@@ -72,7 +75,13 @@ export const usePhotoControl = () => {
       }
 
       const resizedFiles = await Promise.all(resized);
-      const uploads = resizedFiles.map(async (file) => await uploadBytes(ref(ST, `${storagePath}/${file.name}`), file));
+
+      const uploads = resizedFiles.map(async (file) => {
+        return await uploadBytes(ref(ST, `${storagePath}/${file.name}`), file, {
+          cacheControl: 'public,max-age=7200',
+          contentType: 'image/jpeg',
+        });
+      });
 
       Promise.all(uploads).then(() => {
         refetchStorage(storagePath, photoUpdaters[storagePath]);

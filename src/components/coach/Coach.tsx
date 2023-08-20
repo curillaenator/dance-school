@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ref as stRef, getDownloadURL } from 'firebase/storage';
+import { ref as stRef, getDownloadURL, updateMetadata } from 'firebase/storage';
 import { ST } from '@src/config';
 
 import Grid from '@mui/material/Unstable_Grid2';
@@ -57,6 +57,11 @@ export const Coach: FC<CoachInterface> = (props) => {
   const [photo, setPhoto] = useState<string | null>(null);
   useEffect(() => {
     getDownloadURL(stRef(ST, `coaches/${photoURL}`)).then((url) => setPhoto(url));
+
+    updateMetadata(stRef(ST, `coaches/${photoURL}`), {
+      cacheControl: 'public,max-age=7200',
+      contentType: 'image/jpeg',
+    });
   }, [photoURL]);
 
   return (

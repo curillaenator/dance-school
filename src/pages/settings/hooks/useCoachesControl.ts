@@ -77,7 +77,10 @@ export const useCoachesControl = () => {
       coachData.photoURL = file.name;
 
       const resized = await resizeFile(file);
-      await uploadBytes(refST(ST, `coaches/${file.name}`), resized);
+      await uploadBytes(refST(ST, `coaches/${file.name}`), resized, {
+        cacheControl: 'public,max-age=7200',
+        contentType: 'image/jpeg',
+      });
     }
 
     if (!!id) {

@@ -151,7 +151,10 @@ export const useVideosControl = () => {
 
     // Storage
     const resized = await resizeFile(thumb);
-    await uploadBytes(refST(ST, `videos/${newVideoId}/${thumb.name}`), resized);
+    await uploadBytes(refST(ST, `videos/${newVideoId}/${thumb.name}`), resized, {
+      cacheControl: 'public,max-age=7200',
+      contentType: 'image/jpeg',
+    });
 
     setUploadProgress(0);
 
@@ -196,7 +199,10 @@ export const useVideosControl = () => {
 
         const resized = await resizeFile(thumb);
 
-        await uploadBytes(refST(ST, `videos/${data.id}/${thumb.name}`), resized);
+        await uploadBytes(refST(ST, `videos/${data.id}/${thumb.name}`), resized, {
+          cacheControl: 'public,max-age=7200',
+          contentType: 'image/jpeg',
+        });
         await deleteObject(refST(ST, `videos/${data.id}/${prevVideoData.thumbPath}`));
         return 'done';
       } else {
