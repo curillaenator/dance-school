@@ -1,6 +1,6 @@
 # Bastion Dance School
 
-[Watch app](https://bastiondance.ru/)
+[Watch app](https://best-dance-school-ever.web.app/)
 
 ## Stack
 
@@ -18,8 +18,3 @@
   <img src="/screens/image3.jpg">
 </div>
 
-## Local start:
-
-- ask me for .env file
-- yarn
-- yarn start
